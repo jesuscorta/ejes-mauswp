@@ -3,6 +3,66 @@
     "title": "Bloque Productos Destacados",
     "fields": [
         {
+            "key": "field_mauswp_product_showcase_eyebrow",
+            "label": "Eyebrow (etiqueta superior)",
+            "name": "eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Texto pequeño que aparece encima del título (por ejemplo: Productos personalizables).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Productos personalizables",
+            "maxlength": "",
+            "placeholder": "Productos personalizables",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_product_showcase_title",
+            "label": "Título",
+            "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Título principal del bloque.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Configura el conjunto que realmente necesitas",
+            "maxlength": "",
+            "placeholder": "Configura el conjunto que realmente necesitas",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_product_showcase_description",
+            "label": "Descripción",
+            "name": "description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Párrafo descriptivo que aparece debajo del título.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Una muestra pensada para tienda: productos con precio orientativo, acceso directo a configuración y un camino más claro hacia la consulta o el pedido técnico.",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
             "key": "field_mauswp_product_showcase_scope",
             "label": "Qué mostrar",
             "name": "scope",

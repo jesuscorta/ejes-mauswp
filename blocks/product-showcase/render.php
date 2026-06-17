@@ -11,6 +11,9 @@ $anchor        = ! empty( $block['anchor'] ) ? (string) $block['anchor'] : '';
 $align_class   = ! empty( $block['align'] ) ? 'align' . sanitize_html_class( (string) $block['align'] ) : 'alignwide';
 $block_classes = [ 'product-showcase-block', $align_class ];
 $carousel_id   = 'product-showcase-' . wp_unique_id();
+$eyebrow       = function_exists( 'get_field' ) ? (string) get_field( 'eyebrow' ) : '';
+$title         = function_exists( 'get_field' ) ? (string) get_field( 'title' ) : '';
+$description   = function_exists( 'get_field' ) ? (string) get_field( 'description' ) : '';
 $scope         = (string) get_field( 'scope' );
 $category_id   = get_field( 'product_category' );
 
@@ -91,9 +94,15 @@ if ( function_exists( 'wc_get_products' ) ) {
 >
 	<div class="product-showcase-block__header">
 		<div class="product-showcase-block__intro">
-			<p class="product-showcase-block__eyebrow"><?php esc_html_e( 'Productos personalizables', 'mauswp' ); ?></p>
-			<h2 class="product-showcase-block__title"><?php esc_html_e( 'Configura el conjunto que realmente necesitas', 'mauswp' ); ?></h2>
-			<p class="product-showcase-block__text"><?php esc_html_e( 'Una muestra pensada para tienda: productos con precio orientativo, acceso directo a configuración y un camino más claro hacia la consulta o el pedido técnico.', 'mauswp' ); ?></p>
+			<?php if ( '' !== trim( $eyebrow ) ) : ?>
+				<p class="product-showcase-block__eyebrow"><?php echo esc_html( $eyebrow ); ?></p>
+			<?php endif; ?>
+			<?php if ( '' !== trim( $title ) ) : ?>
+				<h2 class="product-showcase-block__title"><?php echo esc_html( $title ); ?></h2>
+			<?php endif; ?>
+			<?php if ( '' !== trim( $description ) ) : ?>
+				<p class="product-showcase-block__text"><?php echo esc_html( $description ); ?></p>
+			<?php endif; ?>
 		</div>
 
 		<a class="btn-primary" href="<?php echo esc_url( $shop_url ); ?>">
