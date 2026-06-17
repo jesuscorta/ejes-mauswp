@@ -1,0 +1,165 @@
+{
+    "key": "group_mauswp_about_hero_block",
+    "title": "Bloque Hero Nosotros",
+    "fields": [
+        {
+            "key": "field_mauswp_about_hero_background_image",
+            "label": "Imagen de fondo",
+            "name": "background_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Imagen principal del hero.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "preview_size": "large"
+        },
+        {
+            "key": "field_mauswp_about_hero_title",
+            "label": "Título",
+            "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Título principal del bloque.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Suministros Agroindustriales SCA",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_about_hero_subtitle",
+            "label": "Subtítulo",
+            "name": "subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Línea secundaria bajo el título.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "+25 años especializados en el sector",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_about_hero_subtitle_position",
+            "label": "Posición del subtítulo",
+            "name": "subtitle_position",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "Define si el subtítulo va por encima o por debajo del título.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "above": "Encima",
+                "below": "Debajo"
+            },
+            "default_value": "below",
+            "return_format": "value",
+            "layout": "horizontal"
+        },
+        {
+            "key": "field_mauswp_about_hero_cta_label",
+            "label": "Texto del CTA",
+            "name": "cta_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Texto del botón de contacto.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Contactar",
+            "maxlength": "",
+            "placeholder": "Contactar",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_about_hero_cta_anchor",
+            "label": "ID destino del CTA",
+            "name": "cta_anchor",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "ID o ancla del bloque de contacto, sin #. Por defecto: contacto.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "contacto",
+            "maxlength": "",
+            "placeholder": "contacto",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_about_hero_description",
+            "label": "Descripción",
+            "name": "description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Texto descriptivo bajo el título.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 4,
+            "placeholder": "Empresa andaluza con sede en Granada especializada en el sector agrícola, industrial y remolques.",
+            "new_lines": "wpautop"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/mauswp-about-hero"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Hero compacto para la página Nosotros.",
+    "show_in_rest": 0,
+    "modified": 1777079403
+}

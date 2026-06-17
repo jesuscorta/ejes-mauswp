@@ -1,0 +1,29 @@
+{
+  "name": "acf/mauswp-hero",
+  "title": "Hero",
+  "description": "Hero carrusel a ancho completo con slides configurables desde ACF.",
+  "category": "layout",
+  "icon": "cover-image",
+  "keywords": [
+    "hero",
+    "cabecera",
+    "cta",
+    "portada"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "full"
+    ],
+    "anchor": true,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

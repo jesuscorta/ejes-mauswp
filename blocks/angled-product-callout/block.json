@@ -1,0 +1,29 @@
+{
+  "name": "acf/mauswp-angled-product-callout",
+  "title": "Llamada productos",
+  "description": "Bloque de transición con fondo inclinado, apoyo visual y CTA al contacto.",
+  "category": "layout",
+  "icon": "format-image",
+  "keywords": [
+    "productos",
+    "cta",
+    "transición",
+    "contacto"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "full"
+    ],
+    "anchor": true,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

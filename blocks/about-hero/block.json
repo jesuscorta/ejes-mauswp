@@ -1,0 +1,29 @@
+{
+  "name": "acf/mauswp-about-hero",
+  "title": "Hero Nosotros",
+  "description": "Hero compacto con imagen de fondo, texto y CTA para páginas corporativas.",
+  "category": "layout",
+  "icon": "cover-image",
+  "keywords": [
+    "hero",
+    "nosotros",
+    "cabecera",
+    "contacto"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "full"
+    ],
+    "anchor": true,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

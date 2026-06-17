@@ -1,0 +1,143 @@
+{
+    "key": "group_mauswp_angled_product_callout_block",
+    "title": "Bloque Llamada productos",
+    "fields": [
+        {
+            "key": "field_mauswp_angled_product_callout_eyebrow",
+            "label": "Eyebrow",
+            "name": "eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Texto corto superior opcional.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "30",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Más soluciones",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_angled_product_callout_title",
+            "label": "Título",
+            "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Título principal del bloque.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "70",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Otros productos",
+            "maxlength": "",
+            "placeholder": "Otros productos",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_angled_product_callout_content",
+            "label": "Texto",
+            "name": "content",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Texto descriptivo principal.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 5,
+            "placeholder": "Describe la gama de productos complementarios que conviene destacar antes del formulario de contacto.",
+            "new_lines": "wpautop"
+        },
+        {
+            "key": "field_mauswp_angled_product_callout_cta_label",
+            "label": "Texto del CTA",
+            "name": "cta_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Texto del enlace al contacto.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Contacta con nosotros",
+            "maxlength": "",
+            "placeholder": "Contacta con nosotros",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_angled_product_callout_cta_anchor",
+            "label": "ID destino del CTA",
+            "name": "cta_anchor",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "ID o ancla del bloque de contacto, sin #. Por defecto: contacto.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "contacto",
+            "maxlength": "",
+            "placeholder": "contacto",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_angled_product_callout_image",
+            "label": "Imagen de producto",
+            "name": "image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Imagen principal del bloque, preferiblemente con recorte limpio y fondo transparente o claro.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "preview_size": "large"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/mauswp-angled-product-callout"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Bloque de transición visual con CTA al contacto.",
+    "show_in_rest": 0,
+    "modified": 1777079406
+}

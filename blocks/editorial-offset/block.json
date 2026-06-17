@@ -1,0 +1,30 @@
+{
+  "name": "acf/mauswp-editorial-offset",
+  "title": "Editorial Desplazado",
+  "description": "Bloque editorial con panel de texto e imagen desplazada para dar más carácter visual.",
+  "category": "layout",
+  "icon": "cover-image",
+  "keywords": [
+    "editorial",
+    "imagen",
+    "texto",
+    "nosotros"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "full",
+      "wide"
+    ],
+    "anchor": true,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

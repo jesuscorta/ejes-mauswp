@@ -1,0 +1,29 @@
+{
+  "name": "acf/mauswp-expertise-grid",
+  "title": "Especialidades",
+  "description": "Sección de áreas de especialización con tarjetas compactas e imagen contenida.",
+  "category": "layout",
+  "icon": "screenoptions",
+  "keywords": [
+    "especialidades",
+    "sectores",
+    "servicios",
+    "nosotros"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "wide"
+    ],
+    "anchor": true,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

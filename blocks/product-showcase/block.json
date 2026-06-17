@@ -1,0 +1,29 @@
+{
+  "name": "acf/mauswp-product-showcase",
+  "title": "Productos Destacados",
+  "description": "Bloque de ejemplo para destacar productos personalizables y enlazar a la tienda.",
+  "category": "widgets",
+  "icon": "products",
+  "keywords": [
+    "productos",
+    "woocommerce",
+    "tienda",
+    "configurar"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "wide"
+    ],
+    "anchor": true,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

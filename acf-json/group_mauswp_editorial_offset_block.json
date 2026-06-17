@@ -1,0 +1,126 @@
+{
+    "key": "group_mauswp_editorial_offset_block",
+    "title": "Bloque Editorial Desplazado",
+    "fields": [
+        {
+            "key": "field_mauswp_editorial_offset_image",
+            "label": "Imagen",
+            "name": "image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Imagen principal del bloque.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "large"
+        },
+        {
+            "key": "field_mauswp_editorial_offset_eyebrow",
+            "label": "Eyebrow",
+            "name": "eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Texto corto superior.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "30",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Suministro técnico",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_editorial_offset_title",
+            "label": "Título",
+            "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Título principal del bloque.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "70",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Quiénes somos",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_editorial_offset_content",
+            "label": "Texto",
+            "name": "content",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Contenido principal del bloque.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_mauswp_editorial_offset_cta_link",
+            "label": "CTA",
+            "name": "cta_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Enlace opcional de cierre.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/mauswp-editorial-offset"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Bloque editorial con panel de texto e imagen desplazada.",
+    "show_in_rest": 0,
+    "modified": 1777080600
+}

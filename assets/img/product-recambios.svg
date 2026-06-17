@@ -1,0 +1,13 @@
+<svg width="960" height="660" viewBox="0 0 960 660" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="660" fill="#F5F7F2"/>
+  <rect x="70" y="70" width="820" height="520" fill="#FFFFFF" stroke="#D3DAC8" stroke-width="4"/>
+  <circle cx="270" cy="320" r="96" fill="#111827"/>
+  <circle cx="270" cy="320" r="42" fill="#CBD5E1"/>
+  <circle cx="270" cy="320" r="12" fill="#111827"/>
+  <circle cx="524" cy="320" r="84" fill="#1F2937"/>
+  <circle cx="524" cy="320" r="34" fill="#CBD5E1"/>
+  <rect x="646" y="224" width="106" height="190" fill="#7C8D6C"/>
+  <rect x="676" y="196" width="46" height="44" fill="#B8C3A8"/>
+  <rect x="150" y="458" width="594" height="18" fill="#94A3B8"/>
+  <text x="128" y="132" fill="#414A39" font-family="Arial, sans-serif" font-size="34" font-weight="700">RECAMBIOS PARA REMOLQUE</text>
+</svg>

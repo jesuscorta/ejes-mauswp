@@ -1,0 +1,30 @@
+{
+  "name": "acf/mauswp-features-strip",
+  "title": "4 Ventajas",
+  "description": "Banda de cuatro items con icono y título para colocar debajo del hero.",
+  "category": "layout",
+  "icon": "grid-view",
+  "keywords": [
+    "ventajas",
+    "iconos",
+    "destacados",
+    "home"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "anchor": true,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

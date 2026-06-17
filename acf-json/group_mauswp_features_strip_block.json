@@ -1,0 +1,114 @@
+{
+    "key": "group_mauswp_features_strip_block",
+    "title": "Bloque 4 Ventajas",
+    "fields": [
+        {
+            "key": "field_mauswp_features_strip_items",
+            "label": "Items",
+            "name": "items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Configura exactamente 4 items con icono y título.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 4,
+            "max": 4,
+            "collapsed": "field_mauswp_features_strip_item_title",
+            "button_label": "Añadir item",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_mauswp_features_strip_item_icon",
+                    "label": "Icono",
+                    "name": "icon",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Sube un icono preferiblemente en SVG o PNG.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_mauswp_features_strip_items"
+                },
+                {
+                    "key": "field_mauswp_features_strip_item_title",
+                    "label": "Título",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Texto principal del item.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Fabricación a medida",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_mauswp_features_strip_items"
+                },
+                {
+                    "key": "field_mauswp_features_strip_item_text",
+                    "label": "Texto",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Texto descriptivo del item.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3,
+                    "new_lines": "br",
+                    "parent_repeater": "field_mauswp_features_strip_items"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/mauswp-features-strip"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos del bloque de cuatro ventajas con icono.",
+    "show_in_rest": 0,
+    "modified": 1777077000
+}

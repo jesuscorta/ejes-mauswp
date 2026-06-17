@@ -1,0 +1,29 @@
+{
+  "name": "acf/mauswp-latest-posts",
+  "title": "Últimas Entradas",
+  "description": "Bloque dinámico para mostrar las 4 últimas entradas del blog.",
+  "category": "widgets",
+  "icon": "admin-post",
+  "keywords": [
+    "blog",
+    "noticias",
+    "entradas",
+    "posts"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "wide"
+    ],
+    "anchor": true,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+    "key": "group_mauswp_expertise_grid_block",
+    "title": "Bloque Especialidades",
+    "fields": [
+        {
+            "key": "field_mauswp_expertise_grid_eyebrow",
+            "label": "Eyebrow",
+            "name": "eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Texto corto superior.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "30",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Áreas de especialización",
+            "maxlength": "",
+            "placeholder": "Áreas de especialización",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_expertise_grid_title",
+            "label": "Título",
+            "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Título principal de la sección.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "70",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Sectores donde aportamos más valor",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_expertise_grid_intro",
+            "label": "Introducción",
+            "name": "intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Texto breve de apoyo a la sección.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "Explica brevemente los sectores y el criterio de especialización.",
+            "new_lines": "wpautop"
+        },
+        {
+            "key": "field_mauswp_expertise_grid_items",
+            "label": "Tarjetas",
+            "name": "items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Añade las áreas o sectores a mostrar.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 1,
+            "max": 0,
+            "collapsed": "field_mauswp_expertise_grid_item_title",
+            "button_label": "Añadir tarjeta",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_mauswp_expertise_grid_item_image",
+                    "label": "Imagen",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Imagen de apoyo, preferiblemente recorte cercano y legible.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "35",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_mauswp_expertise_grid_items"
+                },
+                {
+                    "key": "field_mauswp_expertise_grid_item_highlight",
+                    "label": "Dato destacado",
+                    "name": "highlight",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Etiqueta corta que ayude a escanear: 24/48h, O1/O2, Náutico...",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "24/48h",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_mauswp_expertise_grid_items"
+                },
+                {
+                    "key": "field_mauswp_expertise_grid_item_title",
+                    "label": "Título",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Título principal de la tarjeta.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Atención especializada a feriantes",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_mauswp_expertise_grid_items"
+                },
+                {
+                    "key": "field_mauswp_expertise_grid_item_description",
+                    "label": "Descripción",
+                    "name": "description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Resumen corto y directo del valor aportado.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "Fabricación a medida, recambios y plazos de entrega orientados al uso real del cliente.",
+                    "new_lines": "wpautop",
+                    "parent_repeater": "field_mauswp_expertise_grid_items"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/mauswp-expertise-grid"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Tarjetas compactas para presentar sectores o especialidades con mejor densidad visual.",
+    "show_in_rest": 0,
+    "modified": 1777079404
+}

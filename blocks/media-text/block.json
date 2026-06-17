@@ -1,0 +1,29 @@
+{
+  "name": "acf/mauswp-media-text",
+  "title": "Imagen + Texto",
+  "description": "Bloque sencillo con imagen y contenido editorial para la home.",
+  "category": "layout",
+  "icon": "align-pull-left",
+  "keywords": [
+    "imagen",
+    "texto",
+    "contenido",
+    "home"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "wide"
+    ],
+    "anchor": true,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

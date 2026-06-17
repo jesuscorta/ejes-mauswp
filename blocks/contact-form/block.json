@@ -1,0 +1,29 @@
+{
+  "name": "acf/mauswp-contact-form",
+  "title": "Formulario de Contacto",
+  "description": "Bloque para mostrar el formulario de contacto de Gravity Forms con maquetación integrada en el tema.",
+  "category": "widgets",
+  "icon": "email",
+  "keywords": [
+    "contacto",
+    "formulario",
+    "gravity forms",
+    "lead"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "wide"
+    ],
+    "anchor": true,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

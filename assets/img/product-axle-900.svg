@@ -1,0 +1,14 @@
+<svg width="960" height="660" viewBox="0 0 960 660" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="660" fill="#F5F7F2"/>
+  <rect x="70" y="70" width="820" height="520" fill="#FFFFFF" stroke="#D3DAC8" stroke-width="4"/>
+  <rect x="138" y="220" width="560" height="30" fill="#6D7D5E"/>
+  <rect x="190" y="176" width="54" height="118" fill="#B8C3A8"/>
+  <rect x="592" y="176" width="54" height="118" fill="#B8C3A8"/>
+  <circle cx="192" cy="414" r="82" fill="#0F172A"/>
+  <circle cx="192" cy="414" r="38" fill="#E2E8F0"/>
+  <circle cx="646" cy="414" r="82" fill="#0F172A"/>
+  <circle cx="646" cy="414" r="38" fill="#E2E8F0"/>
+  <rect x="260" y="392" width="334" height="20" fill="#334155"/>
+  <path d="M748 222H830V454H748" stroke="#7C8D6C" stroke-width="16"/>
+  <text x="138" y="132" fill="#414A39" font-family="Arial, sans-serif" font-size="34" font-weight="700">EJE SIN FRENO 900 KG</text>
+</svg>
