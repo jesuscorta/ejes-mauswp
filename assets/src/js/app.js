@@ -605,41 +605,6 @@ const initShopArchiveFilters = () => {
 
     let isLoading = false;
 
-    const formatPrice = (value) => {
-      return `${Math.round(value).toLocaleString('es-ES')}€`;
-    };
-
-    const syncPriceRange = (rangeRoot) => {
-      const minRange = rangeRoot.querySelector('[data-price-min-range]');
-      const maxRange = rangeRoot.querySelector('[data-price-max-range]');
-      const minInput = rangeRoot.querySelector('[data-price-min-input]');
-      const maxInput = rangeRoot.querySelector('[data-price-max-input]');
-      const minLabel = rangeRoot.querySelector('[data-price-min-label]');
-      const maxLabel = rangeRoot.querySelector('[data-price-max-label]');
-
-      if (!minRange || !maxRange || !minInput || !maxInput || !minLabel || !maxLabel) {
-        return;
-      }
-
-      let minValue = Number.parseInt(minRange.value || '0', 10);
-      let maxValue = Number.parseInt(maxRange.value || '0', 10);
-
-      if (minValue > maxValue) {
-        if (document.activeElement === minRange) {
-          maxValue = minValue;
-          maxRange.value = String(maxValue);
-        } else {
-          minValue = maxValue;
-          minRange.value = String(minValue);
-        }
-      }
-
-      minInput.value = String(minValue);
-      maxInput.value = String(maxValue);
-      minLabel.innerHTML = formatPrice(minValue);
-      maxLabel.innerHTML = formatPrice(maxValue);
-    };
-
     const closeDrawer = () => {
       drawer.setAttribute('hidden', 'hidden');
       openButton.setAttribute('aria-expanded', 'false');
@@ -772,51 +737,12 @@ const initShopArchiveFilters = () => {
       fetchArchive(url);
     });
 
-    archive.addEventListener('change', (event) => {
-      const target = event.target;
-
-      if (!(target instanceof HTMLSelectElement)) {
-        return;
-      }
-
-      const orderingForm = target.closest('.woocommerce-ordering');
-
-      if (!orderingForm || !(orderingForm instanceof HTMLFormElement)) {
-        return;
-      }
-
-      event.preventDefault();
-
-      const params = new URLSearchParams(window.location.search);
-      params.set(target.name, target.value);
-
-      const url = `${orderingForm.action}${params.toString() ? `?${params.toString()}` : ''}`;
-      fetchArchive(url);
-    });
-
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && !drawer.hasAttribute('hidden')) {
         closeDrawer();
       }
     });
 
-    archive.querySelectorAll('[data-price-range]').forEach((rangeRoot) => {
-      syncPriceRange(rangeRoot);
-    });
-
-    archive.addEventListener('input', (event) => {
-      const target = event.target;
-
-      if (!(target instanceof HTMLInputElement) || !target.matches('[data-price-min-range], [data-price-max-range]')) {
-        return;
-      }
-
-      const rangeRoot = target.closest('[data-price-range]');
-
-      if (rangeRoot) {
-        syncPriceRange(rangeRoot);
-      }
-    });
   });
 };
 

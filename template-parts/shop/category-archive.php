@@ -75,8 +75,6 @@ $pagination_links = paginate_links(
 	]
 );
 $selected_category_slugs = function_exists( 'mauswp_get_requested_product_filter_category_slugs' ) ? mauswp_get_requested_product_filter_category_slugs() : [];
-$selected_min_price      = function_exists( 'mauswp_get_requested_product_filter_min_price' ) ? mauswp_get_requested_product_filter_min_price() : null;
-$selected_max_price      = function_exists( 'mauswp_get_requested_product_filter_max_price' ) ? mauswp_get_requested_product_filter_max_price() : null;
 $filter_categories       = get_terms(
 	[
 		'taxonomy'   => 'product_cat',
@@ -89,25 +87,6 @@ $reset_url               = $is_product_term && $term instanceof WP_Term ? get_te
 
 if ( $is_product_term && empty( $selected_category_slugs ) && $term instanceof WP_Term ) {
 	$selected_category_slugs = [ $term->slug ];
-}
-
-$price_bounds      = function_exists( 'mauswp_get_product_archive_price_bounds' ) ? mauswp_get_product_archive_price_bounds( $selected_category_slugs ) : [ 'min' => 0, 'max' => 0 ];
-$price_bounds_min  = isset( $price_bounds['min'] ) ? (float) $price_bounds['min'] : 0;
-$price_bounds_max  = isset( $price_bounds['max'] ) ? (float) $price_bounds['max'] : 0;
-$current_min_price = null !== $selected_min_price ? (float) $selected_min_price : $price_bounds_min;
-$current_max_price = null !== $selected_max_price ? (float) $selected_max_price : $price_bounds_max;
-
-if ( $current_min_price < $price_bounds_min ) {
-	$current_min_price = $price_bounds_min;
-}
-
-if ( $current_max_price > $price_bounds_max || 0 === $current_max_price ) {
-	$current_max_price = $price_bounds_max;
-}
-
-if ( $current_min_price > $current_max_price ) {
-	$current_min_price = $price_bounds_min;
-	$current_max_price = $price_bounds_max;
 }
 
 if ( ! $is_product_term && '' !== trim( $description ) ) {
@@ -164,11 +143,6 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 				<button class="btn-secondary shop-category__filters-trigger" type="button" data-shop-filters-open aria-controls="shop-category-filters-drawer" aria-expanded="false">
 					<?php esc_html_e( 'Filtrar', 'mauswp' ); ?>
 				</button>
-				<div class="shop-category__sorting" data-shop-archive-sorting>
-				<?php if ( function_exists( 'woocommerce_catalog_ordering' ) ) : ?>
-					<?php woocommerce_catalog_ordering(); ?>
-				<?php endif; ?>
-				</div>
 			</div>
 		</div>
 
@@ -202,21 +176,7 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 							</div>
 						</div>
 
-						<div class="shop-category__filters-group">
-							<p class="shop-category__filters-label"><?php esc_html_e( 'Precio', 'mauswp' ); ?></p>
-							<div class="shop-category__filters-price" data-price-range data-min="<?php echo esc_attr( (string) $price_bounds_min ); ?>" data-max="<?php echo esc_attr( (string) $price_bounds_max ); ?>">
-								<div class="shop-category__filters-price-values">
-									<span data-price-min-label><?php echo wp_kses_post( wc_price( $current_min_price ) ); ?></span>
-									<span data-price-max-label><?php echo wp_kses_post( wc_price( $current_max_price ) ); ?></span>
-								</div>
-								<div class="shop-category__filters-range-wrap">
-									<input type="range" min="<?php echo esc_attr( (string) $price_bounds_min ); ?>" max="<?php echo esc_attr( (string) $price_bounds_max ); ?>" step="1" value="<?php echo esc_attr( (string) $current_min_price ); ?>" data-price-min-range>
-									<input type="range" min="<?php echo esc_attr( (string) $price_bounds_min ); ?>" max="<?php echo esc_attr( (string) $price_bounds_max ); ?>" step="1" value="<?php echo esc_attr( (string) $current_max_price ); ?>" data-price-max-range>
-								</div>
-								<input type="hidden" name="price_min" value="<?php echo esc_attr( (string) $current_min_price ); ?>" data-price-min-input>
-								<input type="hidden" name="price_max" value="<?php echo esc_attr( (string) $current_max_price ); ?>" data-price-max-input>
-							</div>
-						</div>
+
 					</div>
 
 					<div class="shop-category__filters-actions">

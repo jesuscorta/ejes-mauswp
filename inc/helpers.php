@@ -285,8 +285,6 @@ function mauswp_filter_product_archive_query( WP_Query $query ): void {
 	}
 
 	$selected_categories = mauswp_get_requested_product_filter_category_slugs();
-	$min_price           = mauswp_get_requested_product_filter_min_price();
-	$max_price           = mauswp_get_requested_product_filter_max_price();
 
 	if ( ! empty( $selected_categories ) ) {
 		$tax_query = $query->get( 'tax_query' );
@@ -311,33 +309,7 @@ function mauswp_filter_product_archive_query( WP_Query $query ): void {
 		$query->set( 'tax_query', $tax_query );
 	}
 
-	if ( null !== $min_price || null !== $max_price ) {
-		$meta_query = $query->get( 'meta_query' );
-		$meta_query = is_array( $meta_query ) ? $meta_query : [];
 
-		$price_clause = [
-			'key'     => '_price',
-			'type'    => 'DECIMAL(10,2)',
-			'compare' => 'BETWEEN',
-			'value'   => [
-				null !== $min_price ? $min_price : 0,
-				null !== $max_price ? $max_price : PHP_INT_MAX,
-			],
-		];
-
-		if ( null !== $min_price && null === $max_price ) {
-			$price_clause['compare'] = '>=';
-			$price_clause['value']   = $min_price;
-		}
-
-		if ( null === $min_price && null !== $max_price ) {
-			$price_clause['compare'] = '<=';
-			$price_clause['value']   = $max_price;
-		}
-
-		$meta_query[] = $price_clause;
-		$query->set( 'meta_query', $meta_query );
-	}
 }
 add_action( 'pre_get_posts', 'mauswp_filter_product_archive_query' );
 
