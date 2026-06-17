@@ -123,6 +123,86 @@ while ( have_posts() ) :
 					</div>
 				<?php endif; ?>
 			</section>
+
+			<?php
+			$related_category_slugs = [];
+			if ( $primary_term instanceof WP_Term ) {
+				$related_category_slugs[] = $primary_term->slug;
+			} elseif ( is_array( $product_terms ) && ! empty( $product_terms ) ) {
+				foreach ( $product_terms as $pt ) {
+					if ( $pt instanceof WP_Term ) {
+						$related_category_slugs[] = $pt->slug;
+						break;
+					}
+				}
+			}
+
+			$related_products = [];
+			if ( ! empty( $related_category_slugs ) && function_exists( 'wc_get_products' ) ) {
+				$related_products = wc_get_products(
+					[
+						'status'   => 'publish',
+						'limit'    => 8,
+						'category' => $related_category_slugs,
+						'exclude'  => [ $product_id ],
+						'orderby'  => 'rand',
+					]
+				);
+			}
+			?>
+
+			<?php if ( ! empty( $related_products ) ) : ?>
+				<section class="shop-related">
+					<div class="shop-related__header">
+						<p class="eyebrow"><?php esc_html_e( 'Descubre más', 'mauswp' ); ?></p>
+						<h2 class="section-title"><?php esc_html_e( 'Productos relacionados', 'mauswp' ); ?></h2>
+					</div>
+					<div class="shop-related__swiper" data-related-swiper>
+						<div class="swiper">
+							<div class="swiper-wrapper">
+								<?php foreach ( $related_products as $related_product ) : ?>
+									<?php if ( ! $related_product instanceof WC_Product ) { continue; } ?>
+									<?php
+									$rel_image_id  = $related_product->get_image_id();
+									$rel_image_url = $rel_image_id ? wp_get_attachment_image_url( $rel_image_id, 'large' ) : '';
+									$rel_image_alt = $rel_image_id ? (string) get_post_meta( $rel_image_id, '_wp_attachment_image_alt', true ) : '';
+									?>
+									<div class="swiper-slide">
+										<article class="shop-related__card">
+											<a class="shop-related__card-link" href="<?php echo esc_url( $related_product->get_permalink() ); ?>">
+												<div class="shop-related__card-media">
+													<?php if ( '' !== $rel_image_url ) : ?>
+														<img class="shop-related__card-image" src="<?php echo esc_url( $rel_image_url ); ?>" alt="<?php echo esc_attr( $rel_image_alt ); ?>" loading="lazy">
+													<?php else : ?>
+														<div class="shop-related__card-placeholder" aria-hidden="true"></div>
+													<?php endif; ?>
+												</div>
+												<div class="shop-related__card-body">
+													<?php if ( '' !== $related_product->get_price_html() ) : ?>
+														<div class="shop-related__card-price"><?php echo wp_kses_post( $related_product->get_price_html() ); ?></div>
+													<?php endif; ?>
+													<h3 class="shop-related__card-title"><?php echo esc_html( $related_product->get_name() ); ?></h3>
+													<span class="shop-related__card-cta"><?php esc_html_e( 'Ver producto', 'mauswp' ); ?></span>
+												</div>
+											</a>
+										</article>
+									</div>
+								<?php endforeach; ?>
+							</div>
+						</div>
+						<div class="shop-related__nav">
+							<button type="button" class="shop-related__prev" data-related-prev aria-label="<?php esc_attr_e( 'Anterior', 'mauswp' ); ?>">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+							</button>
+							<button type="button" class="shop-related__next" data-related-next aria-label="<?php esc_attr_e( 'Siguiente', 'mauswp' ); ?>">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+							</button>
+						</div>
+					</div>
+				</section>
+			<?php endif; ?>
+
+			<?php mauswp_render_contact_block(); ?>
 		</div>
 	</main>
 	<?php

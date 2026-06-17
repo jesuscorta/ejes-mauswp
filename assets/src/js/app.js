@@ -262,6 +262,45 @@ const initFeaturesStripSwiper = () => {
   });
 };
 
+const initRelatedSwiper = () => {
+  if (typeof window.Swiper !== 'function') {
+    return;
+  }
+
+  const roots = document.querySelectorAll('[data-related-swiper]');
+
+  roots.forEach((root) => {
+    const swiperElement = root.querySelector('.swiper');
+    const prevButton = root.querySelector('[data-related-prev]');
+    const nextButton = root.querySelector('[data-related-next]');
+
+    if (!swiperElement) {
+      return;
+    }
+
+    // eslint-disable-next-line no-new
+    new window.Swiper(swiperElement, {
+      slidesPerView: 1.15,
+      spaceBetween: 20,
+      speed: 500,
+      navigation: {
+        prevEl: prevButton,
+        nextEl: nextButton
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2.2,
+          spaceBetween: 24
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 24
+        }
+      }
+    });
+  });
+};
+
 const initProductConfigInfoModal = () => {
   const modals = document.querySelectorAll('[data-product-config-info-modal]');
 
@@ -757,6 +796,7 @@ if (document.readyState === 'loading') {
     initProductConfigInfoModal();
     initHeaderSearch();
     initShopArchiveFilters();
+    initRelatedSwiper();
   });
 } else {
   initMobileMenu();
@@ -768,4 +808,5 @@ if (document.readyState === 'loading') {
   initProductConfigInfoModal();
   initHeaderSearch();
   initShopArchiveFilters();
+  initRelatedSwiper();
 }

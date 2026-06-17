@@ -252,4 +252,6 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 			</div>
 		</div>
 	</section>
+
+	<?php mauswp_render_contact_block(); ?>
 </main>

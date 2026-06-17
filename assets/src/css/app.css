@@ -1176,6 +1176,69 @@
     @apply mb-0;
   }
 
+  .shop-related {
+    @apply space-y-6;
+  }
+
+  .shop-related__header {
+    @apply space-y-2;
+  }
+
+  .shop-related__swiper .swiper {
+    @apply pb-2;
+  }
+
+  .shop-related__card {
+    @apply h-full border border-slate-200 bg-white shadow-[0_18px_44px_-30px_rgba(15,23,42,0.28)] transition hover:-translate-y-1 hover:shadow-[0_26px_54px_-30px_rgba(15,23,42,0.34)];
+  }
+
+  .shop-related__card-link {
+    @apply flex h-full flex-col;
+  }
+
+  .shop-related__card-media {
+    @apply overflow-hidden border-b border-slate-200 bg-white;
+  }
+
+  .shop-related__card-image,
+  .shop-related__card-placeholder {
+    @apply aspect-[16/11] w-full object-contain;
+  }
+
+  .shop-related__card-body {
+    @apply flex flex-1 flex-col gap-2 p-3 sm:gap-3 sm:p-5;
+  }
+
+  .shop-related__card-price {
+    @apply text-xs font-semibold uppercase tracking-[0.12em] text-brand-700 sm:text-sm;
+  }
+
+  .shop-related__card-price ins {
+    @apply no-underline;
+  }
+
+  .shop-related__card-title {
+    @apply text-base font-semibold leading-tight tracking-tight text-slate-950 sm:text-[1.2rem];
+  }
+
+  .shop-related__card-cta {
+    @apply mt-auto inline-flex items-center pt-1 text-xs font-semibold uppercase tracking-[0.08em] text-brand-700 sm:pt-2 sm:text-sm;
+  }
+
+  .shop-related__nav {
+    @apply mt-4 flex items-center justify-end gap-2;
+  }
+
+  .shop-related__prev,
+  .shop-related__next {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-brand-300 hover:text-brand-700;
+  }
+
+  .shop-related__prev svg,
+  .shop-related__next svg {
+    @apply h-5 w-5;
+  }
+
   .breadcrumbs {
     @apply text-sm text-slate-500;
   }
