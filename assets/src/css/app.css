@@ -1189,7 +1189,11 @@
   }
 
   .single-post__hero-breadcrumbs {
-    @apply mb-5 justify-center text-xs text-slate-400;
+    @apply mb-5 flex justify-center text-xs text-slate-400;
+  }
+
+  .single-post__hero-breadcrumbs > span {
+    @apply justify-center;
   }
 
   .single-post__hero-breadcrumbs a {
