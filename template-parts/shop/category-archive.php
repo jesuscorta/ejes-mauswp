@@ -108,10 +108,9 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 }
 ?>
 <main id="primary" class="shop-category bg-site pb-16 lg:pb-20">
-		<?php mauswp_yoast_breadcrumbs( 'container' ); ?>
-
 	<section class="shop-category__hero">
 		<div class="container">
+			<?php mauswp_yoast_breadcrumbs( 'shop-category__hero-breadcrumbs' ); ?>
 			<div class="shop-category__hero-banner card-heavy">
 				<?php if ( '' !== $banner_image ) : ?>
 					<img class="shop-category__hero-image" src="<?php echo esc_url( $banner_image ); ?>" alt="<?php echo esc_attr( $banner_image_alt ); ?>">

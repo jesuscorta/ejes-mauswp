@@ -25,9 +25,8 @@ $pagination_links = paginate_links(
 ?>
 <main id="primary" class="news-archive bg-site py-16 lg:py-20">
 	<div class="container space-y-10">
-		<?php mauswp_yoast_breadcrumbs(); ?>
-
 		<header class="news-archive__header">
+			<?php mauswp_yoast_breadcrumbs( 'mb-3' ); ?>
 			<p class="eyebrow"><?php esc_html_e( 'Noticias', 'mauswp' ); ?></p>
 			<h1 class="news-archive__title"><?php echo esc_html( $archive_title ); ?></h1>
 		</header>

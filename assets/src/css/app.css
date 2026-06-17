@@ -1188,6 +1188,22 @@
     @apply transition hover:text-slate-950;
   }
 
+  .single-post__hero-breadcrumbs {
+    @apply mb-5 justify-center text-xs text-slate-400;
+  }
+
+  .single-post__hero-breadcrumbs a {
+    @apply text-slate-500 hover:text-slate-800;
+  }
+
+  .shop-category__hero-breadcrumbs {
+    @apply mb-4 text-xs text-slate-400;
+  }
+
+  .shop-category__hero-breadcrumbs a {
+    @apply text-slate-500 hover:text-slate-800;
+  }
+
   .shop-product__breadcrumbs {
     @apply flex flex-wrap items-center gap-2 text-sm text-slate-500;
   }

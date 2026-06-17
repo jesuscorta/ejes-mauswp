@@ -22,12 +22,12 @@ get_header();
 ?>
 <main id="primary" class="<?php echo esc_attr( $main_class ); ?>">
 	<div class="container">
-		<?php mauswp_yoast_breadcrumbs(); ?>
 		<?php
 		while ( have_posts() ) :
 			the_post();
 			?>
 			<article <?php post_class( $article_class ); ?>>
+				<?php mauswp_yoast_breadcrumbs( 'mb-4' ); ?>
 				<header class="<?php echo esc_attr( $is_shop_flow ? 'shop-flow__header' : 'mb-8 space-y-4 border-b border-slate-200 pb-8' ); ?>">
 					<p class="eyebrow"><?php echo esc_html( $page_kicker ); ?></p>
 					<h1 class="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl"><?php the_title(); ?></h1>

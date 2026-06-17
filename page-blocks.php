@@ -11,7 +11,6 @@ declare(strict_types=1);
 get_header();
 ?>
 <main id="primary" class="page-blocks-content">
-	<?php mauswp_yoast_breadcrumbs( 'container' ); ?>
 	<?php
 	while ( have_posts() ) :
 		the_post();
@@ -21,6 +20,7 @@ get_header();
 		<?php else : ?>
 			<section class="border-b border-slate-200 bg-site py-20">
 				<div class="container max-w-3xl space-y-5 text-center">
+					<?php mauswp_yoast_breadcrumbs( 'mb-2 justify-center' ); ?>
 					<p class="eyebrow justify-center"><?php esc_html_e( 'Página editable', 'mauswp' ); ?></p>
 					<h1 class="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl"><?php the_title(); ?></h1>
 					<p class="text-lg leading-8 text-slate-600"><?php esc_html_e( 'Añade bloques para construir esta página con el layout libre del tema.', 'mauswp' ); ?></p>

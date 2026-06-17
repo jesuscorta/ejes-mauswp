@@ -11,9 +11,8 @@ get_header();
 ?>
 <main id="primary" class="bg-site py-16">
 	<div class="container space-y-8">
-		<?php mauswp_yoast_breadcrumbs(); ?>
-
 		<header class="space-y-4">
+			<?php mauswp_yoast_breadcrumbs( 'mb-2' ); ?>
 			<p class="eyebrow">Actualidad</p>
 			<h1 class="text-4xl font-semibold tracking-tight text-slate-900">
 				<?php echo esc_html( get_the_archive_title() ?: get_bloginfo( 'name' ) ); ?>

@@ -11,8 +11,6 @@ get_header();
 ?>
 <main id="primary" class="bg-site py-20 lg:py-28">
 	<div class="container">
-		<?php mauswp_yoast_breadcrumbs(); ?>
-
 		<section class="mx-auto max-w-3xl border border-slate-200 bg-white p-10 text-center shadow-sm">
 			<p class="eyebrow justify-center"><?php esc_html_e( 'Error 404', 'mauswp' ); ?></p>
 			<h1 class="mt-4 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl"><?php esc_html_e( 'La página que buscas no está disponible.', 'mauswp' ); ?></h1>
