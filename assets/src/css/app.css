@@ -1070,11 +1070,11 @@
   }
 
   .shop-category__toolbar-actions {
-    @apply flex w-full flex-col gap-3 sm:flex-row sm:items-center;
+    @apply flex flex-col gap-3 sm:flex-row sm:items-center lg:justify-end;
   }
 
   .shop-category__filters-trigger {
-    @apply w-full whitespace-nowrap text-center;
+    @apply whitespace-nowrap text-center;
   }
 
   .shop-category__results,
