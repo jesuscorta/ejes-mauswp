@@ -57,3 +57,14 @@ function mauswp_cleanup_head(): void {
 	remove_action( 'wp_print_styles', 'print_emoji_styles' );
 }
 add_action( 'init', 'mauswp_cleanup_head' );
+
+/**
+ * Redirect /catalogo to /tienda.
+ */
+function mauswp_redirect_catalogo(): void {
+	if ( ! is_admin() && isset( $_SERVER['REQUEST_URI'] ) && '/catalogo' === untrailingslashit( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) {
+		wp_safe_redirect( home_url( '/tienda/' ), 301 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'mauswp_redirect_catalogo' );
