@@ -11,6 +11,7 @@ declare(strict_types=1);
 get_header();
 ?>
 <main id="primary" class="page-blocks-content">
+	<?php mauswp_yoast_breadcrumbs( 'container' ); ?>
 	<?php
 	while ( have_posts() ) :
 		the_post();

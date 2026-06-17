@@ -108,6 +108,8 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 }
 ?>
 <main id="primary" class="shop-category bg-site pb-16 lg:pb-20">
+		<?php mauswp_yoast_breadcrumbs( 'container' ); ?>
+
 	<section class="shop-category__hero">
 		<div class="container">
 			<div class="shop-category__hero-banner card-heavy">

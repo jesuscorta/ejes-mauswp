@@ -11,6 +11,8 @@ get_header();
 ?>
 <main id="primary" class="bg-site py-16">
 	<div class="container space-y-8">
+		<?php mauswp_yoast_breadcrumbs(); ?>
+
 		<header class="space-y-4">
 			<p class="eyebrow">Actualidad</p>
 			<h1 class="text-4xl font-semibold tracking-tight text-slate-900">

@@ -59,15 +59,7 @@ while ( have_posts() ) :
 	?>
 	<main id="primary" class="shop-product bg-site py-12 lg:py-16">
 		<div class="container space-y-10 lg:space-y-12">
-			<nav class="shop-product__breadcrumbs" aria-label="<?php esc_attr_e( 'Ruta del producto', 'mauswp' ); ?>">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Inicio', 'mauswp' ); ?></a>
-				<span aria-hidden="true">/</span>
-				<a href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Catálogo', 'mauswp' ); ?></a>
-				<?php if ( $primary_term instanceof WP_Term ) : ?>
-					<span aria-hidden="true">/</span>
-					<a href="<?php echo esc_url( get_term_link( $primary_term ) ); ?>"><?php echo esc_html( $primary_term->name ); ?></a>
-				<?php endif; ?>
-			</nav>
+			<?php mauswp_yoast_breadcrumbs( 'shop-product__breadcrumbs' ); ?>
 
 			<article <?php post_class( 'shop-product__layout' ); ?>>
 				<section class="shop-product__gallery card" aria-label="<?php esc_attr_e( 'Galería del producto', 'mauswp' ); ?>">

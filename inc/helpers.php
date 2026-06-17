@@ -459,3 +459,25 @@ function mauswp_get_related_posts( int $post_id, int $limit = 4 ): array {
 
 	return is_array( $posts ) ? $posts : [];
 }
+
+/**
+ * Output Yoast SEO breadcrumbs if available.
+ *
+ * @param string $wrapper_class Additional CSS class for the wrapper.
+ */
+function mauswp_yoast_breadcrumbs( string $wrapper_class = '' ): void {
+	if ( ! function_exists( 'yoast_breadcrumb' ) ) {
+		return;
+	}
+
+	$class = 'breadcrumbs';
+
+	if ( '' !== trim( $wrapper_class ) ) {
+		$class .= ' ' . trim( $wrapper_class );
+	}
+
+	yoast_breadcrumb(
+		'<nav class="' . esc_attr( $class ) . '" aria-label="' . esc_attr__( 'Migas de pan', 'mauswp' ) . '">',
+		'</nav>'
+	);
+}

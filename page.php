@@ -22,6 +22,7 @@ get_header();
 ?>
 <main id="primary" class="<?php echo esc_attr( $main_class ); ?>">
 	<div class="container">
+		<?php mauswp_yoast_breadcrumbs(); ?>
 		<?php
 		while ( have_posts() ) :
 			the_post();

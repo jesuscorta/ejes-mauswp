@@ -24,6 +24,8 @@ while ( have_posts() ) :
 	$has_toc      = ! empty( $toc );
 	?>
 	<main id="primary" class="single-post">
+		<?php mauswp_yoast_breadcrumbs( 'container' ); ?>
+
 		<div class="single-post__hero">
 			<div class="container">
 				<div class="single-post__hero-inner">
