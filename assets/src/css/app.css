@@ -1622,15 +1622,27 @@
   }
 
   .shop-product-builder {
-    @apply space-y-8;
+    @apply space-y-6;
   }
 
   .shop-product-builder__block {
     @apply min-w-0;
   }
 
+  .shop-product-builder__block--heading + .shop-product-builder__block--text {
+    margin-top: 0.75rem !important;
+  }
+
+  .shop-product-builder__block--text + .shop-product-builder__block--text {
+    margin-top: 1rem !important;
+  }
+
+  .shop-product-builder__block--text + .shop-product-builder__block--heading {
+    margin-top: 1.75rem !important;
+  }
+
   .shop-product-builder__heading {
-    @apply font-semibold tracking-tight text-slate-950;
+    @apply font-semibold leading-tight tracking-tight text-slate-950;
   }
 
   .shop-product-builder__heading--h1 {
