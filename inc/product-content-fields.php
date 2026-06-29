@@ -90,6 +90,51 @@ function mauswp_register_product_content_fields(): void {
 								],
 							],
 						],
+						'layout_mauswp_product_faqs' => [
+							'key'        => 'layout_mauswp_product_faqs',
+							'name'       => 'faqs',
+							'label'      => __( 'FAQs', 'mauswp' ),
+							'display'    => 'block',
+							'sub_fields' => [
+								[
+									'key'          => 'field_mauswp_product_faqs_title',
+									'label'        => __( 'Título del bloque', 'mauswp' ),
+									'name'         => 'title',
+									'type'         => 'text',
+									'instructions' => __( 'Opcional. Por ejemplo: Preguntas frecuentes.', 'mauswp' ),
+								],
+								[
+									'key'          => 'field_mauswp_product_faqs_items',
+									'label'        => __( 'Preguntas y respuestas', 'mauswp' ),
+									'name'         => 'items',
+									'type'         => 'repeater',
+									'instructions' => __( 'Añade las preguntas frecuentes relacionadas con el producto.', 'mauswp' ),
+									'button_label' => __( 'Añadir pregunta', 'mauswp' ),
+									'layout'       => 'block',
+									'min'          => 1,
+									'sub_fields'   => [
+										[
+											'key'      => 'field_mauswp_product_faqs_question',
+											'label'    => __( 'Pregunta', 'mauswp' ),
+											'name'     => 'question',
+											'type'     => 'text',
+											'required' => 1,
+										],
+										[
+											'key'          => 'field_mauswp_product_faqs_answer',
+											'label'        => __( 'Respuesta', 'mauswp' ),
+											'name'         => 'answer',
+											'type'         => 'wysiwyg',
+											'required'     => 1,
+											'tabs'         => 'all',
+											'toolbar'      => 'basic',
+											'media_upload' => 0,
+											'delay'        => 0,
+										],
+									],
+								],
+							],
+						],
 						'layout_mauswp_product_text' => [
 							'key'        => 'layout_mauswp_product_text',
 							'name'       => 'text',
@@ -199,6 +244,42 @@ function mauswp_render_product_editorial_builder( int $product_id ): void {
 
 				echo '</div>';
 				echo '</div>';
+			}
+		}
+
+		if ( 'faqs' === $layout ) {
+			$title = (string) get_sub_field( 'title' );
+			$items = get_sub_field( 'items' );
+
+			if ( is_array( $items ) && ! empty( $items ) ) {
+				echo '<section class="shop-product-builder__block shop-product-builder__block--faqs" aria-label="' . esc_attr__( 'Preguntas frecuentes', 'mauswp' ) . '">';
+
+				if ( '' !== trim( $title ) ) {
+					echo '<h2 class="shop-product-builder__faqs-title">' . esc_html( $title ) . '</h2>';
+				}
+
+				echo '<div class="shop-product-builder__faqs-list">';
+
+				foreach ( $items as $item ) {
+					if ( ! is_array( $item ) ) {
+						continue;
+					}
+
+					$question = isset( $item['question'] ) ? (string) $item['question'] : '';
+					$answer   = isset( $item['answer'] ) ? (string) $item['answer'] : '';
+
+					if ( '' === trim( $question ) || '' === trim( wp_strip_all_tags( $answer ) ) ) {
+						continue;
+					}
+
+					echo '<details class="shop-product-builder__faq-item">';
+					echo '<summary class="shop-product-builder__faq-question"><span>' . esc_html( $question ) . '</span></summary>';
+					echo '<div class="shop-product-builder__faq-answer entry-content">' . wp_kses_post( apply_filters( 'the_content', $answer ) ) . '</div>';
+					echo '</details>';
+				}
+
+				echo '</div>';
+				echo '</section>';
 			}
 		}
 

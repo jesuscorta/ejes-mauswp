@@ -1661,6 +1661,52 @@
     @apply aspect-[4/3] w-full object-cover;
   }
 
+  .shop-product-builder__block--faqs {
+    @apply border border-slate-200 bg-white p-5 shadow-[0_18px_44px_-34px_rgba(15,23,42,0.18)] sm:p-6;
+  }
+
+  .shop-product-builder__faqs-title {
+    @apply mb-5 text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl;
+  }
+
+  .shop-product-builder__faqs-list {
+    @apply divide-y divide-slate-200 border-y border-slate-200;
+  }
+
+  .shop-product-builder__faq-item {
+    @apply bg-white;
+  }
+
+  .shop-product-builder__faq-question {
+    @apply flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-base font-semibold text-slate-950 transition hover:text-brand-700;
+  }
+
+  .shop-product-builder__faq-question::-webkit-details-marker {
+    @apply hidden;
+  }
+
+  .shop-product-builder__faq-question::after {
+    content: '+';
+    @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-slate-200 text-lg font-semibold leading-none text-brand-700 transition;
+  }
+
+  .shop-product-builder__faq-item[open] .shop-product-builder__faq-question::after {
+    content: '-';
+    @apply border-brand-700 bg-brand-700 text-white;
+  }
+
+  .shop-product-builder__faq-answer {
+    @apply max-w-none pb-5 text-base leading-8 text-slate-600;
+  }
+
+  .shop-product-builder__faq-answer > :first-child {
+    @apply mt-0;
+  }
+
+  .shop-product-builder__faq-answer > :last-child {
+    @apply mb-0;
+  }
+
   .shop-product-builder__block--text {
     @apply min-w-0;
   }
