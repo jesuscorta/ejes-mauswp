@@ -74,7 +74,7 @@ function mauswp_register_product_content_fields(): void {
 						'layout_mauswp_product_image_row' => [
 							'key'        => 'layout_mauswp_product_image_row',
 							'name'       => 'image_row',
-							'label'      => __( 'Imágenes en una línea', 'mauswp' ),
+							'label'      => __( 'Galería de imágenes', 'mauswp' ),
 							'display'    => 'block',
 							'sub_fields' => [
 								[
@@ -82,8 +82,8 @@ function mauswp_register_product_content_fields(): void {
 									'label'        => __( 'Imágenes', 'mauswp' ),
 									'name'         => 'images',
 									'type'         => 'gallery',
-									'min'          => 2,
-									'max'          => 4,
+									'instructions' => __( 'Añade tantas imágenes como necesites. Se mostrarán en una galería de 4 columnas.', 'mauswp' ),
+									'min'          => 1,
 									'insert'       => 'append',
 									'library'      => 'all',
 									'preview_size' => 'medium',
@@ -184,11 +184,8 @@ function mauswp_render_product_editorial_builder( int $product_id ): void {
 			$images = get_sub_field( 'images' );
 
 			if ( is_array( $images ) && ! empty( $images ) ) {
-				$image_count = count( $images );
-				$image_count = max( 2, min( 4, $image_count ) );
-
 				echo '<div class="shop-product-builder__block shop-product-builder__block--image-row">';
-				echo '<div class="shop-product-builder__image-row" style="--shop-product-builder-columns:' . esc_attr( (string) $image_count ) . ';">';
+				echo '<div class="shop-product-builder__image-row">';
 
 				foreach ( $images as $image ) {
 					if ( ! is_array( $image ) || empty( $image['ID'] ) ) {

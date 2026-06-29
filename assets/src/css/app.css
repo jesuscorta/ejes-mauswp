@@ -1650,8 +1650,7 @@
   }
 
   .shop-product-builder__image-row {
-    @apply grid gap-4;
-    grid-template-columns: repeat(var(--shop-product-builder-columns, 1), minmax(0, 1fr));
+    @apply grid grid-cols-4 gap-4;
   }
 
   .shop-product-builder__image-cell {
@@ -1660,12 +1659,6 @@
 
   .shop-product-builder__row-image {
     @apply aspect-[4/3] w-full object-cover;
-  }
-
-  @media (max-width: 767px) {
-    .shop-product-builder__image-row {
-      grid-template-columns: 1fr;
-    }
   }
 
   .shop-product-builder__block--text {
