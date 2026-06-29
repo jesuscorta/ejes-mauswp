@@ -1728,7 +1728,48 @@
   }
 
   .shop-product-builder__block--text {
-    @apply min-w-0;
+    @apply min-w-0 max-w-none text-[1rem] leading-[1.65] text-slate-700 sm:text-[1.0625rem];
+  }
+
+  .shop-product-builder__block--text > * + * {
+    @apply mt-4;
+  }
+
+  .shop-product-builder__block--text p {
+    @apply my-0;
+  }
+
+  .shop-product-builder__block--text h2,
+  .shop-product-builder__block--text h3,
+  .shop-product-builder__block--text h4 {
+    @apply mb-3 mt-7 font-semibold leading-tight tracking-tight text-slate-950;
+  }
+
+  .shop-product-builder__block--text h2:first-child,
+  .shop-product-builder__block--text h3:first-child,
+  .shop-product-builder__block--text h4:first-child {
+    @apply mt-0;
+  }
+
+  .shop-product-builder__block--text h2 {
+    @apply text-2xl sm:text-3xl;
+  }
+
+  .shop-product-builder__block--text h3 {
+    @apply text-xl sm:text-2xl;
+  }
+
+  .shop-product-builder__block--text ul,
+  .shop-product-builder__block--text ol {
+    @apply my-0 space-y-2 pl-6;
+  }
+
+  .shop-product-builder__block--text li {
+    @apply leading-[1.65];
+  }
+
+  .shop-product-builder__block--text blockquote {
+    @apply my-5 border-l-4 border-brand-300 pl-5 text-slate-600;
   }
 
   .shop-flow__card {
