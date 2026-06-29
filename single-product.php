@@ -43,6 +43,8 @@ while ( have_posts() ) :
 	$has_builder       = function_exists( 'mauswp_product_has_editorial_builder' ) ? mauswp_product_has_editorial_builder( $product_id ) : false;
 	$review_count      = (int) $product->get_review_count();
 	$average_rating    = (float) $product->get_average_rating();
+	$rating_stars_full = max( 0, min( 5, (int) round( $average_rating ) ) );
+	$rating_stars      = str_repeat( '★', $rating_stars_full ) . str_repeat( '☆', 5 - $rating_stars_full );
 	$review_comments   = [];
 
 	if ( $review_count > 0 ) {
@@ -153,18 +155,14 @@ while ( have_posts() ) :
 							<p class="eyebrow"><?php echo esc_html( $primary_term->name ); ?></p>
 						<?php endif; ?>
 						<h1 class="shop-product__title"><?php the_title(); ?></h1>
-						<?php if ( '' !== $product->get_price_html() ) : ?>
-							<div class="shop-product__price"><?php echo wp_kses_post( $product->get_price_html() ); ?></div>
-						<?php endif; ?>
 						<?php if ( $review_count > 0 ) : ?>
 							<a class="shop-product__rating-summary" href="#product-reviews" aria-label="<?php echo esc_attr( sprintf( _n( 'Ver %s valoración', 'Ver %s valoraciones', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?>">
-								<?php if ( $average_rating > 0 ) : ?>
-									<span class="shop-product__rating-stars" aria-hidden="true"><?php echo esc_html( str_repeat( '★', (int) round( $average_rating ) ) . str_repeat( '☆', 5 - (int) round( $average_rating ) ) ); ?></span>
-									<span><?php echo esc_html( wc_format_decimal( $average_rating, 1 ) ); ?> · <?php echo esc_html( sprintf( _n( '%s valoración', '%s valoraciones', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
-								<?php else : ?>
-									<span><?php echo esc_html( sprintf( _n( '%s valoración', '%s valoraciones', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
-								<?php endif; ?>
+								<span class="shop-product__rating-stars" aria-hidden="true"><?php echo esc_html( $rating_stars ); ?></span>
+								<span><?php echo esc_html( sprintf( _n( '%s reseña', '%s reseñas', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
 							</a>
+						<?php endif; ?>
+						<?php if ( '' !== $product->get_price_html() ) : ?>
+							<div class="shop-product__price"><?php echo wp_kses_post( $product->get_price_html() ); ?></div>
 						<?php endif; ?>
 					</div>
 
@@ -206,14 +204,9 @@ while ( have_posts() ) :
 							<p class="eyebrow"><?php esc_html_e( 'Opiniones reales', 'mauswp' ); ?></p>
 							<h2 class="section-title" id="product-reviews-title"><?php esc_html_e( 'Valoraciones de clientes', 'mauswp' ); ?></h2>
 						</div>
-						<div class="shop-product__reviews-score" <?php if ( $average_rating > 0 ) : ?>aria-label="<?php echo esc_attr( sprintf( __( 'Valoración media %s de 5', 'mauswp' ), wc_format_decimal( $average_rating, 1 ) ) ); ?>"<?php endif; ?>>
-							<?php if ( $average_rating > 0 ) : ?>
-								<span class="shop-product__reviews-score-number"><?php echo esc_html( wc_format_decimal( $average_rating, 1 ) ); ?></span>
-								<span class="shop-product__rating-stars" aria-hidden="true"><?php echo esc_html( str_repeat( '★', (int) round( $average_rating ) ) . str_repeat( '☆', 5 - (int) round( $average_rating ) ) ); ?></span>
-							<?php else : ?>
-								<span class="shop-product__reviews-score-label"><?php esc_html_e( 'Con valoración', 'mauswp' ); ?></span>
-							<?php endif; ?>
-							<span class="shop-product__reviews-score-count"><?php echo esc_html( sprintf( _n( 'Basado en %s valoración', 'Basado en %s valoraciones', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
+						<div class="shop-product__reviews-score" aria-label="<?php echo esc_attr( sprintf( _n( '%s reseña', '%s reseñas', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?>">
+							<span class="shop-product__rating-stars" aria-hidden="true"><?php echo esc_html( $rating_stars ); ?></span>
+							<span class="shop-product__reviews-score-count"><?php echo esc_html( sprintf( _n( '%s reseña', '%s reseñas', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
 						</div>
 					</div>
 
