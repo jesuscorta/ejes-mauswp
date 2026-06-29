@@ -1,0 +1,30 @@
+{
+  "name": "acf/mauswp-google-reviews",
+  "title": "Reseñas de Google",
+  "description": "Bloque para mostrar un slider de reseñas de Google mediante shortcode de Trustindex u otro plugin.",
+  "category": "widgets",
+  "icon": "star-filled",
+  "keywords": [
+    "google",
+    "reseñas",
+    "reviews",
+    "trustindex"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "anchor": true,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

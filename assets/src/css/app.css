@@ -799,6 +799,34 @@
     @apply bg-brand-300;
   }
 
+  .google-reviews-block {
+    @apply my-12 lg:my-16;
+  }
+
+  .google-reviews-block__inner {
+    @apply border border-slate-200 bg-white p-6 shadow-[0_18px_44px_-30px_rgba(15,23,42,0.28)] sm:p-8 lg:p-10;
+  }
+
+  .google-reviews-block__header {
+    @apply mb-8 max-w-3xl space-y-3;
+  }
+
+  .google-reviews-block__eyebrow {
+    @apply text-sm font-semibold uppercase tracking-[0.18em] text-brand-700;
+  }
+
+  .google-reviews-block__title {
+    @apply text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl;
+  }
+
+  .google-reviews-block__widget {
+    @apply overflow-hidden;
+  }
+
+  .google-reviews-block__placeholder {
+    @apply border border-dashed border-slate-300 bg-slate-50 p-6 text-sm font-medium text-slate-600;
+  }
+
   .news-archive__header {
     @apply max-w-3xl space-y-4;
   }

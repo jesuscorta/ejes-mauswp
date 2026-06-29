@@ -1,0 +1,65 @@
+{
+    "key": "group_mauswp_google_reviews_block",
+    "title": "Bloque Reseñas de Google",
+    "fields": [
+        {
+            "key": "field_mauswp_google_reviews_title",
+            "label": "Título",
+            "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Título que aparece encima del slider de reseñas.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Lo que opinan nuestros clientes",
+            "maxlength": "",
+            "placeholder": "Lo que opinan nuestros clientes",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mauswp_google_reviews_shortcode",
+            "label": "Shortcode",
+            "name": "shortcode",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Pega aquí el shortcode generado por Trustindex.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "[trustindex no-registration=google]",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/mauswp-google-reviews"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Bloque para incrustar reseñas de Google mediante shortcode.",
+    "show_in_rest": 0,
+    "modified": 1782777600
+}
