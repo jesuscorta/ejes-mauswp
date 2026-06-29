@@ -225,7 +225,9 @@ function mauswp_render_product_editorial_builder( int $product_id ): void {
 		return;
 	}
 
-	echo '<div class="shop-product-builder">';
+	$builder_images = [];
+
+	echo '<div class="shop-product-builder" data-product-builder-gallery>';
 
 	while ( have_rows( 'mauswp_product_content_builder', $product_id ) ) {
 		the_row();
@@ -248,8 +250,13 @@ function mauswp_render_product_editorial_builder( int $product_id ): void {
 			$image = get_sub_field( 'image' );
 
 			if ( is_array( $image ) && ! empty( $image['ID'] ) ) {
+				$builder_images[] = (int) $image['ID'];
+				$image_index      = count( $builder_images ) - 1;
+
 				echo '<div class="shop-product-builder__block shop-product-builder__block--full-image">';
+				echo '<button class="shop-product-builder__image-zoom-trigger" type="button" data-product-builder-gallery-open data-builder-gallery-index="' . esc_attr( (string) $image_index ) . '" aria-label="' . esc_attr__( 'Ampliar imagen', 'mauswp' ) . '">';
 				echo wp_get_attachment_image( (int) $image['ID'], 'full', false, [ 'class' => 'shop-product-builder__full-image' ] );
+				echo '</button>';
 				echo '</div>';
 			}
 		}
@@ -266,8 +273,13 @@ function mauswp_render_product_editorial_builder( int $product_id ): void {
 						continue;
 					}
 
+					$builder_images[] = (int) $image['ID'];
+					$image_index      = count( $builder_images ) - 1;
+
 					echo '<div class="shop-product-builder__image-cell">';
+					echo '<button class="shop-product-builder__image-zoom-trigger" type="button" data-product-builder-gallery-open data-builder-gallery-index="' . esc_attr( (string) $image_index ) . '" aria-label="' . esc_attr__( 'Ampliar imagen', 'mauswp' ) . '">';
 					echo wp_get_attachment_image( (int) $image['ID'], 'large', false, [ 'class' => 'shop-product-builder__row-image' ] );
+					echo '</button>';
 					echo '</div>';
 				}
 
@@ -294,8 +306,13 @@ function mauswp_render_product_editorial_builder( int $product_id ): void {
 				echo '<div class="shop-product-builder__faqs-layout">';
 
 				if ( $has_image ) {
+					$builder_images[] = (int) $image['ID'];
+					$image_index      = count( $builder_images ) - 1;
+
 					echo '<div class="shop-product-builder__faqs-media">';
+					echo '<button class="shop-product-builder__image-zoom-trigger" type="button" data-product-builder-gallery-open data-builder-gallery-index="' . esc_attr( (string) $image_index ) . '" aria-label="' . esc_attr__( 'Ampliar imagen', 'mauswp' ) . '">';
 					echo wp_get_attachment_image( (int) $image['ID'], 'large', false, [ 'class' => 'shop-product-builder__faqs-image', 'loading' => 'lazy', 'decoding' => 'async' ] );
+					echo '</button>';
 					echo '</div>';
 				}
 
@@ -341,6 +358,33 @@ function mauswp_render_product_editorial_builder( int $product_id ): void {
 				echo '</div>';
 			}
 		}
+	}
+
+	if ( ! empty( $builder_images ) ) {
+		echo '<div class="shop-product-builder__lightbox" hidden data-product-builder-gallery-lightbox aria-modal="true" role="dialog" aria-label="' . esc_attr__( 'Imágenes ampliadas del contenido del producto', 'mauswp' ) . '">';
+		echo '<button class="shop-product__lightbox-backdrop" type="button" data-product-builder-gallery-close aria-label="' . esc_attr__( 'Cerrar galería', 'mauswp' ) . '"></button>';
+		echo '<div class="shop-product__lightbox-panel">';
+		echo '<button class="shop-product__lightbox-close" type="button" data-product-builder-gallery-close aria-label="' . esc_attr__( 'Cerrar galería', 'mauswp' ) . '">&times;</button>';
+		echo '<div class="swiper shop-product__lightbox-swiper" data-product-builder-gallery-swiper>';
+		echo '<div class="swiper-wrapper">';
+
+		foreach ( $builder_images as $builder_image_id ) {
+			echo '<div class="swiper-slide"><div class="swiper-zoom-container">';
+			echo wp_get_attachment_image( $builder_image_id, 'full', false, [ 'class' => 'shop-product__lightbox-image', 'loading' => 'lazy', 'decoding' => 'async' ] );
+			echo '</div></div>';
+		}
+
+		echo '</div>';
+
+		if ( count( $builder_images ) > 1 ) {
+			echo '<button class="shop-product__lightbox-nav shop-product__lightbox-nav--prev" type="button" data-product-builder-gallery-prev aria-label="' . esc_attr__( 'Imagen anterior', 'mauswp' ) . '">&larr;</button>';
+			echo '<button class="shop-product__lightbox-nav shop-product__lightbox-nav--next" type="button" data-product-builder-gallery-next aria-label="' . esc_attr__( 'Imagen siguiente', 'mauswp' ) . '">&rarr;</button>';
+		}
+
+		echo '</div>';
+		echo '<p class="shop-product__lightbox-help">' . esc_html__( 'Haz doble clic o pellizca para ampliar. Arrastra para desplazarte.', 'mauswp' ) . '</p>';
+		echo '</div>';
+		echo '</div>';
 	}
 
 	echo '</div>';

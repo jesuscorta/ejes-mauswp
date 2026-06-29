@@ -428,6 +428,73 @@ const initProductGallery = () => {
   });
 };
 
+const initProductBuilderGallery = () => {
+  if (typeof window.Swiper !== 'function') {
+    return;
+  }
+
+  const builders = document.querySelectorAll('[data-product-builder-gallery]');
+
+  builders.forEach((builder) => {
+    const lightbox = builder.querySelector('[data-product-builder-gallery-lightbox]');
+    const swiperElement = builder.querySelector('[data-product-builder-gallery-swiper]');
+    const openButtons = builder.querySelectorAll('[data-product-builder-gallery-open]');
+    const closeButtons = builder.querySelectorAll('[data-product-builder-gallery-close]');
+    const prevButton = builder.querySelector('[data-product-builder-gallery-prev]');
+    const nextButton = builder.querySelector('[data-product-builder-gallery-next]');
+
+    if (!lightbox || !swiperElement || openButtons.length === 0) {
+      return;
+    }
+
+    const swiper = new window.Swiper(swiperElement, {
+      slidesPerView: 1,
+      spaceBetween: 24,
+      speed: 450,
+      zoom: {
+        maxRatio: 2.5
+      },
+      navigation: {
+        prevEl: prevButton,
+        nextEl: nextButton
+      }
+    });
+
+    const closeLightbox = () => {
+      lightbox.setAttribute('hidden', 'hidden');
+      document.documentElement.classList.remove('product-gallery-open');
+
+      if (swiper.zoom) {
+        swiper.zoom.out();
+      }
+    };
+
+    const openLightbox = (index) => {
+      lightbox.removeAttribute('hidden');
+      document.documentElement.classList.add('product-gallery-open');
+      swiper.slideTo(index, 0);
+      swiper.update();
+    };
+
+    openButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const index = Number.parseInt(button.dataset.builderGalleryIndex || '0', 10);
+        openLightbox(index);
+      });
+    });
+
+    closeButtons.forEach((button) => {
+      button.addEventListener('click', closeLightbox);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !lightbox.hasAttribute('hidden')) {
+        closeLightbox();
+      }
+    });
+  });
+};
+
 const initProductConfigInfoModal = () => {
   const modals = document.querySelectorAll('[data-product-config-info-modal]');
 
@@ -925,6 +992,7 @@ if (document.readyState === 'loading') {
     initShopArchiveFilters();
     initRelatedSwiper();
     initProductGallery();
+    initProductBuilderGallery();
   });
 } else {
   initMobileMenu();
@@ -938,4 +1006,5 @@ if (document.readyState === 'loading') {
   initShopArchiveFilters();
   initRelatedSwiper();
   initProductGallery();
+  initProductBuilderGallery();
 }
