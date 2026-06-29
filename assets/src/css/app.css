@@ -1288,12 +1288,44 @@
   }
 
   .shop-product__gallery-main {
-    @apply overflow-hidden border border-slate-200 bg-white;
+    @apply relative overflow-hidden border border-slate-200 bg-white;
+  }
+
+  .shop-product__gallery-swiper {
+    @apply w-full;
+  }
+
+  .shop-product__gallery-zoom-trigger {
+    @apply block w-full cursor-zoom-in bg-white;
   }
 
   .shop-product__image,
   .shop-product__image-placeholder {
     @apply aspect-[4/3] w-full object-contain;
+  }
+
+  .shop-product__gallery-nav {
+    @apply absolute top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-lg font-semibold text-slate-700 shadow-sm backdrop-blur transition hover:border-brand-300 hover:text-brand-700;
+  }
+
+  .shop-product__gallery-nav--prev {
+    @apply left-3;
+  }
+
+  .shop-product__gallery-nav--next {
+    @apply right-3;
+  }
+
+  .shop-product__gallery-pagination {
+    @apply absolute bottom-3 left-0 right-0 z-10 flex justify-center gap-2;
+  }
+
+  .shop-product__gallery-pagination .swiper-pagination-bullet {
+    @apply m-0 h-2 w-2 rounded-full bg-slate-400 opacity-60;
+  }
+
+  .shop-product__gallery-pagination .swiper-pagination-bullet-active {
+    @apply bg-brand-700 opacity-100;
   }
 
   .shop-product__image-placeholder,
@@ -1307,11 +1339,67 @@
   }
 
   .shop-product__thumb {
-    @apply overflow-hidden border border-slate-200;
+    @apply overflow-hidden border border-slate-200 transition hover:border-brand-300;
+  }
+
+  .shop-product__thumb.is-active {
+    @apply border-brand-700 ring-2 ring-brand-700/20;
   }
 
   .shop-product__thumb-image {
     @apply aspect-square w-full object-cover;
+  }
+
+  .product-gallery-open {
+    @apply overflow-hidden;
+  }
+
+  .shop-product__lightbox {
+    @apply fixed inset-0 z-[90];
+  }
+
+  .shop-product__lightbox[hidden] {
+    @apply hidden;
+  }
+
+  .shop-product__lightbox-backdrop {
+    @apply absolute inset-0 bg-slate-950/85;
+  }
+
+  .shop-product__lightbox-panel {
+    @apply relative z-10 flex h-full flex-col px-4 py-14 sm:px-8;
+  }
+
+  .shop-product__lightbox-close {
+    @apply absolute right-4 top-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-3xl leading-none text-white transition hover:bg-white/20 sm:right-8;
+  }
+
+  .shop-product__lightbox-swiper {
+    @apply min-h-0 w-full flex-1;
+  }
+
+  .shop-product__lightbox-swiper .swiper-slide {
+    @apply flex items-center justify-center;
+  }
+
+  .shop-product__lightbox-image {
+    @apply max-h-[76vh] w-auto max-w-full object-contain;
+  }
+
+  .shop-product__lightbox-nav {
+    @apply absolute top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xl font-semibold text-white transition hover:bg-white/20;
+  }
+
+  .shop-product__lightbox-nav--prev {
+    @apply left-2 sm:left-6;
+  }
+
+  .shop-product__lightbox-nav--next {
+    @apply right-2 sm:right-6;
+  }
+
+  .shop-product__lightbox-help {
+    @apply mt-4 text-center text-sm text-white/70;
   }
 
   .shop-product__summary {

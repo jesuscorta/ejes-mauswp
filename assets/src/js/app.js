@@ -301,6 +301,133 @@ const initRelatedSwiper = () => {
   });
 };
 
+const initProductGallery = () => {
+  if (typeof window.Swiper !== 'function') {
+    return;
+  }
+
+  const galleries = document.querySelectorAll('[data-product-gallery]');
+
+  galleries.forEach((gallery) => {
+    const mainElement = gallery.querySelector('[data-product-gallery-main]');
+    const prevButton = gallery.querySelector('[data-product-gallery-prev]');
+    const nextButton = gallery.querySelector('[data-product-gallery-next]');
+    const pagination = gallery.querySelector('[data-product-gallery-pagination]');
+    const thumbs = Array.from(gallery.querySelectorAll('[data-product-gallery-thumb]'));
+    const openButtons = gallery.querySelectorAll('[data-product-gallery-open]');
+    const lightbox = gallery.querySelector('[data-product-gallery-lightbox]');
+    const lightboxElement = gallery.querySelector('[data-product-gallery-lightbox-swiper]');
+    const lightboxPrev = gallery.querySelector('[data-product-gallery-lightbox-prev]');
+    const lightboxNext = gallery.querySelector('[data-product-gallery-lightbox-next]');
+    const closeButtons = gallery.querySelectorAll('[data-product-gallery-close]');
+
+    if (!mainElement) {
+      return;
+    }
+
+    const setActiveThumb = (index) => {
+      thumbs.forEach((thumb, thumbIndex) => {
+        const isActive = thumbIndex === index;
+        thumb.classList.toggle('is-active', isActive);
+        thumb.setAttribute('aria-current', isActive ? 'true' : 'false');
+      });
+    };
+
+    const mainSwiper = new window.Swiper(mainElement, {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      speed: 550,
+      loop: thumbs.length > 1,
+      autoplay: thumbs.length > 1 ? {
+        delay: 4500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      } : false,
+      navigation: {
+        prevEl: prevButton,
+        nextEl: nextButton
+      },
+      pagination: pagination ? {
+        el: pagination,
+        clickable: true
+      } : false,
+      on: {
+        init(swiper) {
+          setActiveThumb(swiper.realIndex || 0);
+        },
+        slideChange(swiper) {
+          setActiveThumb(swiper.realIndex || 0);
+        }
+      }
+    });
+
+    let lightboxSwiper = null;
+
+    if (lightboxElement) {
+      lightboxSwiper = new window.Swiper(lightboxElement, {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        speed: 450,
+        zoom: {
+          maxRatio: 2.5
+        },
+        navigation: {
+          prevEl: lightboxPrev,
+          nextEl: lightboxNext
+        }
+      });
+    }
+
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        const index = Number.parseInt(thumb.dataset.galleryIndex || '0', 10);
+        mainSwiper.slideToLoop(index);
+      });
+    });
+
+    const closeLightbox = () => {
+      if (!lightbox) {
+        return;
+      }
+
+      lightbox.setAttribute('hidden', 'hidden');
+      document.documentElement.classList.remove('product-gallery-open');
+
+      if (lightboxSwiper && lightboxSwiper.zoom) {
+        lightboxSwiper.zoom.out();
+      }
+    };
+
+    const openLightbox = (index) => {
+      if (!lightbox || !lightboxSwiper) {
+        return;
+      }
+
+      lightbox.removeAttribute('hidden');
+      document.documentElement.classList.add('product-gallery-open');
+      lightboxSwiper.slideTo(index, 0);
+      lightboxSwiper.update();
+    };
+
+    openButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const index = Number.parseInt(button.dataset.galleryIndex || '0', 10);
+        openLightbox(index);
+      });
+    });
+
+    closeButtons.forEach((button) => {
+      button.addEventListener('click', closeLightbox);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && lightbox && !lightbox.hasAttribute('hidden')) {
+        closeLightbox();
+      }
+    });
+  });
+};
+
 const initProductConfigInfoModal = () => {
   const modals = document.querySelectorAll('[data-product-config-info-modal]');
 
@@ -797,6 +924,7 @@ if (document.readyState === 'loading') {
     initHeaderSearch();
     initShopArchiveFilters();
     initRelatedSwiper();
+    initProductGallery();
   });
 } else {
   initMobileMenu();
@@ -809,4 +937,5 @@ if (document.readyState === 'loading') {
   initHeaderSearch();
   initShopArchiveFilters();
   initRelatedSwiper();
+  initProductGallery();
 }

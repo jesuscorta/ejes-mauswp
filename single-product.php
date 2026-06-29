@@ -35,6 +35,7 @@ while ( have_posts() ) :
 	$short_description = $product->get_short_description();
 	$main_image_id     = $product->get_image_id();
 	$gallery_image_ids = $product->get_gallery_image_ids();
+	$product_gallery_ids = array_values( array_unique( array_filter( array_merge( [ $main_image_id ], array_map( 'intval', $gallery_image_ids ) ) ) ) );
 	$description       = get_the_content();
 	$shop_url          = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/tienda/' );
 	$support_title     = function_exists( 'get_field' ) ? (string) get_field( 'mauswp_product_support_title', 'option' ) : '';
@@ -62,22 +63,73 @@ while ( have_posts() ) :
 			<?php mauswp_yoast_breadcrumbs( 'shop-product__breadcrumbs' ); ?>
 
 			<article <?php post_class( 'shop-product__layout' ); ?>>
-				<section class="shop-product__gallery card" aria-label="<?php esc_attr_e( 'Galería del producto', 'mauswp' ); ?>">
-					<div class="shop-product__gallery-main">
-						<?php if ( $main_image_id > 0 ) : ?>
-							<?php echo wp_get_attachment_image( $main_image_id, 'full', false, [ 'class' => 'shop-product__image' ] ); ?>
-						<?php else : ?>
-							<div class="shop-product__image-placeholder" aria-hidden="true"></div>
-						<?php endif; ?>
-					</div>
-
-					<?php if ( ! empty( $gallery_image_ids ) ) : ?>
-						<div class="shop-product__thumbs">
-							<?php foreach ( $gallery_image_ids as $gallery_image_id ) : ?>
-								<div class="shop-product__thumb">
-									<?php echo wp_get_attachment_image( (int) $gallery_image_id, 'medium_large', false, [ 'class' => 'shop-product__thumb-image' ] ); ?>
+				<section class="shop-product__gallery card" aria-label="<?php esc_attr_e( 'Galería del producto', 'mauswp' ); ?>" data-product-gallery>
+					<?php if ( ! empty( $product_gallery_ids ) ) : ?>
+						<div class="shop-product__gallery-main">
+							<div class="swiper shop-product__gallery-swiper" data-product-gallery-main>
+								<div class="swiper-wrapper">
+									<?php foreach ( $product_gallery_ids as $gallery_index => $gallery_image_id ) : ?>
+										<div class="swiper-slide">
+											<button class="shop-product__gallery-zoom-trigger" type="button" data-product-gallery-open data-gallery-index="<?php echo esc_attr( (string) $gallery_index ); ?>" aria-label="<?php esc_attr_e( 'Ampliar imagen del producto', 'mauswp' ); ?>">
+												<?php
+												echo wp_get_attachment_image(
+													$gallery_image_id,
+													'large',
+													false,
+													[
+														'class'    => 'shop-product__image',
+														'loading'  => 0 === $gallery_index ? 'eager' : 'lazy',
+														'decoding' => 'async',
+													]
+												);
+												?>
+											</button>
+										</div>
+									<?php endforeach; ?>
 								</div>
-							<?php endforeach; ?>
+								<?php if ( count( $product_gallery_ids ) > 1 ) : ?>
+									<button class="shop-product__gallery-nav shop-product__gallery-nav--prev" type="button" data-product-gallery-prev aria-label="<?php esc_attr_e( 'Imagen anterior', 'mauswp' ); ?>">&larr;</button>
+									<button class="shop-product__gallery-nav shop-product__gallery-nav--next" type="button" data-product-gallery-next aria-label="<?php esc_attr_e( 'Imagen siguiente', 'mauswp' ); ?>">&rarr;</button>
+									<div class="shop-product__gallery-pagination" data-product-gallery-pagination></div>
+								<?php endif; ?>
+							</div>
+						</div>
+
+						<?php if ( count( $product_gallery_ids ) > 1 ) : ?>
+							<div class="shop-product__thumbs" aria-label="<?php esc_attr_e( 'Miniaturas del producto', 'mauswp' ); ?>">
+								<?php foreach ( $product_gallery_ids as $gallery_index => $gallery_image_id ) : ?>
+									<button class="shop-product__thumb <?php echo 0 === $gallery_index ? esc_attr( 'is-active' ) : ''; ?>" type="button" data-product-gallery-thumb data-gallery-index="<?php echo esc_attr( (string) $gallery_index ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Ver imagen %d', 'mauswp' ), $gallery_index + 1 ) ); ?>">
+										<?php echo wp_get_attachment_image( $gallery_image_id, 'thumbnail', false, [ 'class' => 'shop-product__thumb-image', 'loading' => 'lazy', 'decoding' => 'async' ] ); ?>
+									</button>
+								<?php endforeach; ?>
+							</div>
+						<?php endif; ?>
+
+						<div class="shop-product__lightbox" hidden data-product-gallery-lightbox aria-modal="true" role="dialog" aria-label="<?php esc_attr_e( 'Galería ampliada del producto', 'mauswp' ); ?>">
+							<button class="shop-product__lightbox-backdrop" type="button" data-product-gallery-close aria-label="<?php esc_attr_e( 'Cerrar galería', 'mauswp' ); ?>"></button>
+							<div class="shop-product__lightbox-panel">
+								<button class="shop-product__lightbox-close" type="button" data-product-gallery-close aria-label="<?php esc_attr_e( 'Cerrar galería', 'mauswp' ); ?>">&times;</button>
+								<div class="swiper shop-product__lightbox-swiper" data-product-gallery-lightbox-swiper>
+									<div class="swiper-wrapper">
+										<?php foreach ( $product_gallery_ids as $gallery_image_id ) : ?>
+											<div class="swiper-slide">
+												<div class="swiper-zoom-container">
+													<?php echo wp_get_attachment_image( $gallery_image_id, 'full', false, [ 'class' => 'shop-product__lightbox-image', 'loading' => 'lazy', 'decoding' => 'async' ] ); ?>
+												</div>
+											</div>
+										<?php endforeach; ?>
+									</div>
+									<?php if ( count( $product_gallery_ids ) > 1 ) : ?>
+										<button class="shop-product__lightbox-nav shop-product__lightbox-nav--prev" type="button" data-product-gallery-lightbox-prev aria-label="<?php esc_attr_e( 'Imagen anterior', 'mauswp' ); ?>">&larr;</button>
+										<button class="shop-product__lightbox-nav shop-product__lightbox-nav--next" type="button" data-product-gallery-lightbox-next aria-label="<?php esc_attr_e( 'Imagen siguiente', 'mauswp' ); ?>">&rarr;</button>
+									<?php endif; ?>
+								</div>
+								<p class="shop-product__lightbox-help"><?php esc_html_e( 'Haz doble clic o pellizca para ampliar. Arrastra para desplazarte.', 'mauswp' ); ?></p>
+							</div>
+						</div>
+					<?php else : ?>
+						<div class="shop-product__gallery-main">
+							<div class="shop-product__image-placeholder" aria-hidden="true"></div>
 						</div>
 					<?php endif; ?>
 				</section>
