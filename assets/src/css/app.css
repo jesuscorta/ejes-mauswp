@@ -1426,6 +1426,14 @@
     @apply no-underline;
   }
 
+  .shop-product__rating-summary {
+    @apply inline-flex flex-wrap items-center gap-2 text-sm font-semibold text-slate-600 transition hover:text-brand-700;
+  }
+
+  .shop-product__rating-stars {
+    @apply inline-flex text-sm leading-none tracking-[0.08em] text-accent;
+  }
+
   .shop-product__intro {
     @apply border-b border-slate-200 py-6 text-base leading-8 text-slate-600;
   }
@@ -1618,6 +1626,62 @@
   }
 
   .shop-product__content > :last-child {
+    @apply mb-0;
+  }
+
+  .shop-product__reviews {
+    @apply p-6 sm:p-8;
+  }
+
+  .shop-product__reviews-header {
+    @apply grid gap-6 border-b border-slate-200 pb-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end;
+  }
+
+  .shop-product__reviews-score {
+    @apply flex flex-col items-start gap-2 border border-slate-200 bg-slate-50 p-4 md:min-w-[13rem] md:items-end;
+  }
+
+  .shop-product__reviews-score-number {
+    @apply text-4xl font-semibold tracking-tight text-slate-950;
+  }
+
+  .shop-product__reviews-score-count {
+    @apply text-sm font-medium text-slate-500;
+  }
+
+  .shop-product__reviews-list {
+    @apply divide-y divide-slate-200;
+  }
+
+  .shop-product__review {
+    @apply py-6;
+  }
+
+  .shop-product__review:last-child {
+    @apply pb-0;
+  }
+
+  .shop-product__review-header {
+    @apply mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between;
+  }
+
+  .shop-product__review-author {
+    @apply font-semibold text-slate-950;
+  }
+
+  .shop-product__review-date {
+    @apply mt-1 block text-sm text-slate-500;
+  }
+
+  .shop-product__review-content {
+    @apply max-w-3xl text-base leading-7 text-slate-600;
+  }
+
+  .shop-product__review-content > :first-child {
+    @apply mt-0;
+  }
+
+  .shop-product__review-content > :last-child {
     @apply mb-0;
   }
 
