@@ -1645,6 +1645,10 @@
     @apply text-4xl font-semibold tracking-tight text-slate-950;
   }
 
+  .shop-product__reviews-score-label {
+    @apply text-lg font-semibold text-slate-950;
+  }
+
   .shop-product__reviews-score-count {
     @apply text-sm font-medium text-slate-500;
   }

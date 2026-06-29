@@ -48,15 +48,9 @@ while ( have_posts() ) :
 	if ( $review_count > 0 ) {
 		$review_comments = get_comments(
 			[
-				'post_id'    => $product_id,
-				'status'     => 'approve',
-				'number'     => 3,
-				'meta_query' => [
-					[
-						'key'     => 'rating',
-						'compare' => 'EXISTS',
-					],
-				],
+				'post_id' => $product_id,
+				'status'  => 'approve',
+				'number'  => 3,
 			]
 		);
 	}
@@ -163,9 +157,13 @@ while ( have_posts() ) :
 							<div class="shop-product__price"><?php echo wp_kses_post( $product->get_price_html() ); ?></div>
 						<?php endif; ?>
 						<?php if ( $review_count > 0 ) : ?>
-							<a class="shop-product__rating-summary" href="#product-reviews" aria-label="<?php echo esc_attr( sprintf( __( 'Ver %1$s valoraciones. Valoración media: %2$s de 5', 'mauswp' ), number_format_i18n( $review_count ), wc_format_decimal( $average_rating, 1 ) ) ); ?>">
-								<span class="shop-product__rating-stars" aria-hidden="true"><?php echo esc_html( str_repeat( '★', (int) round( $average_rating ) ) . str_repeat( '☆', 5 - (int) round( $average_rating ) ) ); ?></span>
-								<span><?php echo esc_html( wc_format_decimal( $average_rating, 1 ) ); ?> · <?php echo esc_html( sprintf( _n( '%s valoración', '%s valoraciones', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
+							<a class="shop-product__rating-summary" href="#product-reviews" aria-label="<?php echo esc_attr( sprintf( _n( 'Ver %s valoración', 'Ver %s valoraciones', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?>">
+								<?php if ( $average_rating > 0 ) : ?>
+									<span class="shop-product__rating-stars" aria-hidden="true"><?php echo esc_html( str_repeat( '★', (int) round( $average_rating ) ) . str_repeat( '☆', 5 - (int) round( $average_rating ) ) ); ?></span>
+									<span><?php echo esc_html( wc_format_decimal( $average_rating, 1 ) ); ?> · <?php echo esc_html( sprintf( _n( '%s valoración', '%s valoraciones', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
+								<?php else : ?>
+									<span><?php echo esc_html( sprintf( _n( '%s valoración', '%s valoraciones', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
+								<?php endif; ?>
 							</a>
 						<?php endif; ?>
 					</div>
@@ -208,9 +206,13 @@ while ( have_posts() ) :
 							<p class="eyebrow"><?php esc_html_e( 'Opiniones reales', 'mauswp' ); ?></p>
 							<h2 class="section-title" id="product-reviews-title"><?php esc_html_e( 'Valoraciones de clientes', 'mauswp' ); ?></h2>
 						</div>
-						<div class="shop-product__reviews-score" aria-label="<?php echo esc_attr( sprintf( __( 'Valoración media %s de 5', 'mauswp' ), wc_format_decimal( $average_rating, 1 ) ) ); ?>">
-							<span class="shop-product__reviews-score-number"><?php echo esc_html( wc_format_decimal( $average_rating, 1 ) ); ?></span>
-							<span class="shop-product__rating-stars" aria-hidden="true"><?php echo esc_html( str_repeat( '★', (int) round( $average_rating ) ) . str_repeat( '☆', 5 - (int) round( $average_rating ) ) ); ?></span>
+						<div class="shop-product__reviews-score" <?php if ( $average_rating > 0 ) : ?>aria-label="<?php echo esc_attr( sprintf( __( 'Valoración media %s de 5', 'mauswp' ), wc_format_decimal( $average_rating, 1 ) ) ); ?>"<?php endif; ?>>
+							<?php if ( $average_rating > 0 ) : ?>
+								<span class="shop-product__reviews-score-number"><?php echo esc_html( wc_format_decimal( $average_rating, 1 ) ); ?></span>
+								<span class="shop-product__rating-stars" aria-hidden="true"><?php echo esc_html( str_repeat( '★', (int) round( $average_rating ) ) . str_repeat( '☆', 5 - (int) round( $average_rating ) ) ); ?></span>
+							<?php else : ?>
+								<span class="shop-product__reviews-score-label"><?php esc_html_e( 'Con valoración', 'mauswp' ); ?></span>
+							<?php endif; ?>
 							<span class="shop-product__reviews-score-count"><?php echo esc_html( sprintf( _n( 'Basado en %s valoración', 'Basado en %s valoraciones', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
 						</div>
 					</div>
