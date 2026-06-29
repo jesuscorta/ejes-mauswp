@@ -24,6 +24,7 @@ function mauswp_allowed_block_types( $allowed_block_types ): array {
 		'acf/mauswp-editorial-offset',
 		'acf/mauswp-latest-posts',
 		'acf/mauswp-product-showcase',
+		'acf/mauswp-google-reviews',
 		'acf/mauswp-contact-form',
 		'core/paragraph',
 		'core/heading',
