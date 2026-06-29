@@ -48,10 +48,15 @@ while ( have_posts() ) :
 	if ( $review_count > 0 ) {
 		$review_comments = get_comments(
 			[
-				'post_id' => $product_id,
-				'status'  => 'approve',
-				'type'    => 'review',
-				'number'  => 3,
+				'post_id'    => $product_id,
+				'status'     => 'approve',
+				'number'     => 3,
+				'meta_query' => [
+					[
+						'key'     => 'rating',
+						'compare' => 'EXISTS',
+					],
+				],
 			]
 		);
 	}
@@ -196,7 +201,7 @@ while ( have_posts() ) :
 				<?php endif; ?>
 			</section>
 
-			<?php if ( $review_count > 0 && ! empty( $review_comments ) ) : ?>
+			<?php if ( $review_count > 0 ) : ?>
 				<section class="shop-product__reviews card" id="product-reviews" aria-labelledby="product-reviews-title">
 					<div class="shop-product__reviews-header">
 						<div>
@@ -210,7 +215,8 @@ while ( have_posts() ) :
 						</div>
 					</div>
 
-					<div class="shop-product__reviews-list">
+					<?php if ( ! empty( $review_comments ) ) : ?>
+						<div class="shop-product__reviews-list">
 						<?php foreach ( $review_comments as $review_comment ) : ?>
 							<?php
 							if ( ! $review_comment instanceof WP_Comment ) {
@@ -235,7 +241,8 @@ while ( have_posts() ) :
 								</div>
 							</article>
 						<?php endforeach; ?>
-					</div>
+						</div>
+					<?php endif; ?>
 				</section>
 			<?php endif; ?>
 
