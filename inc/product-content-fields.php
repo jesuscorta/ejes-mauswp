@@ -104,6 +104,35 @@ function mauswp_register_product_content_fields(): void {
 									'instructions' => __( 'Opcional. Por ejemplo: Preguntas frecuentes.', 'mauswp' ),
 								],
 								[
+									'key'           => 'field_mauswp_product_faqs_enable_image',
+									'label'         => __( 'Añadir imagen', 'mauswp' ),
+									'name'          => 'enable_image',
+									'type'          => 'true_false',
+									'instructions'  => __( 'Activa esta opción para mostrar una imagen a la izquierda y las FAQs a la derecha.', 'mauswp' ),
+									'default_value' => 0,
+									'ui'            => 1,
+									'ui_on_text'    => __( 'Sí', 'mauswp' ),
+									'ui_off_text'   => __( 'No', 'mauswp' ),
+								],
+								[
+									'key'               => 'field_mauswp_product_faqs_image',
+									'label'             => __( 'Imagen', 'mauswp' ),
+									'name'              => 'image',
+									'type'              => 'image',
+									'return_format'     => 'array',
+									'preview_size'      => 'medium_large',
+									'library'           => 'all',
+									'conditional_logic' => [
+										[
+											[
+												'field'    => 'field_mauswp_product_faqs_enable_image',
+												'operator' => '==',
+												'value'    => '1',
+											],
+										],
+									],
+								],
+								[
 									'key'          => 'field_mauswp_product_faqs_items',
 									'label'        => __( 'Preguntas y respuestas', 'mauswp' ),
 									'name'         => 'items',
@@ -248,11 +277,29 @@ function mauswp_render_product_editorial_builder( int $product_id ): void {
 		}
 
 		if ( 'faqs' === $layout ) {
-			$title = (string) get_sub_field( 'title' );
-			$items = get_sub_field( 'items' );
+			$title        = (string) get_sub_field( 'title' );
+			$enable_image = (bool) get_sub_field( 'enable_image' );
+			$image        = get_sub_field( 'image' );
+			$items        = get_sub_field( 'items' );
+			$has_image    = $enable_image && is_array( $image ) && ! empty( $image['ID'] );
 
 			if ( is_array( $items ) && ! empty( $items ) ) {
-				echo '<section class="shop-product-builder__block shop-product-builder__block--faqs" aria-label="' . esc_attr__( 'Preguntas frecuentes', 'mauswp' ) . '">';
+				$section_class = 'shop-product-builder__block shop-product-builder__block--faqs';
+
+				if ( $has_image ) {
+					$section_class .= ' shop-product-builder__block--faqs-with-image';
+				}
+
+				echo '<section class="' . esc_attr( $section_class ) . '" aria-label="' . esc_attr__( 'Preguntas frecuentes', 'mauswp' ) . '">';
+				echo '<div class="shop-product-builder__faqs-layout">';
+
+				if ( $has_image ) {
+					echo '<div class="shop-product-builder__faqs-media">';
+					echo wp_get_attachment_image( (int) $image['ID'], 'large', false, [ 'class' => 'shop-product-builder__faqs-image', 'loading' => 'lazy', 'decoding' => 'async' ] );
+					echo '</div>';
+				}
+
+				echo '<div class="shop-product-builder__faqs-content">';
 
 				if ( '' !== trim( $title ) ) {
 					echo '<h2 class="shop-product-builder__faqs-title">' . esc_html( $title ) . '</h2>';
@@ -278,6 +325,8 @@ function mauswp_render_product_editorial_builder( int $product_id ): void {
 					echo '</details>';
 				}
 
+				echo '</div>';
+				echo '</div>';
 				echo '</div>';
 				echo '</section>';
 			}
