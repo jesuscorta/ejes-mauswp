@@ -5,15 +5,18 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    @apply bg-slate-950;
-    overscroll-behavior: none;
   }
 
   body {
     @apply bg-white font-sans text-base text-slate-900;
   }
 
-  body {
+  html.mauswp-frontend {
+    @apply bg-slate-950;
+    overscroll-behavior: none;
+  }
+
+  html.mauswp-frontend body {
     @apply min-h-screen overflow-x-hidden;
     overscroll-behavior: none;
   }

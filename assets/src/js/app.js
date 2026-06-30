@@ -1,4 +1,4 @@
-document.documentElement.classList.add('js');
+document.documentElement.classList.add('js', 'mauswp-frontend');
 
 const scrollLockTokens = new Set();
 let lockedScrollY = 0;
