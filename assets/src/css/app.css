@@ -614,11 +614,11 @@
   }
 
   .features-strip-block__item {
-    @apply flex h-full flex-col items-start rounded-[1.6rem] border border-stone-300/90 bg-white px-8 py-8 shadow-[0_22px_48px_-34px_rgba(15,23,42,0.2)];
+    @apply flex h-full flex-col items-start rounded-lg border border-slate-300/90 bg-white px-8 py-8 shadow-[0_22px_48px_-34px_rgba(15,23,42,0.2)];
   }
 
   .features-strip-block__icon-wrap {
-    @apply mb-6 flex h-[3.1rem] w-[3.1rem] items-center justify-center rounded-[0.9rem] bg-[#eef2ea];
+    @apply mb-6 flex h-[3.1rem] w-[3.1rem] items-center justify-center rounded-lg bg-brand-50;
   }
 
   .features-strip-block__icon {
@@ -628,6 +628,14 @@
 
   .features-strip-block__icon-fallback {
     @apply h-5 w-5 border-[3px] border-brand-800;
+  }
+
+  .features-strip-block__nav {
+    @apply mt-6 flex items-center justify-center gap-4 lg:hidden;
+  }
+
+  .features-strip-block__nav-btn {
+    @apply inline-flex h-10 w-10 items-center justify-center border border-slate-300 bg-white text-lg text-slate-700 transition hover:border-brand-700 hover:text-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2;
   }
 
   .features-strip-block__title {
@@ -2046,7 +2054,7 @@
   }
 
   .shop-product-builder__block--text blockquote {
-    @apply my-5 border-l-4 border-brand-300 pl-5 text-slate-600;
+    @apply my-5 border border-slate-200 bg-slate-50 pl-5 pr-5 py-4 text-slate-600;
   }
 
   .shop-flow__card {

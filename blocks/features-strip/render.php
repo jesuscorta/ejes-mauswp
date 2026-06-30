@@ -32,38 +32,45 @@ if ( is_array( $items ) ) {
 			continue;
 		}
 
-		$icon_url = '';
+	$icon_url = '';
+	$icon_id  = 0;
 
-		if ( ! empty( $item['icon'] ) && is_array( $item['icon'] ) && ! empty( $item['icon']['url'] ) ) {
-			$icon_url = (string) $item['icon']['url'];
-		}
+	if ( ! empty( $item['icon'] ) && is_array( $item['icon'] ) ) {
+		$icon_id  = ! empty( $item['icon']['ID'] ) ? (int) $item['icon']['ID'] : 0;
+		$icon_url = ! empty( $item['icon']['sizes']['thumbnail'] ) ? (string) $item['icon']['sizes']['thumbnail'] : ( ! empty( $item['icon']['url'] ) ? (string) $item['icon']['url'] : '' );
+	}
 
-		$features[] = [
-			'icon_url' => $icon_url,
-			'title'    => ! empty( $item['title'] ) ? (string) $item['title'] : '',
-			'text'     => ! empty( $item['text'] ) ? (string) $item['text'] : '',
-		];
+	$features[] = [
+		'icon_id'  => $icon_id,
+		'icon_url' => $icon_url,
+		'title'    => ! empty( $item['title'] ) ? (string) $item['title'] : '',
+		'text'     => ! empty( $item['text'] ) ? (string) $item['text'] : '',
+	];
 	}
 }
 
 if ( empty( $features ) ) {
 	$features = [
 		[
+			'icon_id'  => 0,
 			'icon_url' => '',
 			'title'    => __( 'Fabricación a medida', 'mauswp' ),
 			'text'     => __( 'Adaptamos cada pieza a tus especificaciones exactas.', 'mauswp' ),
 		],
 		[
+			'icon_id'  => 0,
 			'icon_url' => '',
 			'title'    => __( 'Galvanizado y sin galvanizar', 'mauswp' ),
 			'text'     => __( 'Elige el acabado que mejor se adapta a tu uso y entorno.', 'mauswp' ),
 		],
 		[
+			'icon_id'  => 0,
 			'icon_url' => '',
 			'title'    => __( 'Envío a toda España', 'mauswp' ),
 			'text'     => __( 'Consulta plazos y condiciones según tu destino.', 'mauswp' ),
 		],
 		[
+			'icon_id'  => 0,
 			'icon_url' => '',
 			'title'    => __( 'Recambios disponibles', 'mauswp' ),
 			'text'     => __( 'Stock de piezas para mantenimiento y reparación.', 'mauswp' ),
@@ -84,8 +91,10 @@ if ( empty( $features ) ) {
 		<?php foreach ( $features as $feature ) : ?>
 			<li class="features-strip-block__item swiper-slide">
 				<div class="features-strip-block__icon-wrap">
-					<?php if ( '' !== $feature['icon_url'] ) : ?>
-						<img class="features-strip-block__icon" src="<?php echo esc_url( $feature['icon_url'] ); ?>" alt="" loading="lazy">
+					<?php if ( $feature['icon_id'] > 0 ) : ?>
+						<?php echo wp_get_attachment_image( $feature['icon_id'], 'thumbnail', false, [ 'class' => 'features-strip-block__icon', 'alt' => '', 'loading' => 'lazy', 'decoding' => 'async' ] ); ?>
+					<?php elseif ( '' !== $feature['icon_url'] ) : ?>
+						<img class="features-strip-block__icon" src="<?php echo esc_url( $feature['icon_url'] ); ?>" alt="" loading="lazy" decoding="async" width="24" height="24">
 					<?php else : ?>
 						<span class="features-strip-block__icon-fallback" aria-hidden="true"></span>
 					<?php endif; ?>
@@ -99,6 +108,14 @@ if ( empty( $features ) ) {
 			</li>
 		<?php endforeach; ?>
 		</ul>
+		</div>
+		<div class="features-strip-block__nav" aria-label="<?php esc_attr_e( 'Navegación de ventajas', 'mauswp' ); ?>">
+			<button class="features-strip-block__nav-btn" type="button" data-features-strip-prev aria-label="<?php esc_attr_e( 'Anterior', 'mauswp' ); ?>">
+				<span aria-hidden="true">&larr;</span>
+			</button>
+			<button class="features-strip-block__nav-btn" type="button" data-features-strip-next aria-label="<?php esc_attr_e( 'Siguiente', 'mauswp' ); ?>">
+				<span aria-hidden="true">&rarr;</span>
+			</button>
 		</div>
 	</div>
 </section>

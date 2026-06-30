@@ -51,42 +51,47 @@ if ( is_array( $cta_link ) ) {
 	$cta_rel    = '_blank' === $cta_target ? 'noopener noreferrer' : '';
 }
 
-$latest_posts_query = new WP_Query(
-	[
-		'post_type'           => 'post',
-		'post_status'         => 'publish',
-		'posts_per_page'      => 4,
-		'ignore_sticky_posts' => true,
-		'no_found_rows'       => true,
-	]
-);
+$posts = get_transient( 'mauswp_latest_posts_block' );
 
-$posts = [];
+if ( false === $posts || ! is_array( $posts ) ) {
+	$posts = [];
 
-if ( $latest_posts_query->have_posts() ) {
-	while ( $latest_posts_query->have_posts() ) {
-		$latest_posts_query->the_post();
+	$latest_posts_query = new WP_Query(
+		[
+			'post_type'           => 'post',
+			'post_status'         => 'publish',
+			'posts_per_page'      => 4,
+			'ignore_sticky_posts' => true,
+			'no_found_rows'       => true,
+		]
+	);
 
-		$post_id         = get_the_ID();
-		$post_categories = get_the_category( $post_id );
-		$primary_term    = ! empty( $post_categories ) ? $post_categories[0]->name : __( 'Blog', 'mauswp' );
-		$excerpt_source  = has_excerpt() ? get_the_excerpt() : wp_strip_all_tags( get_the_content() );
+	if ( $latest_posts_query->have_posts() ) {
+		while ( $latest_posts_query->have_posts() ) {
+			$latest_posts_query->the_post();
 
-		$posts[] = [
-			'id'           => $post_id,
-			'permalink'    => get_permalink(),
-			'title'        => get_the_title(),
-			'date'         => get_the_date(),
-			'date_w3c'     => get_the_date( DATE_W3C ),
-			'primary_term' => $primary_term,
-			'excerpt'      => wp_trim_words( $excerpt_source, 18, '...' ),
-			'has_thumb'    => has_post_thumbnail(),
-		];
+			$post_id         = get_the_ID();
+			$post_categories = get_the_category( $post_id );
+			$primary_term    = ! empty( $post_categories ) ? $post_categories[0]->name : __( 'Blog', 'mauswp' );
+			$excerpt_source  = has_excerpt() ? get_the_excerpt() : wp_strip_all_tags( get_the_content() );
+
+			$posts[] = [
+				'id'           => $post_id,
+				'permalink'    => get_permalink(),
+				'title'        => get_the_title(),
+				'date'         => get_the_date(),
+				'date_w3c'     => get_the_date( DATE_W3C ),
+				'primary_term' => $primary_term,
+				'excerpt'      => wp_trim_words( $excerpt_source, 18, '...' ),
+				'has_thumb'    => has_post_thumbnail(),
+			];
+		}
+
+		wp_reset_postdata();
 	}
 
-	wp_reset_postdata();
+	set_transient( 'mauswp_latest_posts_block', $posts, 5 * MINUTE_IN_SECONDS );
 }
-
 $featured_post = ! empty( $posts ) ? array_shift( $posts ) : null;
 ?>
 <section
@@ -120,7 +125,7 @@ $featured_post = ! empty( $posts ) ? array_shift( $posts ) : null;
 	<?php if ( ! empty( $featured_post ) ) : ?>
 		<div class="latest-posts-block__layout">
 			<article class="latest-posts-block__card latest-posts-block__card--featured">
-				<a class="latest-posts-block__featured-link" href="<?php echo esc_url( $featured_post['permalink'] ); ?>">
+				<a class="latest-posts-block__featured-link" href="<?php echo esc_url( $featured_post['permalink'] ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Leer entrada: %s', 'mauswp' ), $featured_post['title'] ) ); ?>">
 					<div class="latest-posts-block__featured-media">
 						<?php if ( $featured_post['has_thumb'] ) : ?>
 							<?php echo get_the_post_thumbnail( $featured_post['id'], 'large', [ 'class' => 'latest-posts-block__image' ] ); ?>
@@ -150,7 +155,7 @@ $featured_post = ! empty( $posts ) ? array_shift( $posts ) : null;
 			<div class="latest-posts-block__stack">
 				<?php foreach ( $posts as $post_item ) : ?>
 					<article class="latest-posts-block__card latest-posts-block__card--compact">
-						<a class="latest-posts-block__compact-link" href="<?php echo esc_url( $post_item['permalink'] ); ?>">
+						<a class="latest-posts-block__compact-link" href="<?php echo esc_url( $post_item['permalink'] ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Leer entrada: %s', 'mauswp' ), $post_item['title'] ) ); ?>">
 							<div class="latest-posts-block__compact-body">
 								<div class="latest-posts-block__meta">
 									<span class="latest-posts-block__term"><?php echo esc_html( $post_item['primary_term'] ); ?></span>

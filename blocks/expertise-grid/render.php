@@ -38,7 +38,8 @@ if ( is_array( $items ) ) {
 		$image = ! empty( $item['image'] ) && is_array( $item['image'] ) ? $item['image'] : [];
 
 		$cards[] = [
-			'image_url'   => ! empty( $image['url'] ) ? (string) $image['url'] : '',
+			'image_id'    => ! empty( $image['ID'] ) ? (int) $image['ID'] : 0,
+			'image_url'   => ! empty( $image['sizes']['large'] ) ? (string) $image['sizes']['large'] : ( ! empty( $image['url'] ) ? (string) $image['url'] : '' ),
 			'image_alt'   => ! empty( $image['alt'] ) ? (string) $image['alt'] : '',
 			'highlight'   => ! empty( $item['highlight'] ) ? (string) $item['highlight'] : '',
 			'title'       => ! empty( $item['title'] ) ? (string) $item['title'] : '',
@@ -50,6 +51,7 @@ if ( is_array( $items ) ) {
 if ( empty( $cards ) ) {
 	$cards = [
 		[
+			'image_id'    => 0,
 			'image_url'   => '',
 			'image_alt'   => '',
 			'highlight'   => __( '24/48h', 'mauswp' ),
@@ -57,6 +59,7 @@ if ( empty( $cards ) ) {
 			'description' => __( 'Fabricación a medida y reposición rápida de ejes, enganches y recambios para remolques de feria.', 'mauswp' ),
 		],
 		[
+			'image_id'    => 0,
 			'image_url'   => '',
 			'image_alt'   => '',
 			'highlight'   => __( 'O1 / O2', 'mauswp' ),
@@ -64,6 +67,7 @@ if ( empty( $cards ) ) {
 			'description' => __( 'Soluciones para remolques de coche con y sin freno, desde ejes fabricados a medida hasta recambios de distintas marcas.', 'mauswp' ),
 		],
 		[
+			'image_id'    => 0,
 			'image_url'   => '',
 			'image_alt'   => '',
 			'highlight'   => __( 'Náutico', 'mauswp' ),
@@ -71,6 +75,7 @@ if ( empty( $cards ) ) {
 			'description' => __( 'Ejes y componentes preparados para entorno marino, con configuraciones adaptadas al transporte de embarcaciones.', 'mauswp' ),
 		],
 		[
+			'image_id'    => 0,
 			'image_url'   => '',
 			'image_alt'   => '',
 			'highlight'   => __( 'Agrícola / Industrial', 'mauswp' ),
@@ -107,12 +112,10 @@ if ( empty( $cards ) ) {
 		<?php foreach ( $cards as $card ) : ?>
 			<article class="expertise-grid-block__card">
 				<div class="expertise-grid-block__media">
-					<?php if ( '' !== $card['image_url'] ) : ?>
-						<img
-							class="expertise-grid-block__image"
-							src="<?php echo esc_url( $card['image_url'] ); ?>"
-							alt="<?php echo esc_attr( $card['image_alt'] ); ?>"
-						/>
+					<?php if ( $card['image_id'] > 0 ) : ?>
+						<?php echo wp_get_attachment_image( $card['image_id'], 'large', false, [ 'class' => 'expertise-grid-block__image', 'alt' => $card['image_alt'], 'loading' => 'lazy', 'decoding' => 'async' ] ); ?>
+					<?php elseif ( '' !== $card['image_url'] ) : ?>
+						<img class="expertise-grid-block__image" src="<?php echo esc_url( $card['image_url'] ); ?>" alt="<?php echo esc_attr( $card['image_alt'] ); ?>" loading="lazy" decoding="async" />
 					<?php else : ?>
 						<div class="expertise-grid-block__placeholder" aria-hidden="true"></div>
 					<?php endif; ?>

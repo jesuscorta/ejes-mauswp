@@ -17,6 +17,7 @@ $subtitle_place  = (string) ( get_field( 'subtitle_position' ) ?: 'below' );
 $description     = (string) ( get_field( 'description' ) ?: __( 'Más de 25 años especializados en soluciones agrícolas, industriales y remolques a nivel nacional.', 'mauswp' ) );
 $cta_label       = (string) ( get_field( 'cta_label' ) ?: __( 'Contactar', 'mauswp' ) );
 $cta_anchor      = (string) ( get_field( 'cta_anchor' ) ?: 'contacto' );
+$background_id  = 0;
 $background_url  = '';
 $background_alt  = '';
 $section_target  = '#' . ltrim( sanitize_title( $cta_anchor ), '#' );
@@ -34,6 +35,7 @@ if ( ! empty( $block['className'] ) ) {
 }
 
 if ( is_array( $background ) ) {
+	$background_id  = ! empty( $background['ID'] ) ? (int) $background['ID'] : 0;
 	$background_url = ! empty( $background['url'] ) ? (string) $background['url'] : '';
 	$background_alt = ! empty( $background['alt'] ) ? (string) $background['alt'] : '';
 }
@@ -45,12 +47,10 @@ if ( is_array( $background ) ) {
 	class="<?php echo esc_attr( implode( ' ', array_filter( $block_classes ) ) ); ?>"
 >
 	<div class="about-hero-block__media">
-		<?php if ( '' !== $background_url ) : ?>
-			<img
-				class="about-hero-block__image"
-				src="<?php echo esc_url( $background_url ); ?>"
-				alt="<?php echo esc_attr( $background_alt ); ?>"
-			/>
+		<?php if ( $background_id > 0 ) : ?>
+			<?php echo wp_get_attachment_image( $background_id, 'large', false, [ 'class' => 'about-hero-block__image', 'alt' => $background_alt, 'fetchpriority' => 'high', 'loading' => 'eager', 'decoding' => 'async' ] ); ?>
+		<?php elseif ( '' !== $background_url ) : ?>
+			<img class="about-hero-block__image" src="<?php echo esc_url( $background_url ); ?>" alt="<?php echo esc_attr( $background_alt ); ?>" fetchpriority="high" loading="eager" decoding="async" />
 		<?php else : ?>
 			<div class="about-hero-block__image about-hero-block__image--placeholder" aria-hidden="true"></div>
 		<?php endif; ?>

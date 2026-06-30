@@ -310,11 +310,19 @@ const initFeaturesStripSwiper = () => {
       return;
     }
 
+    const root = carousel.closest('[data-features-strip-swiper]');
+    const prevButton = root?.parentElement?.querySelector('[data-features-strip-prev]');
+    const nextButton = root?.parentElement?.querySelector('[data-features-strip-next]');
+
     // eslint-disable-next-line no-new
     new window.Swiper(carousel, {
       slidesPerView: 1.12,
       spaceBetween: 18,
       speed: 500,
+      navigation: prevButton && nextButton ? {
+        prevEl: prevButton,
+        nextEl: nextButton
+      } : false,
       breakpoints: {
         640: {
           slidesPerView: 2.15,

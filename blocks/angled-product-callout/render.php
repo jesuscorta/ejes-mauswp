@@ -30,11 +30,13 @@ if ( ! empty( $block['className'] ) ) {
 	}
 }
 
+$image_id  = 0;
 $image_url = '';
 $image_alt = '';
 
 if ( is_array( $image ) ) {
-	$image_url = ! empty( $image['url'] ) ? (string) $image['url'] : '';
+	$image_id  = ! empty( $image['ID'] ) ? (int) $image['ID'] : 0;
+	$image_url = ! empty( $image['sizes']['large'] ) ? (string) $image['sizes']['large'] : ( ! empty( $image['url'] ) ? (string) $image['url'] : '' );
 	$image_alt = ! empty( $image['alt'] ) ? (string) $image['alt'] : '';
 }
 ?>
@@ -46,14 +48,13 @@ if ( is_array( $image ) ) {
 >
 	<div class="angled-product-callout-block__shell">
 		<div class="angled-product-callout-block__media">
-			<?php if ( '' !== $image_url ) : ?>
+			<?php if ( $image_id > 0 ) : ?>
 				<figure class="angled-product-callout-block__figure">
-					<img
-						class="angled-product-callout-block__image"
-						src="<?php echo esc_url( $image_url ); ?>"
-						alt="<?php echo esc_attr( $image_alt ); ?>"
-						loading="lazy"
-					/>
+					<?php echo wp_get_attachment_image( $image_id, 'large', false, [ 'class' => 'angled-product-callout-block__image', 'alt' => $image_alt, 'loading' => 'lazy', 'decoding' => 'async' ] ); ?>
+				</figure>
+			<?php elseif ( '' !== $image_url ) : ?>
+				<figure class="angled-product-callout-block__figure">
+					<img class="angled-product-callout-block__image" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy" decoding="async" />
 				</figure>
 			<?php else : ?>
 				<div class="angled-product-callout-block__placeholder angled-product-callout-block__figure" aria-hidden="true"></div>

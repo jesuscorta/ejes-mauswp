@@ -42,46 +42,53 @@ foreach ( $category_ids as $cat_id ) {
 	}
 }
 
-$products = [];
+$cache_key = 'mauswp_product_showcase_' . md5( wp_json_encode( [ $scope, $category_slugs ] ) );
+$products  = get_transient( $cache_key );
 
-if ( function_exists( 'wc_get_products' ) ) {
-	$query_args = [
-		'limit'   => 8,
-		'status'  => 'publish',
-		'orderby' => 'date',
-		'order'   => 'DESC',
-		'return'  => 'objects',
-	];
+if ( false === $products || ! is_array( $products ) ) {
+	$products = [];
 
-	if ( 'category' === $scope && ! empty( $category_slugs ) ) {
-		$query_args['category'] = $category_slugs;
-	}
+	if ( function_exists( 'wc_get_products' ) ) {
+		$query_args = [
+			'limit'   => 8,
+			'status'  => 'publish',
+			'orderby' => 'date',
+			'order'   => 'DESC',
+			'return'  => 'objects',
+		];
 
-	$wc_products = wc_get_products( $query_args );
-
-	foreach ( $wc_products as $wc_product ) {
-		if ( ! $wc_product instanceof WC_Product ) {
-			continue;
+		if ( 'category' === $scope && ! empty( $category_slugs ) ) {
+			$query_args['category'] = $category_slugs;
 		}
 
-		$product_id     = $wc_product->get_id();
-		$image_id       = $wc_product->get_image_id();
-		$image_alt      = $image_id ? (string) get_post_meta( $image_id, '_wp_attachment_image_alt', true ) : '';
-		$product_image  = $image_id ? wp_get_attachment_image_url( $image_id, 'large' ) : '';
-		$excerpt_source = $wc_product->get_short_description() ?: $wc_product->get_description();
+		$wc_products = wc_get_products( $query_args );
 
-		$products[] = [
-			'title'       => $wc_product->get_name(),
-			'price'       => wp_strip_all_tags( $wc_product->get_price_html() ?: '' ),
-			'url'         => get_permalink( $product_id ) ?: '',
-			'excerpt'     => wp_trim_words( wp_strip_all_tags( $excerpt_source ), 18, '...' ),
-			'cta_label'   => __( 'Ver producto', 'mauswp' ),
-			'image_label' => mb_strtoupper( wp_trim_words( $wc_product->get_name(), 2, '' ) ),
-			'image_id'    => $image_id,
-			'image_url'   => is_string( $product_image ) ? $product_image : '',
-			'image_alt'   => $image_alt,
-		];
+		foreach ( $wc_products as $wc_product ) {
+			if ( ! $wc_product instanceof WC_Product ) {
+				continue;
+			}
+
+			$product_id     = $wc_product->get_id();
+			$image_id       = $wc_product->get_image_id();
+			$image_alt      = $image_id ? (string) get_post_meta( $image_id, '_wp_attachment_image_alt', true ) : '';
+			$product_image  = $image_id ? wp_get_attachment_image_url( $image_id, 'large' ) : '';
+			$excerpt_source = $wc_product->get_short_description() ?: $wc_product->get_description();
+
+			$products[] = [
+				'title'       => $wc_product->get_name(),
+				'price'       => wp_strip_all_tags( $wc_product->get_price_html() ?: '' ),
+				'url'         => get_permalink( $product_id ) ?: '',
+				'excerpt'     => wp_trim_words( wp_strip_all_tags( $excerpt_source ), 18, '...' ),
+				'cta_label'   => __( 'Ver producto', 'mauswp' ),
+				'image_label' => mb_strtoupper( wp_trim_words( $wc_product->get_name(), 2, '' ) ),
+				'image_id'    => $image_id,
+				'image_url'   => is_string( $product_image ) ? $product_image : '',
+				'image_alt'   => $image_alt,
+			];
+		}
 	}
+
+	set_transient( $cache_key, $products, 5 * MINUTE_IN_SECONDS );
 }
 ?>
 <section
@@ -124,7 +131,7 @@ if ( function_exists( 'wc_get_products' ) ) {
 					<?php foreach ( $products as $product ) : ?>
 						<div class="swiper-slide product-showcase-block__slide">
 							<article class="product-showcase-block__card">
-								<a class="product-showcase-block__card-link" href="<?php echo esc_url( $product['url'] ); ?>">
+								<a class="product-showcase-block__card-link" href="<?php echo esc_url( $product['url'] ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Ver producto: %s', 'mauswp' ), $product['title'] ) ); ?>">
 									<div class="product-showcase-block__media">
 										<?php if ( ! empty( $product['image_id'] ) ) : ?>
 											<?php echo wp_get_attachment_image( (int) $product['image_id'], 'large', false, [ 'class' => 'product-showcase-block__image', 'loading' => 'lazy', 'alt' => (string) $product['image_alt'] ] ); ?>

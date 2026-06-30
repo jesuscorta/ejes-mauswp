@@ -538,3 +538,21 @@ if ( ! function_exists( 'mauswp_flush_contact_cache' ) ) {
 }
 add_action( 'acf/save_post', 'mauswp_flush_contact_cache', 20 );
 add_action( 'gform_after_save_form', 'mauswp_flush_contact_cache', 10, 2 );
+
+if ( ! function_exists( 'mauswp_flush_post_cache' ) ) {
+	function mauswp_flush_post_cache( int $post_id ): void {
+		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
+		delete_transient( 'mauswp_latest_posts_block' );
+
+		if ( 'product' === get_post_type( $post_id ) ) {
+			delete_transient( 'mauswp_latest_posts_block' );
+			$product_showcase_keys = [ 'mauswp_product_showcase_' . md5( wp_json_encode( [ 'all', [] ] ) ) ];
+			delete_transient( $product_showcase_keys[0] );
+		}
+	}
+}
+add_action( 'save_post', 'mauswp_flush_post_cache', 20 );
+add_action( 'delete_post', 'mauswp_flush_post_cache', 20 );

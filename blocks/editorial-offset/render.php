@@ -28,10 +28,12 @@ if ( ! empty( $block['className'] ) ) {
 	}
 }
 
+$image_id  = 0;
 $image_url = '';
 $image_alt = '';
 
 if ( is_array( $image ) ) {
+	$image_id  = ! empty( $image['ID'] ) ? (int) $image['ID'] : 0;
 	$image_url = ! empty( $image['sizes']['large'] ) ? (string) $image['sizes']['large'] : '';
 	$image_alt = ! empty( $image['alt'] ) ? (string) $image['alt'] : '';
 
@@ -98,8 +100,10 @@ if ( is_array( $cta_link ) ) {
 		</div>
 
 		<div class="editorial-offset-block__media">
-			<?php if ( '' !== $image_url ) : ?>
-				<img class="editorial-offset-block__image" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy">
+			<?php if ( $image_id > 0 ) : ?>
+				<?php echo wp_get_attachment_image( $image_id, 'large', false, [ 'class' => 'editorial-offset-block__image', 'alt' => $image_alt, 'loading' => 'lazy', 'decoding' => 'async' ] ); ?>
+			<?php elseif ( '' !== $image_url ) : ?>
+				<img class="editorial-offset-block__image" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy" decoding="async">
 			<?php elseif ( ! empty( $is_preview ) ) : ?>
 				<div class="editorial-offset-block__placeholder" aria-hidden="true"></div>
 			<?php endif; ?>

@@ -123,6 +123,9 @@ if ( empty( $items ) ) {
 							<a
 								class="btn-primary"
 								href="<?php echo esc_url( $item['cta_url'] ); ?>"
+								<?php if ( 0 !== $index ) : ?>
+									tabindex="-1"
+								<?php endif; ?>
 								<?php if ( '' !== $item['cta_target'] ) : ?>
 									target="<?php echo esc_attr( $item['cta_target'] ); ?>"
 								<?php endif; ?>
