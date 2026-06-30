@@ -16,7 +16,7 @@ jobs:
       - name: Build assets
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - run: npm ci
       - run: npm run build
@@ -30,14 +30,17 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
-          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/deploy_key ~/.ssh/known_hosts
+          printf '%s\n' "$SSH_PRIVATE_KEY" | sed 's/\\n/\n/g' > ~/.ssh/deploy_key
+          if [ -n "$SSH_KNOWN_HOSTS" ]; then
+            printf '%s\n' "$SSH_KNOWN_HOSTS" | sed 's/\\n/\n/g' > ~/.ssh/known_hosts
+          fi
+          chmod 600 ~/.ssh/deploy_key
+          [ -f ~/.ssh/known_hosts ] && chmod 600 ~/.ssh/known_hosts
           rsync -az --delete \
             --exclude ".git/" \
             --exclude ".github/" \
             --exclude "node_modules/" \
             --exclude ".env" \
             --exclude "*.log" \
-            -e "ssh -p 22 -i ~/.ssh/deploy_key" \
+            -e "ssh -p 22 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=${SSH_KNOWN_HOSTS:+yes}${SSH_KNOWN_HOSTS:-no}" \
             ./ "$SSH_USER@$SSH_HOST:/home/cortacero/web/ejes.jesuscorta.es/public_html/wp-content/themes/mauswp/"
