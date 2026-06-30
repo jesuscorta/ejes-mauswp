@@ -61,6 +61,12 @@ npm run build
 - Modo desarrollo: `npm run dev`
 - Build optimizada: `npm run build`
 
+## OpenCode
+
+Este proyecto incluye configuración local de OpenCode en `opencode.json` para cargar Ponytail, fijado a la versión `4.8.4`. Solo afecta al comportamiento del agente de IA durante el desarrollo; no forma parte del frontend, WordPress ni el deploy.
+
+Después de modificar `opencode.json` o cualquier configuración de OpenCode, hay que cerrar y reiniciar OpenCode para que los cambios se carguen.
+
 El `content` de Tailwind escanea:
 
 - `./*.php`
