@@ -129,10 +129,10 @@ const initMobileCatalogAccordion = () => {
 
     if (isExpanded) {
       trigger.setAttribute('aria-expanded', 'false');
-      panel.setAttribute('hidden', 'hidden');
+      panel.classList.remove('is-open');
     } else {
       trigger.setAttribute('aria-expanded', 'true');
-      panel.removeAttribute('hidden');
+      panel.classList.add('is-open');
     }
   };
 
@@ -638,14 +638,14 @@ const initHeaderSearch = () => {
 
   const openPanel = () => {
     trigger.setAttribute('aria-expanded', 'true');
-    panel.removeAttribute('hidden');
+    panel.classList.add('is-open');
     input.focus();
     loadSuggestions();
   };
 
   const closePanel = () => {
     trigger.setAttribute('aria-expanded', 'false');
-    panel.setAttribute('hidden', 'hidden');
+    panel.classList.remove('is-open');
     input.value = '';
     clearResults();
   };
@@ -889,13 +889,13 @@ const initHeaderSearch = () => {
       return;
     }
 
-    if (!panel.hasAttribute('hidden')) {
+    if (panel.classList.contains('is-open')) {
       closePanel();
     }
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !panel.hasAttribute('hidden')) {
+    if (event.key === 'Escape' && panel.classList.contains('is-open')) {
       closePanel();
       trigger.focus();
     }
@@ -916,14 +916,14 @@ const initShopArchiveFilters = () => {
     let isLoading = false;
 
     const closeDrawer = () => {
-      drawer.setAttribute('hidden', 'hidden');
+      drawer.classList.remove('is-open');
       openButton.setAttribute('aria-expanded', 'false');
       document.documentElement.classList.remove('shop-filters-open');
       unlockPageScroll(drawer);
     };
 
     const openDrawer = () => {
-      drawer.removeAttribute('hidden');
+      drawer.classList.add('is-open');
       openButton.setAttribute('aria-expanded', 'true');
       document.documentElement.classList.add('shop-filters-open');
       lockPageScroll(drawer);
@@ -1050,7 +1050,7 @@ const initShopArchiveFilters = () => {
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && !drawer.hasAttribute('hidden')) {
+      if (event.key === 'Escape' && drawer.classList.contains('is-open')) {
         closeDrawer();
       }
     });

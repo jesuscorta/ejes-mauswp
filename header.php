@@ -177,7 +177,7 @@ if ( is_array( $mauswp_catalog_mega_image ) ) {
 						<path d="m21 21-4.3-4.3" />
 					</svg>
 				</button>
-				<div class="header-search__panel" id="header-search-panel" data-header-search-panel hidden>
+				<div class="header-search__panel" id="header-search-panel" data-header-search-panel>
 					<div class="header-search__inner">
 						<div class="header-search__input-wrap">
 							<svg class="header-search__icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -308,27 +308,29 @@ if ( is_array( $mauswp_catalog_mega_image ) ) {
 							<path d="m6 9 6 6 6-6" />
 						</svg>
 					</button>
-					<div class="mobile-catalog-menu__panel" id="mobile-catalog-panel" data-mobile-catalog-panel hidden>
-						<?php foreach ( $mauswp_catalog_categories as $mauswp_catalog_category ) : ?>
-							<div class="mobile-catalog-menu__group">
-								<a class="mobile-catalog-menu__group-title" href="<?php echo esc_url( (string) $mauswp_catalog_category['url'] ); ?>">
-									<?php echo esc_html( (string) $mauswp_catalog_category['name'] ); ?>
-								</a>
-								<?php if ( ! empty( $mauswp_catalog_category['children'] ) && is_array( $mauswp_catalog_category['children'] ) ) : ?>
-									<ul class="mobile-catalog-menu__links">
-										<?php foreach ( $mauswp_catalog_category['children'] as $mauswp_catalog_child ) : ?>
-											<?php if ( ! empty( $mauswp_catalog_child['url'] ) ) : ?>
-												<li>
-													<a class="mobile-catalog-menu__link" href="<?php echo esc_url( (string) $mauswp_catalog_child['url'] ); ?>">
-														<?php echo esc_html( (string) $mauswp_catalog_child['name'] ); ?>
-													</a>
-												</li>
-											<?php endif; ?>
-										<?php endforeach; ?>
-									</ul>
-								<?php endif; ?>
-							</div>
-						<?php endforeach; ?>
+					<div class="mobile-catalog-menu__panel" id="mobile-catalog-panel" data-mobile-catalog-panel>
+						<div class="mobile-catalog-menu__panel-inner">
+							<?php foreach ( $mauswp_catalog_categories as $mauswp_catalog_category ) : ?>
+								<div class="mobile-catalog-menu__group">
+									<a class="mobile-catalog-menu__group-title" href="<?php echo esc_url( (string) $mauswp_catalog_category['url'] ); ?>">
+										<?php echo esc_html( (string) $mauswp_catalog_category['name'] ); ?>
+									</a>
+									<?php if ( ! empty( $mauswp_catalog_category['children'] ) && is_array( $mauswp_catalog_category['children'] ) ) : ?>
+										<ul class="mobile-catalog-menu__links">
+											<?php foreach ( $mauswp_catalog_category['children'] as $mauswp_catalog_child ) : ?>
+												<?php if ( ! empty( $mauswp_catalog_child['url'] ) ) : ?>
+													<li>
+														<a class="mobile-catalog-menu__link" href="<?php echo esc_url( (string) $mauswp_catalog_child['url'] ); ?>">
+															<?php echo esc_html( (string) $mauswp_catalog_child['name'] ); ?>
+														</a>
+													</li>
+												<?php endif; ?>
+											<?php endforeach; ?>
+										</ul>
+									<?php endif; ?>
+								</div>
+							<?php endforeach; ?>
+						</div>
 					</div>
 				</div>
 			<?php endif; ?>

@@ -57,6 +57,11 @@
 }
 
 @layer base {
+  :root {
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -126,16 +131,17 @@
   }
 
   .js [data-mobile-menu-panel] {
-    display: none;
+    @apply invisible absolute inset-x-0 top-full z-30 overflow-y-auto border-t border-slate-200 bg-white opacity-0 shadow-[0_24px_54px_-36px_rgba(15,23,42,0.3)];
+    height: calc(100svh - var(--mobile-header-height, 0px));
+    transform: translateY(-0.5rem);
+    pointer-events: none;
+    transition: opacity 250ms var(--ease-out-quart), visibility 250ms var(--ease-out-quart), transform 250ms var(--ease-out-quart);
   }
 
   .js [data-mobile-menu-panel].is-open {
-    display: block;
-  }
-
-  .js [data-mobile-menu-panel] {
-    @apply absolute inset-x-0 top-full z-30 overflow-y-auto border-t border-slate-200 bg-white shadow-[0_24px_54px_-36px_rgba(15,23,42,0.3)];
-    height: calc(100svh - var(--mobile-header-height, 0px));
+    @apply visible opacity-100;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .js [data-mobile-menu-panel] .menu {
@@ -159,14 +165,24 @@
   }
 
   .mobile-catalog-menu__panel {
-    @apply overflow-hidden;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 250ms var(--ease-out-quart);
   }
 
-  .mobile-catalog-menu__panel[hidden] {
-    display: none;
+  .mobile-catalog-menu__panel.is-open {
+    grid-template-rows: 1fr;
   }
 
-  .mobile-catalog-menu__panel:not([hidden]) {
+  .mobile-catalog-menu__panel-inner {
+    overflow: hidden;
+  }
+
+  .mobile-catalog-menu__panel:not(.is-open) .mobile-catalog-menu__panel-inner {
+    @apply pb-0 pt-0;
+  }
+
+  .mobile-catalog-menu__panel.is-open .mobile-catalog-menu__panel-inner {
     @apply pb-4 pt-2;
   }
 
@@ -204,11 +220,13 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center bg-brand-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-800 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center bg-brand-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-800 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2 active:scale-[0.97];
+    transition: color 150ms var(--ease-out-quart), background-color 150ms var(--ease-out-quart), border-color 150ms var(--ease-out-quart), transform 100ms var(--ease-out-quart);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:border-brand-700 hover:text-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:border-brand-700 hover:text-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2 active:scale-[0.97];
+    transition: color 150ms var(--ease-out-quart), background-color 150ms var(--ease-out-quart), border-color 150ms var(--ease-out-quart), transform 100ms var(--ease-out-quart);
   }
 
   .mauswp-primary-nav {
@@ -220,12 +238,15 @@
   }
 
   .catalog-mega-menu {
-    @apply invisible absolute left-1/2 top-full z-40 mt-4 w-[min(72rem,calc(100vw-4rem))] -translate-x-1/2 border border-slate-200 bg-white opacity-0 shadow-[0_28px_80px_-42px_rgba(15,23,42,0.32)] transition duration-200;
+    @apply invisible absolute left-1/2 top-full z-40 mt-4 w-[min(72rem,calc(100vw-4rem))] -translate-x-1/2 border border-slate-200 bg-white opacity-0 shadow-[0_28px_80px_-42px_rgba(15,23,42,0.32)];
+    transform: translate(-50%, -0.5rem);
     pointer-events: none;
+    transition: opacity 200ms var(--ease-out-quart), visibility 200ms var(--ease-out-quart), transform 200ms var(--ease-out-quart);
   }
 
   .catalog-mega-menu.is-open {
     @apply visible opacity-100;
+    transform: translate(-50%, 0);
     pointer-events: auto;
   }
 
@@ -305,11 +326,17 @@
   }
 
   .header-search__panel {
-    @apply absolute right-0 top-full z-50 mt-2 w-[min(28rem,90vw)] overflow-hidden border border-slate-200 bg-white shadow-[0_20px_60px_-30px_rgba(15,23,42,0.28)];
+    @apply invisible absolute right-0 top-full z-50 mt-2 w-[min(28rem,90vw)] overflow-hidden border border-slate-200 bg-white opacity-0 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.28)];
+    transform: scale(0.98);
+    transform-origin: top right;
+    pointer-events: none;
+    transition: opacity 200ms var(--ease-out-quart), visibility 200ms var(--ease-out-quart), transform 200ms var(--ease-out-quart);
   }
 
-  .header-search__panel[hidden] {
-    display: none;
+  .header-search__panel.is-open {
+    @apply visible opacity-100;
+    transform: scale(1);
+    pointer-events: auto;
   }
 
   .header-search__inner {
@@ -1030,20 +1057,31 @@
     pointer-events: none;
   }
 
-  .shop-category__filters-drawer[hidden] {
-    display: none;
+  .shop-category__filters-drawer {
+    @apply fixed inset-0 z-50 invisible opacity-0;
+    transition: opacity 250ms var(--ease-out-quart), visibility 250ms var(--ease-out-quart);
   }
 
-  .shop-category__filters-drawer {
-    @apply fixed inset-0 z-50;
+  .shop-category__filters-drawer.is-open {
+    @apply visible opacity-100;
   }
 
   .shop-category__filters-backdrop {
-    @apply absolute inset-0 bg-slate-950/45;
+    @apply absolute inset-0 bg-slate-950/45 opacity-0;
+    transition: opacity 250ms var(--ease-out-quart);
+  }
+
+  .shop-category__filters-drawer.is-open .shop-category__filters-backdrop {
+    @apply opacity-100;
   }
 
   .shop-category__filters-panel {
-    @apply absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-slate-200 bg-white shadow-[0_24px_70px_-30px_rgba(15,23,42,0.4)];
+    @apply absolute right-0 top-0 flex h-full w-full max-w-md translate-x-full flex-col border-l border-slate-200 bg-white shadow-[0_24px_70px_-30px_rgba(15,23,42,0.4)];
+    transition: transform 250ms var(--ease-out-quart);
+  }
+
+  .shop-category__filters-drawer.is-open .shop-category__filters-panel {
+    @apply translate-x-0;
   }
 
   .shop-category__filters-topbar {
@@ -3279,5 +3317,16 @@
 
   100% {
     transform: translateX(-33.333%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

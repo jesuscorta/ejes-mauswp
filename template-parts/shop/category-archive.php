@@ -149,7 +149,7 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 			</div>
 		</div>
 
-		<div class="shop-category__filters-drawer" id="shop-category-filters-drawer" hidden data-shop-filters-drawer>
+		<div class="shop-category__filters-drawer" id="shop-category-filters-drawer" data-shop-filters-drawer>
 			<div class="shop-category__filters-backdrop" data-shop-filters-close></div>
 			<div class="shop-category__filters-panel">
 				<div class="shop-category__filters-topbar">
