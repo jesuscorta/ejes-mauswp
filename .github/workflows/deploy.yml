@@ -21,39 +21,18 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - name: Setup SSH and test connection
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          printf '%s\n' "$SSH_PRIVATE_KEY" | sed 's/\\n/\n/g' > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          echo "Testing SSH connection..."
-          ssh -o ConnectTimeout=10 -o BatchMode=yes -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" 'echo "SSH_OK"' || true
-
       - name: Deploy via rsync
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          printf '%s\n' "$SSH_PRIVATE_KEY" | sed 's/\\n/\n/g' > ~/.ssh/deploy_key
-          if [ -n "$SSH_KNOWN_HOSTS" ]; then
-            printf '%s\n' "$SSH_KNOWN_HOSTS" | sed 's/\\n/\n/g' > ~/.ssh/known_hosts
-          fi
-          chmod 600 ~/.ssh/deploy_key
-          [ -f ~/.ssh/known_hosts ] && chmod 600 ~/.ssh/known_hosts
-          rsync -az --delete \
+          sudo apt-get install -y sshpass
+          sshpass -p "$SSH_PASSWORD" rsync -az --delete \
             --exclude ".git/" \
             --exclude ".github/" \
             --exclude "node_modules/" \
             --exclude ".env" \
             --exclude "*.log" \
-            -e "ssh -p 22 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=${SSH_KNOWN_HOSTS:+yes}${SSH_KNOWN_HOSTS:-no}" \
+            -e "ssh -p 22 -o StrictHostKeyChecking=no" \
             ./ "$SSH_USER@$SSH_HOST:/home/cortacero/web/ejes.jesuscorta.es/public_html/wp-content/themes/mauswp/"
