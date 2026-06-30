@@ -5,6 +5,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    @apply bg-slate-950;
+    overscroll-behavior: none;
   }
 
   body {
@@ -12,7 +14,8 @@
   }
 
   body {
-    overflow-x: clip;
+    @apply min-h-screen overflow-x-hidden;
+    overscroll-behavior: none;
   }
 
   html.is-page-scroll-locked {
@@ -505,7 +508,7 @@
   }
 
   .features-strip-block {
-    @apply relative bg-transparent py-12 lg:py-16;
+    @apply relative overflow-x-hidden bg-transparent py-12 lg:py-16;
   }
 
   .features-strip-block__panel {
@@ -513,7 +516,7 @@
   }
 
   .features-strip-block__swiper {
-    @apply overflow-visible;
+    @apply overflow-hidden;
   }
 
   .features-strip-block__list {
