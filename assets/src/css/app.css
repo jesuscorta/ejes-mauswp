@@ -1200,6 +1200,27 @@
     @apply font-semibold text-brand-700 underline decoration-brand-400 decoration-2 underline-offset-4 transition hover:text-brand-800 hover:decoration-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-500;
   }
 
+  .shop-category__editorial-content ul,
+  .shop-category__editorial-content ol {
+    @apply my-5 space-y-2 pl-6;
+  }
+
+  .shop-category__editorial-content ul {
+    @apply list-disc;
+  }
+
+  .shop-category__editorial-content ol {
+    @apply list-decimal;
+  }
+
+  .shop-category__editorial-content li {
+    @apply pl-1;
+  }
+
+  .shop-category__editorial-content li::marker {
+    @apply font-semibold text-brand-700;
+  }
+
   .shop-category__editorial-content p:first-child {
     @apply mt-0;
   }
