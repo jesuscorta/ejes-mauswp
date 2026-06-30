@@ -391,13 +391,39 @@ function mauswp_render_contact_block( array $args = [] ): void {
 	$anchor        = ! empty( $args['anchor'] ) ? (string) $args['anchor'] : 'contacto';
 	$align_class   = ! empty( $args['align'] ) ? 'align' . sanitize_html_class( (string) $args['align'] ) : 'alignwide';
 	$block_classes = [ 'contact-form-block', $align_class ];
-	$contact_phone = '608.725.197';
-	$contact_email = 'administracion@sumagrogranada.com';
-	$facebook_url  = 'https://www.facebook.com/Granadina-Industrial-Agr%C3%ADcola-100453171807218';
-	$contact_title = __( 'Hablemos de tu proyecto', 'mauswp' );
-	$contact_intro = __( 'Cuéntanos qué necesitas y te responderemos en menos de 24h.', 'mauswp' );
-	$email_label   = __( 'Email', 'mauswp' );
-	$phone_label   = __( 'Teléfono', 'mauswp' );
+
+	$contact_data = get_transient( 'mauswp_contact_data' );
+
+	if ( false === $contact_data || ! is_array( $contact_data ) ) {
+		$contact_data = [
+			'phone'       => '608.725.197',
+			'email'       => 'administracion@sumagrogranada.com',
+			'facebook'    => 'https://www.facebook.com/Granadina-Industrial-Agr%C3%ADcola-100453171807218',
+			'title'       => __( 'Hablemos de tu proyecto', 'mauswp' ),
+			'intro'       => __( 'Cuéntanos qué necesitas y te responderemos en menos de 24h.', 'mauswp' ),
+			'email_label' => __( 'Email', 'mauswp' ),
+			'phone_label' => __( 'Teléfono', 'mauswp' ),
+		];
+
+		if ( function_exists( 'get_field' ) ) {
+			$contact_data['phone']       = (string) ( get_field( 'mauswp_contact_phone', 'option' ) ?: $contact_data['phone'] );
+			$contact_data['email']       = (string) ( get_field( 'mauswp_contact_email', 'option' ) ?: $contact_data['email'] );
+			$contact_data['facebook']    = (string) ( get_field( 'mauswp_facebook_url', 'option' ) ?: $contact_data['facebook'] );
+			$contact_data['title']       = (string) ( get_field( 'mauswp_contact_block_title', 'option' ) ?: $contact_data['title'] );
+			$contact_data['intro']       = (string) ( get_field( 'mauswp_contact_block_intro', 'option' ) ?: $contact_data['intro'] );
+			$contact_data['email_label'] = (string) ( get_field( 'mauswp_contact_block_email_label', 'option' ) ?: $contact_data['email_label'] );
+			$contact_data['phone_label'] = (string) ( get_field( 'mauswp_contact_block_phone_label', 'option' ) ?: $contact_data['phone_label'] );
+		}
+
+		set_transient( 'mauswp_contact_data', $contact_data, 12 * HOUR_IN_SECONDS );
+	}
+
+	$contact_phone = $contact_data['phone'];
+	$contact_email = $contact_data['email'];
+	$contact_title = $contact_data['title'];
+	$contact_intro = $contact_data['intro'];
+	$email_label   = $contact_data['email_label'];
+	$phone_label   = $contact_data['phone_label'];
 
 	if ( ! empty( $args['className'] ) ) {
 		$custom_classes = preg_split( '/\s+/', (string) $args['className'] );
@@ -411,26 +437,20 @@ function mauswp_render_contact_block( array $args = [] ): void {
 		}
 	}
 
-	if ( function_exists( 'get_field' ) ) {
-		$contact_phone = (string) ( get_field( 'mauswp_contact_phone', 'option' ) ?: $contact_phone );
-		$contact_email = (string) ( get_field( 'mauswp_contact_email', 'option' ) ?: $contact_email );
-		$facebook_url  = (string) ( get_field( 'mauswp_facebook_url', 'option' ) ?: $facebook_url );
-		$contact_title = (string) ( get_field( 'mauswp_contact_block_title', 'option' ) ?: $contact_title );
-		$contact_intro = (string) ( get_field( 'mauswp_contact_block_intro', 'option' ) ?: $contact_intro );
-		$email_label   = (string) ( get_field( 'mauswp_contact_block_email_label', 'option' ) ?: $email_label );
-		$phone_label   = (string) ( get_field( 'mauswp_contact_block_phone_label', 'option' ) ?: $phone_label );
-	}
-
-	$phone_href    = preg_replace( '/[^0-9+]/', '', $contact_phone );
-	$whatsapp_href = 'https://wa.me/' . preg_replace( '/\D+/', '', $contact_phone );
+	$phone_href = preg_replace( '/[^0-9+]/', '', $contact_phone );
 
 	$form_id = (int) apply_filters( 'mauswp_contact_form_id', 0 );
 
-	if ( $form_id <= 0 && class_exists( 'GFAPI' ) ) {
-		$forms = GFAPI::get_forms( true );
+	if ( $form_id <= 0 ) {
+		$form_id = (int) get_transient( 'mauswp_contact_form_id' );
 
-		if ( is_array( $forms ) && ! empty( $forms[0]['id'] ) ) {
-			$form_id = (int) $forms[0]['id'];
+		if ( $form_id <= 0 && class_exists( 'GFAPI' ) ) {
+			$forms = GFAPI::get_forms( true );
+
+			if ( is_array( $forms ) && ! empty( $forms[0]['id'] ) ) {
+				$form_id = (int) $forms[0]['id'];
+				set_transient( 'mauswp_contact_form_id', $form_id, 12 * HOUR_IN_SECONDS );
+			}
 		}
 	}
 
@@ -468,7 +488,7 @@ function mauswp_render_contact_block( array $args = [] ): void {
 						<li>
 							<a class="contact-form-block__item" href="mailto:<?php echo esc_attr( antispambot( $contact_email ) ); ?>">
 								<span class="contact-form-block__item-icon contact-form-block__item-icon--email" aria-hidden="true">
-									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
 										<path d="M4 6h16v12H4z" />
 										<path d="m4 7 8 6 8-6" />
 									</svg>
@@ -482,7 +502,7 @@ function mauswp_render_contact_block( array $args = [] ): void {
 						<li>
 							<a class="contact-form-block__item" href="tel:<?php echo esc_attr( $phone_href ); ?>">
 								<span class="contact-form-block__item-icon contact-form-block__item-icon--phone" aria-hidden="true">
-									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
 										<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.35 1.77.68 2.6a2 2 0 0 1-.45 2.11L8 9.94a16 16 0 0 0 6.06 6.06l1.51-1.29a2 2 0 0 1 2.11-.45c.83.33 1.7.56 2.6.68A2 2 0 0 1 22 16.92z" />
 									</svg>
 								</span>
@@ -509,3 +529,12 @@ function mauswp_render_contact_block( array $args = [] ): void {
 	</section>
 	<?php
 }
+
+if ( ! function_exists( 'mauswp_flush_contact_cache' ) ) {
+	function mauswp_flush_contact_cache(): void {
+		delete_transient( 'mauswp_contact_data' );
+		delete_transient( 'mauswp_contact_form_id' );
+	}
+}
+add_action( 'acf/save_post', 'mauswp_flush_contact_cache', 20 );
+add_action( 'gform_after_save_form', 'mauswp_flush_contact_cache', 10, 2 );

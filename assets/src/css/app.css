@@ -2828,11 +2828,11 @@
   }
 
   .contact-form-block__layout {
-    @apply overflow-hidden rounded-[1.75rem] border border-stone-300/80 bg-white shadow-[0_28px_70px_-38px_rgba(15,23,42,0.22)] lg:grid lg:grid-cols-[minmax(20rem,0.88fr)_minmax(0,1.12fr)];
+    @apply overflow-hidden rounded-lg border border-slate-300/80 bg-white shadow-[0_28px_70px_-38px_rgba(15,23,42,0.22)] lg:grid lg:grid-cols-[minmax(20rem,0.88fr)_minmax(0,1.12fr)];
   }
 
   .contact-form-block__details {
-    @apply flex flex-col justify-start gap-6 bg-[#f6f4ec] px-6 py-7 text-slate-900 sm:px-8 sm:py-8 lg:min-h-full lg:border-r lg:border-stone-300/80 lg:px-10 lg:py-10;
+    @apply flex flex-col justify-start gap-6 bg-brand-50 px-6 py-7 text-slate-900 sm:px-8 sm:py-8 lg:min-h-full lg:border-r lg:border-slate-300/80 lg:px-10 lg:py-10;
   }
 
   .contact-form-block__copy {
@@ -2840,11 +2840,11 @@
   }
 
   .contact-form-block__title {
-    @apply text-[2.4rem] font-semibold leading-tight tracking-tight text-slate-950;
+    @apply text-4xl font-semibold leading-tight tracking-tight text-slate-950;
   }
 
   .contact-form-block__intro {
-    @apply text-[1.05rem] leading-8 text-slate-700;
+    @apply text-base leading-relaxed text-slate-700;
   }
 
   .contact-form-block__list {
@@ -2852,11 +2852,11 @@
   }
 
   .contact-form-block__item {
-    @apply flex items-start gap-4 py-3 text-slate-900 transition hover:text-brand-700;
+    @apply flex min-h-[44px] items-center gap-4 py-3 text-slate-900 transition hover:text-brand-700;
   }
 
   .contact-form-block__item-icon {
-    @apply mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center text-brand-700;
+    @apply inline-flex h-5 w-5 shrink-0 items-center justify-center text-brand-700;
   }
 
   .contact-form-block__item-icon svg {
@@ -2868,11 +2868,11 @@
   }
 
   .contact-form-block__item-label {
-    @apply text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-slate-500;
+    @apply text-xs font-semibold uppercase tracking-[0.16em] text-slate-500;
   }
 
   .contact-form-block__item-value {
-    @apply mt-1 block text-[1.05rem] font-semibold leading-7 text-slate-950;
+    @apply mt-1 block text-base font-semibold leading-7 text-slate-950;
     overflow-wrap: anywhere;
     word-break: break-word;
   }
@@ -2928,8 +2928,8 @@
   .contact-form-block__panel input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
   .contact-form-block__panel select,
   .contact-form-block__panel textarea {
-    @apply w-full border border-stone-300 bg-white px-4 py-3 text-[1rem] text-slate-950 outline-none transition focus:border-brand-700 focus:ring-2 focus:ring-brand-700/15;
-    border-radius: 1rem;
+    @apply w-full border border-slate-300 bg-white px-4 py-3 text-base text-slate-950 outline-none transition focus:border-brand-700 focus:ring-2 focus:ring-brand-700/15;
+    border-radius: 0;
     box-shadow: none;
   }
 
@@ -2964,15 +2964,7 @@
   .contact-form-block__panel .gform_button,
   .contact-form-block__panel .gform_next_button,
   .contact-form-block__panel .gform_previous_button {
-    @apply inline-flex min-h-[3.25rem] items-center justify-center gap-3 border border-stone-300 bg-white px-6 text-[1rem] font-semibold text-slate-950 transition hover:border-brand-700 hover:text-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2;
-    border-radius: 1rem;
-  }
-
-  .contact-form-block__panel .gform_button::before,
-  .contact-form-block__panel .gform_next_button::before,
-  .contact-form-block__panel .gform_previous_button::before {
-    content: "";
-    @apply h-4 w-4 border-[3px] border-slate-950;
+    @apply btn-primary min-h-[3.25rem];
   }
 
   .contact-form-block__panel .validation_message,
