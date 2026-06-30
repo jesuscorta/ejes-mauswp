@@ -1,5 +1,66 @@
 document.documentElement.classList.add('js');
 
+const scrollLockTokens = new Set();
+let lockedScrollY = 0;
+let previousBodyStyles = null;
+
+const lockPageScroll = (token) => {
+  if (!token || scrollLockTokens.has(token)) {
+    return;
+  }
+
+  scrollLockTokens.add(token);
+
+  if (scrollLockTokens.size > 1) {
+    return;
+  }
+
+  lockedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+  previousBodyStyles = {
+    position: document.body.style.position,
+    top: document.body.style.top,
+    left: document.body.style.left,
+    right: document.body.style.right,
+    width: document.body.style.width,
+    overflow: document.body.style.overflow
+  };
+
+  document.documentElement.classList.add('is-page-scroll-locked');
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${lockedScrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+  document.body.style.overflow = 'hidden';
+};
+
+const unlockPageScroll = (token) => {
+  if (!token || !scrollLockTokens.has(token)) {
+    return;
+  }
+
+  scrollLockTokens.delete(token);
+
+  if (scrollLockTokens.size > 0) {
+    return;
+  }
+
+  document.documentElement.classList.remove('is-page-scroll-locked');
+
+  if (previousBodyStyles) {
+    document.body.style.position = previousBodyStyles.position;
+    document.body.style.top = previousBodyStyles.top;
+    document.body.style.left = previousBodyStyles.left;
+    document.body.style.right = previousBodyStyles.right;
+    document.body.style.width = previousBodyStyles.width;
+    document.body.style.overflow = previousBodyStyles.overflow;
+  }
+
+  window.scrollTo(0, lockedScrollY);
+  previousBodyStyles = null;
+  lockedScrollY = 0;
+};
+
 const initMobileMenu = () => {
   const toggleButton = document.querySelector('[data-mobile-menu-toggle]');
   const panel = document.querySelector('[data-mobile-menu-panel]');
@@ -18,12 +79,14 @@ const initMobileMenu = () => {
   const closeMenu = () => {
     toggleButton.setAttribute('aria-expanded', 'false');
     panel.classList.remove('is-open');
+    unlockPageScroll(panel);
   };
 
   const openMenu = () => {
     syncPanelOffset();
     toggleButton.setAttribute('aria-expanded', 'true');
     panel.classList.add('is-open');
+    lockPageScroll(panel);
   };
 
   toggleButton.addEventListener('click', () => {
@@ -392,6 +455,7 @@ const initProductGallery = () => {
 
       lightbox.setAttribute('hidden', 'hidden');
       document.documentElement.classList.remove('product-gallery-open');
+      unlockPageScroll(lightbox);
 
       if (lightboxSwiper && lightboxSwiper.zoom) {
         lightboxSwiper.zoom.out();
@@ -405,6 +469,7 @@ const initProductGallery = () => {
 
       lightbox.removeAttribute('hidden');
       document.documentElement.classList.add('product-gallery-open');
+      lockPageScroll(lightbox);
       lightboxSwiper.slideTo(index, 0);
       lightboxSwiper.update();
     };
@@ -463,6 +528,7 @@ const initProductBuilderGallery = () => {
     const closeLightbox = () => {
       lightbox.setAttribute('hidden', 'hidden');
       document.documentElement.classList.remove('product-gallery-open');
+      unlockPageScroll(lightbox);
 
       if (swiper.zoom) {
         swiper.zoom.out();
@@ -472,6 +538,7 @@ const initProductBuilderGallery = () => {
     const openLightbox = (index) => {
       lightbox.removeAttribute('hidden');
       document.documentElement.classList.add('product-gallery-open');
+      lockPageScroll(lightbox);
       swiper.slideTo(index, 0);
       swiper.update();
     };
@@ -509,11 +576,13 @@ const initProductConfigInfoModal = () => {
     const closeModal = () => {
       modal.setAttribute('hidden', 'hidden');
       openButton.setAttribute('aria-expanded', 'false');
+      unlockPageScroll(modal);
     };
 
     const openModal = () => {
       modal.removeAttribute('hidden');
       openButton.setAttribute('aria-expanded', 'true');
+      lockPageScroll(modal);
     };
 
     openButton.addEventListener('click', openModal);
@@ -842,12 +911,14 @@ const initShopArchiveFilters = () => {
       drawer.setAttribute('hidden', 'hidden');
       openButton.setAttribute('aria-expanded', 'false');
       document.documentElement.classList.remove('shop-filters-open');
+      unlockPageScroll(drawer);
     };
 
     const openDrawer = () => {
       drawer.removeAttribute('hidden');
       openButton.setAttribute('aria-expanded', 'true');
       document.documentElement.classList.add('shop-filters-open');
+      lockPageScroll(drawer);
     };
 
     const replaceArchiveContent = (htmlText, url) => {

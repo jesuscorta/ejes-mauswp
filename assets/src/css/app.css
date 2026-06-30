@@ -15,6 +15,11 @@
     overflow-x: clip;
   }
 
+  html.is-page-scroll-locked {
+    @apply overflow-hidden;
+    overscroll-behavior: none;
+  }
+
   ::selection {
     @apply bg-brand-700 text-white;
   }
