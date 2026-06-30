@@ -42,7 +42,7 @@ $footer_phone_href = preg_replace( '/[^0-9+]/', '', $footer_phone );
 					<?php echo wp_get_attachment_image( (int) $footer_logo['ID'], 'medium', false, [ 'class' => 'block max-w-full shrink-0 sm:w-[14rem] lg:w-[16rem]', 'style' => 'width:12rem;height:auto;' ] ); ?>
 				</div>
 			<?php endif; ?>
-			<h2 class="text-3xl font-semibold tracking-tight text-white"><?php echo esc_html( $footer_column_1_title ); ?></h2>
+			<p class="text-3xl font-semibold tracking-tight text-white"><?php echo esc_html( $footer_column_1_title ); ?></p>
 			<p class="max-w-xl text-base leading-7 text-slate-400">
 				<?php echo esc_html( $footer_column_1_text ); ?>
 			</p>

@@ -226,7 +226,7 @@ if ( is_array( $mauswp_catalog_mega_image ) ) {
 					<div class="catalog-mega-menu__content">
 						<div class="catalog-mega-menu__intro">
 							<p class="catalog-mega-menu__eyebrow"><?php echo esc_html( $mauswp_catalog_mega_eyebrow ); ?></p>
-							<h2 class="catalog-mega-menu__title"><?php echo esc_html( $mauswp_catalog_mega_title ); ?></h2>
+							<p class="catalog-mega-menu__title"><?php echo esc_html( $mauswp_catalog_mega_title ); ?></p>
 						</div>
 
 						<div class="catalog-mega-menu__grid">

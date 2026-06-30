@@ -153,7 +153,7 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 				<div class="shop-category__filters-topbar">
 					<div>
 						<p class="shop-category__filters-eyebrow"><?php esc_html_e( 'Filtrar catálogo', 'mauswp' ); ?></p>
-						<h2 class="shop-category__filters-title"><?php esc_html_e( 'Afina la selección', 'mauswp' ); ?></h2>
+						<p class="shop-category__filters-title"><?php esc_html_e( 'Afina la selección', 'mauswp' ); ?></p>
 					</div>
 					<button class="shop-category__filters-close" type="button" data-shop-filters-close aria-label="<?php esc_attr_e( 'Cerrar filtros', 'mauswp' ); ?>">&times;</button>
 				</div>

@@ -560,7 +560,7 @@ function mauswp_render_contact_block( array $args = [] ): void {
 			<div class="contact-form-block__layout">
 				<aside class="contact-form-block__details">
 					<div class="contact-form-block__copy">
-						<h2 class="contact-form-block__title"><?php echo esc_html( $contact_title ); ?></h2>
+						<p class="contact-form-block__title"><?php echo esc_html( $contact_title ); ?></p>
 						<p class="contact-form-block__intro"><?php echo esc_html( $contact_intro ); ?></p>
 					</div>
 
