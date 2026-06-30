@@ -112,7 +112,9 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 		<div class="container">
 			<?php mauswp_yoast_breadcrumbs( 'shop-category__hero-breadcrumbs' ); ?>
 			<div class="shop-category__hero-banner card-heavy">
-				<?php if ( '' !== $banner_image ) : ?>
+				<?php if ( $thumbnail_id > 0 ) : ?>
+					<?php echo wp_get_attachment_image( $thumbnail_id, 'full', false, [ 'class' => 'shop-category__hero-image', 'alt' => $banner_image_alt ] ); ?>
+				<?php elseif ( '' !== $banner_image ) : ?>
 					<img class="shop-category__hero-image" src="<?php echo esc_url( $banner_image ); ?>" alt="<?php echo esc_attr( $banner_image_alt ); ?>">
 				<?php else : ?>
 					<div class="shop-category__hero-placeholder" aria-hidden="true"></div>
@@ -208,8 +210,8 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 					<article <?php post_class( 'shop-category__card' ); ?>>
 						<a class="shop-category__card-link" href="<?php the_permalink(); ?>">
 							<div class="shop-category__card-media">
-								<?php if ( '' !== $image_url ) : ?>
-									<img class="shop-category__card-image" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy">
+								<?php if ( $image_id > 0 ) : ?>
+									<?php echo wp_get_attachment_image( $image_id, 'large', false, [ 'class' => 'shop-category__card-image', 'loading' => 'lazy', 'alt' => $image_alt ] ); ?>
 								<?php else : ?>
 									<div class="shop-category__card-placeholder" aria-hidden="true"></div>
 								<?php endif; ?>

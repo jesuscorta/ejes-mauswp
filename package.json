@@ -5,7 +5,7 @@
   "description": "Base técnica del theme clásico WordPress para Ejes para Remolques.",
   "scripts": {
     "dev": "tailwindcss -i ./assets/src/css/app.css -o ./assets/dist/app.css --watch",
-    "build": "tailwindcss -i ./assets/src/css/app.css -o ./assets/dist/app.css --minify"
+    "build": "tailwindcss -i ./assets/src/css/app.css -o ./assets/dist/app.css --minify && mkdir -p ./assets/dist/vendor/swiper && cp ./node_modules/swiper/swiper-bundle.min.css ./node_modules/swiper/swiper-bundle.min.js ./assets/dist/vendor/swiper/ && cp ./assets/src/js/app.js ./assets/dist/app.js"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",

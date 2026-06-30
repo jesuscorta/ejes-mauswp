@@ -229,48 +229,6 @@ function mauswp_get_requested_product_filter_category_slugs(): array {
 }
 
 /**
- * Get minimum requested product price.
- *
- * @return float|null
- */
-function mauswp_get_requested_product_filter_min_price(): ?float {
-	if ( ! isset( $_GET['price_min'] ) ) {
-		return null;
-	}
-
-	$value = str_replace( ',', '.', trim( (string) wp_unslash( $_GET['price_min'] ) ) );
-
-	if ( '' === $value || ! is_numeric( $value ) ) {
-		return null;
-	}
-
-	$price = (float) $value;
-
-	return $price >= 0 ? $price : null;
-}
-
-/**
- * Get maximum requested product price.
- *
- * @return float|null
- */
-function mauswp_get_requested_product_filter_max_price(): ?float {
-	if ( ! isset( $_GET['price_max'] ) ) {
-		return null;
-	}
-
-	$value = str_replace( ',', '.', trim( (string) wp_unslash( $_GET['price_max'] ) ) );
-
-	if ( '' === $value || ! is_numeric( $value ) ) {
-		return null;
-	}
-
-	$price = (float) $value;
-
-	return $price >= 0 ? $price : null;
-}
-
-/**
  * Apply basic shop filters to the main WooCommerce product archive query.
  *
  * @param WP_Query $query Main query instance.
@@ -312,64 +270,6 @@ function mauswp_filter_product_archive_query( WP_Query $query ): void {
 
 }
 add_action( 'pre_get_posts', 'mauswp_filter_product_archive_query' );
-
-/**
- * Get min and max product prices for the current archive context.
- *
- * @param array<int, string> $category_slugs Category slugs to constrain the bounds.
- * @return array<string, float>
- */
-function mauswp_get_product_archive_price_bounds( array $category_slugs = [] ): array {
-	if ( ! function_exists( 'wc_get_products' ) ) {
-		return [
-			'min' => 0,
-			'max' => 0,
-		];
-	}
-
-	$query_args = [
-		'status' => 'publish',
-		'limit'  => -1,
-		'return' => 'ids',
-	];
-
-	if ( ! empty( $category_slugs ) ) {
-		$query_args['category'] = $category_slugs;
-	}
-
-	$product_ids = wc_get_products( $query_args );
-
-	if ( ! is_array( $product_ids ) || empty( $product_ids ) ) {
-		return [
-			'min' => 0,
-			'max' => 0,
-		];
-	}
-
-	$prices = [];
-
-	foreach ( $product_ids as $product_id ) {
-		$price = get_post_meta( (int) $product_id, '_price', true );
-
-		if ( '' === $price || ! is_numeric( $price ) ) {
-			continue;
-		}
-
-		$prices[] = (float) $price;
-	}
-
-	if ( empty( $prices ) ) {
-		return [
-			'min' => 0,
-			'max' => 0,
-		];
-	}
-
-	return [
-		'min' => (float) floor( min( $prices ) ),
-		'max' => (float) ceil( max( $prices ) ),
-	];
-}
 
 /**
  * Generate a table of contents from H2 headings in content.

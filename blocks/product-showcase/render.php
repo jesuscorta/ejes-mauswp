@@ -77,6 +77,7 @@ if ( function_exists( 'wc_get_products' ) ) {
 			'excerpt'     => wp_trim_words( wp_strip_all_tags( $excerpt_source ), 18, '...' ),
 			'cta_label'   => __( 'Ver producto', 'mauswp' ),
 			'image_label' => mb_strtoupper( wp_trim_words( $wc_product->get_name(), 2, '' ) ),
+			'image_id'    => $image_id,
 			'image_url'   => is_string( $product_image ) ? $product_image : '',
 			'image_alt'   => $image_alt,
 		];
@@ -125,7 +126,9 @@ if ( function_exists( 'wc_get_products' ) ) {
 							<article class="product-showcase-block__card">
 								<a class="product-showcase-block__card-link" href="<?php echo esc_url( $product['url'] ); ?>">
 									<div class="product-showcase-block__media">
-										<?php if ( '' !== $product['image_url'] ) : ?>
+										<?php if ( ! empty( $product['image_id'] ) ) : ?>
+											<?php echo wp_get_attachment_image( (int) $product['image_id'], 'large', false, [ 'class' => 'product-showcase-block__image', 'loading' => 'lazy', 'alt' => (string) $product['image_alt'] ] ); ?>
+										<?php elseif ( '' !== $product['image_url'] ) : ?>
 											<img class="product-showcase-block__image" src="<?php echo esc_url( $product['image_url'] ); ?>" alt="<?php echo esc_attr( $product['image_alt'] ); ?>" loading="lazy">
 										<?php else : ?>
 											<div class="product-showcase-block__placeholder" aria-hidden="true">

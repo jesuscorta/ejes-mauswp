@@ -25,14 +25,19 @@ jobs:
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
         run: |
-          sudo apt-get install -y sshpass
-          sshpass -p "$SSH_PASSWORD" rsync -az --delete \
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/deploy_key ~/.ssh/known_hosts
+          rsync -az --delete \
             --exclude ".git/" \
             --exclude ".github/" \
             --exclude "node_modules/" \
             --exclude ".env" \
             --exclude "*.log" \
-            -e "ssh -p 22 -o StrictHostKeyChecking=no" \
+            -e "ssh -p 22 -i ~/.ssh/deploy_key" \
             ./ "$SSH_USER@$SSH_HOST:/home/cortacero/web/ejes.jesuscorta.es/public_html/wp-content/themes/mauswp/"

@@ -34,11 +34,11 @@ function mauswp_build_search_result_item( int $product_id ): ?array {
 
 	return [
 		'id'         => $product_id,
-		'title'      => get_the_title( $product_id ),
-		'url'        => get_permalink( $product_id ),
-		'price_html' => $product->get_price_html(),
-		'image_url'  => $image_url,
-		'category'   => implode( ', ', $categories ),
+		'title'      => wp_strip_all_tags( get_the_title( $product_id ) ),
+		'url'        => esc_url_raw( (string) get_permalink( $product_id ) ),
+		'price_html' => wp_kses_post( $product->get_price_html() ),
+		'image_url'  => esc_url_raw( (string) $image_url ),
+		'category'   => wp_strip_all_tags( implode( ', ', $categories ) ),
 	];
 }
 

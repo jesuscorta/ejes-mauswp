@@ -14,7 +14,7 @@ function mauswp_enqueue_assets(): void {
 	$theme_uri  = get_template_directory_uri();
 	$theme_path = get_template_directory();
 
-	$swiper_style_rel_path = '/node_modules/swiper/swiper-bundle.min.css';
+	$swiper_style_rel_path = '/assets/dist/vendor/swiper/swiper-bundle.min.css';
 	$swiper_style_abs_path = $theme_path . $swiper_style_rel_path;
 
 	if ( file_exists( $swiper_style_abs_path ) ) {
@@ -38,7 +38,7 @@ function mauswp_enqueue_assets(): void {
 		);
 	}
 
-	$swiper_script_rel_path = '/node_modules/swiper/swiper-bundle.min.js';
+	$swiper_script_rel_path = '/assets/dist/vendor/swiper/swiper-bundle.min.js';
 	$swiper_script_abs_path = $theme_path . $swiper_script_rel_path;
 
 	if ( file_exists( $swiper_script_abs_path ) ) {
@@ -51,7 +51,7 @@ function mauswp_enqueue_assets(): void {
 		);
 	}
 
-	$script_rel_path = '/assets/src/js/app.js';
+	$script_rel_path = '/assets/dist/app.js';
 	$script_abs_path = $theme_path . $script_rel_path;
 
 	if ( file_exists( $script_abs_path ) ) {

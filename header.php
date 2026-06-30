@@ -52,18 +52,22 @@ if ( function_exists( 'get_field' ) ) {
 
 $mauswp_phone_href = preg_replace( '/[^0-9+]/', '', $mauswp_contact_phone );
 $mauswp_logo_url   = '';
+$mauswp_logo_id    = 0;
 $mauswp_logo_alt   = $mauswp_site_name;
 $mauswp_catalog_mega_image_url = '';
+$mauswp_catalog_mega_image_id  = 0;
 $mauswp_catalog_mega_image_alt = __( 'Categorías del catálogo', 'mauswp' );
 $mauswp_catalog_categories = function_exists( 'mauswp_get_catalog_mega_menu_categories' ) ? mauswp_get_catalog_mega_menu_categories() : [];
 $mauswp_catalog_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/catalogo/' );
 
 if ( is_array( $mauswp_header_logo ) ) {
+	$mauswp_logo_id  = ! empty( $mauswp_header_logo['ID'] ) ? (int) $mauswp_header_logo['ID'] : 0;
 	$mauswp_logo_url = ! empty( $mauswp_header_logo['url'] ) ? (string) $mauswp_header_logo['url'] : '';
 	$mauswp_logo_alt = ! empty( $mauswp_header_logo['alt'] ) ? (string) $mauswp_header_logo['alt'] : $mauswp_logo_alt;
 }
 
 if ( is_array( $mauswp_catalog_mega_image ) ) {
+	$mauswp_catalog_mega_image_id  = ! empty( $mauswp_catalog_mega_image['ID'] ) ? (int) $mauswp_catalog_mega_image['ID'] : 0;
 	$mauswp_catalog_mega_image_url = ! empty( $mauswp_catalog_mega_image['sizes']['large'] ) ? (string) $mauswp_catalog_mega_image['sizes']['large'] : '';
 	$mauswp_catalog_mega_image_alt = ! empty( $mauswp_catalog_mega_image['alt'] ) ? (string) $mauswp_catalog_mega_image['alt'] : $mauswp_catalog_mega_image_alt;
 
@@ -132,7 +136,9 @@ if ( is_array( $mauswp_catalog_mega_image ) ) {
 	<div class="container relative flex min-h-[5rem] items-center justify-between gap-6 py-4" data-catalog-mega-root>
 		<div class="flex items-center gap-3">
 			<a class="inline-flex items-center gap-3 text-slate-900" href="<?php echo esc_url( $mauswp_home_url ); ?>" rel="home">
-				<?php if ( '' !== $mauswp_logo_url ) : ?>
+				<?php if ( $mauswp_logo_id > 0 ) : ?>
+					<?php echo wp_get_attachment_image( $mauswp_logo_id, 'medium', false, [ 'class' => 'block max-w-full shrink-0 sm:w-[14rem] lg:w-[16rem]', 'style' => 'width:12rem;height:auto;', 'alt' => $mauswp_logo_alt ] ); ?>
+				<?php elseif ( '' !== $mauswp_logo_url ) : ?>
 					<img class="block max-w-full shrink-0 sm:w-[14rem] lg:w-[16rem]" src="<?php echo esc_url( $mauswp_logo_url ); ?>" alt="<?php echo esc_attr( $mauswp_logo_alt ); ?>" width="192" height="96" style="width:12rem;height:auto;">
 				<?php else : ?>
 					<span class="inline-flex h-11 w-11 items-center justify-center bg-brand-700 text-sm font-bold uppercase tracking-[0.18em] text-white">
@@ -255,7 +261,9 @@ if ( is_array( $mauswp_catalog_mega_image ) ) {
 					</div>
 
 					<a class="catalog-mega-menu__media" href="<?php echo esc_url( $mauswp_catalog_url ); ?>">
-						<?php if ( '' !== $mauswp_catalog_mega_image_url ) : ?>
+						<?php if ( $mauswp_catalog_mega_image_id > 0 ) : ?>
+							<?php echo wp_get_attachment_image( $mauswp_catalog_mega_image_id, 'large', false, [ 'class' => 'catalog-mega-menu__image', 'alt' => $mauswp_catalog_mega_image_alt ] ); ?>
+						<?php elseif ( '' !== $mauswp_catalog_mega_image_url ) : ?>
 							<img class="catalog-mega-menu__image" src="<?php echo esc_url( $mauswp_catalog_mega_image_url ); ?>" alt="<?php echo esc_attr( $mauswp_catalog_mega_image_alt ); ?>">
 						<?php else : ?>
 							<div class="catalog-mega-menu__placeholder" aria-hidden="true"></div>

@@ -288,8 +288,8 @@ while ( have_posts() ) :
 										<article class="shop-related__card">
 											<a class="shop-related__card-link" href="<?php echo esc_url( $related_product->get_permalink() ); ?>">
 												<div class="shop-related__card-media">
-													<?php if ( '' !== $rel_image_url ) : ?>
-														<img class="shop-related__card-image" src="<?php echo esc_url( $rel_image_url ); ?>" alt="<?php echo esc_attr( $rel_image_alt ); ?>" loading="lazy">
+											<?php if ( $rel_image_id > 0 ) : ?>
+												<?php echo wp_get_attachment_image( $rel_image_id, 'large', false, [ 'class' => 'shop-related__card-image', 'loading' => 'lazy', 'alt' => $rel_image_alt ] ); ?>
 													<?php else : ?>
 														<div class="shop-related__card-placeholder" aria-hidden="true"></div>
 													<?php endif; ?>
