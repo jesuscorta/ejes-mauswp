@@ -94,7 +94,7 @@ function mauswp_get_catalog_mega_menu_categories(): array {
 		'taxonomy'   => 'product_cat',
 		'hide_empty' => true,
 		'parent'     => 0,
-		'number'     => 9,
+		'number'     => 12,
 		'orderby'    => 'name',
 		'order'      => 'ASC',
 	];

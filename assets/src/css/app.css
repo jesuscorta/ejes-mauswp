@@ -165,7 +165,7 @@
   }
 
   .catalog-mega-menu__content {
-    @apply px-8 py-8;
+    @apply max-h-[calc(100vh-10rem)] overflow-y-auto px-8 py-8;
   }
 
   .catalog-mega-menu__intro {
