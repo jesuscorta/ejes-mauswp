@@ -1196,6 +1196,10 @@
     @apply min-w-0 text-base leading-8 text-slate-600;
   }
 
+  .shop-category__editorial-content a {
+    @apply font-semibold text-brand-700 underline decoration-brand-400 decoration-2 underline-offset-4 transition hover:text-brand-800 hover:decoration-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-500;
+  }
+
   .shop-category__editorial-content p:first-child {
     @apply mt-0;
   }
