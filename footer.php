@@ -49,7 +49,7 @@ $footer_phone_href = preg_replace( '/[^0-9+]/', '', $footer_phone );
 		</div>
 
 		<div class="space-y-4">
-			<h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500"><?php echo esc_html( $footer_column_2_title ); ?></h3>
+			<p class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500"><?php echo esc_html( $footer_column_2_title ); ?></p>
 			<?php
 			wp_nav_menu(
 				[
@@ -64,7 +64,7 @@ $footer_phone_href = preg_replace( '/[^0-9+]/', '', $footer_phone );
 		</div>
 
 		<div class="space-y-5">
-			<h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500"><?php echo esc_html( $footer_column_3_title ); ?></h3>
+			<p class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500"><?php echo esc_html( $footer_column_3_title ); ?></p>
 			<ul class="space-y-3 text-sm text-slate-300">
 				<?php if ( '' !== $footer_phone ) : ?>
 					<li><a class="transition hover:text-white" href="tel:<?php echo esc_attr( $footer_phone_href ); ?>"><?php echo esc_html( $footer_phone ); ?></a></li>
