@@ -2675,12 +2675,16 @@
   }
 
   .product-showcase-block__media {
-    @apply relative border-b border-slate-200 bg-slate-50;
+    @apply relative border-b border-slate-200 bg-white;
   }
 
   .product-showcase-block__image,
   .product-showcase-block__placeholder {
-    @apply aspect-[16/11] w-full object-cover;
+    @apply aspect-[16/11] w-full object-contain;
+  }
+
+  .product-showcase-block__image {
+    @apply p-4;
   }
 
   .product-showcase-block__placeholder {
