@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,7 +10,11 @@
   }
 
   body {
-    @apply bg-white font-sans text-base text-slate-900;
+    @apply bg-white font-sans text-base leading-relaxed text-slate-900;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
   }
 
   html.mauswp-frontend {
@@ -386,7 +392,7 @@
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.22em] text-brand-700;
+    @apply inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-brand-700;
   }
 
   .section-title {
@@ -441,7 +447,8 @@
   }
 
   .hero-block__title {
-    @apply font-display text-4xl font-normal leading-tight tracking-tight text-white sm:text-5xl lg:text-7xl;
+    @apply font-display text-4xl font-normal leading-snug tracking-tight text-white sm:text-5xl lg:text-7xl;
+    text-wrap: balance;
   }
 
   .hero-block__nav {
@@ -495,7 +502,8 @@
   }
 
   .about-hero-block__title {
-    @apply font-display text-4xl font-normal leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl;
+    @apply font-display text-4xl font-normal leading-snug tracking-tight text-white sm:text-5xl lg:text-6xl;
+    text-wrap: balance;
   }
 
   .about-hero-block__subtitle {
@@ -503,7 +511,7 @@
   }
 
   .about-hero-block__description {
-    @apply max-w-2xl text-base leading-7 text-white/90 sm:text-lg;
+    @apply max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg;
   }
 
   .about-hero-block__description p {
@@ -544,7 +552,7 @@
   }
 
   .features-strip-block__title {
-    @apply max-w-[12ch] text-[1.1rem] font-semibold leading-tight tracking-tight text-slate-950;
+    @apply max-w-[12ch] text-lg font-semibold leading-tight tracking-tight text-slate-950;
   }
 
   .features-strip-block__text {
@@ -595,7 +603,7 @@
   }
 
   .expertise-grid-block__text {
-    @apply max-w-2xl text-base leading-7 text-slate-600;
+    @apply max-w-2xl text-base leading-relaxed text-slate-600;
   }
 
   .expertise-grid-block__text p {
@@ -637,7 +645,7 @@
   }
 
   .expertise-grid-block__description {
-    @apply text-base leading-7 text-slate-600;
+    @apply text-base leading-relaxed text-slate-600;
   }
 
   .expertise-grid-block__description p {
@@ -682,7 +690,7 @@
   }
 
   .angled-product-callout-block__copy {
-    @apply max-w-xl text-lg leading-9 text-white/90;
+    @apply max-w-xl text-lg leading-relaxed text-white/90;
   }
 
   .angled-product-callout-block__copy p {
@@ -723,11 +731,11 @@
   }
 
   .media-text-block__title {
-    @apply text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl;
+    @apply text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl;
   }
 
   .media-text-block__copy {
-    @apply space-y-6 text-lg leading-9 text-slate-700;
+    @apply space-y-6 text-lg leading-relaxed text-slate-700;
   }
 
   .media-text-block__copy strong {
@@ -772,11 +780,11 @@
   }
 
   .editorial-offset-block__title {
-    @apply text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl;
+    @apply text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl;
   }
 
   .editorial-offset-block__copy {
-    @apply space-y-6 text-lg leading-9 text-slate-700;
+    @apply space-y-6 text-lg leading-relaxed text-slate-700;
   }
 
   .editorial-offset-block__copy p {
@@ -823,7 +831,7 @@
   }
 
   .google-reviews-block__eyebrow {
-    @apply text-sm font-semibold uppercase tracking-[0.18em] text-brand-700;
+    @apply text-sm font-semibold uppercase tracking-[0.16em] text-brand-700;
   }
 
   .google-reviews-block__title {
@@ -884,7 +892,7 @@
   }
 
   .news-archive__excerpt {
-    @apply text-base leading-7 text-slate-600;
+    @apply text-base leading-relaxed text-slate-600;
   }
 
   .news-archive__cta {
@@ -939,7 +947,7 @@
   }
 
   .shop-category__lead {
-    @apply max-w-2xl text-lg leading-8 text-slate-600;
+    @apply max-w-2xl text-lg leading-relaxed text-slate-600;
   }
 
   .shop-category__actions {
@@ -1003,7 +1011,7 @@
   }
 
   .shop-category__filters-eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.18em] text-brand-700;
+    @apply text-xs font-semibold uppercase tracking-[0.16em] text-brand-700;
   }
 
   .shop-category__filters-title {
@@ -1168,7 +1176,7 @@
   }
 
   .shop-category__card-title {
-    @apply text-base font-semibold leading-tight tracking-tight text-slate-950 sm:text-[1.2rem];
+    @apply text-base font-semibold leading-tight tracking-tight text-slate-950 sm:text-xl;
   }
 
   .shop-category__card-cta {
@@ -1200,11 +1208,11 @@
   }
 
   .shop-category__editorial-eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.18em] text-brand-700;
+    @apply text-xs font-semibold uppercase tracking-[0.16em] text-brand-700;
   }
 
   .shop-category__editorial-content {
-    @apply min-w-0 text-base leading-8 text-slate-600;
+    @apply min-w-0 text-base leading-relaxed text-slate-600;
   }
 
   .shop-category__editorial-content h1,
@@ -1309,7 +1317,7 @@
   }
 
   .shop-related__card-title {
-    @apply text-base font-semibold leading-tight tracking-tight text-slate-950 sm:text-[1.2rem];
+    @apply text-base font-semibold leading-tight tracking-tight text-slate-950 sm:text-xl;
   }
 
   .shop-related__card-cta {
@@ -1526,7 +1534,7 @@
   }
 
   .shop-product__intro {
-    @apply border-b border-slate-200 py-6 text-base leading-8 text-slate-600;
+    @apply border-b border-slate-200 py-6 text-base leading-relaxed text-slate-600;
   }
 
   .shop-product__intro p:first-child {
@@ -1761,7 +1769,7 @@
   }
 
   .shop-product__review-content {
-    @apply max-w-3xl text-base leading-7 text-slate-600;
+    @apply max-w-3xl text-base leading-relaxed text-slate-600;
   }
 
   .shop-product__review-content > :first-child {
@@ -1895,7 +1903,7 @@
   }
 
   .shop-product-builder__faq-answer {
-    @apply max-w-none pb-5 text-base leading-8 text-slate-600;
+    @apply max-w-none pb-5 text-base leading-relaxed text-slate-600;
   }
 
   .shop-product-builder__faq-answer > :first-child {
@@ -1907,7 +1915,7 @@
   }
 
   .shop-product-builder__block--text {
-    @apply min-w-0 max-w-none text-[1rem] leading-[1.65] text-slate-700 sm:text-[1.0625rem];
+    @apply min-w-0 max-w-none text-[1rem] leading-relaxed text-slate-700 sm:text-[1.0625rem];
   }
 
   .shop-product-builder__block--text > * + * {
@@ -1944,7 +1952,7 @@
   }
 
   .shop-product-builder__block--text li {
-    @apply leading-[1.65];
+    @apply leading-relaxed;
   }
 
   .shop-product-builder__block--text blockquote {
@@ -1960,7 +1968,7 @@
   }
 
   .shop-flow__lead {
-    @apply max-w-4xl text-base leading-7 text-slate-600;
+    @apply max-w-4xl text-base leading-relaxed text-slate-600;
   }
 
   .shop-config-confirmation {
@@ -1972,7 +1980,7 @@
   }
 
   .shop-config-confirmation__intro {
-    @apply text-base leading-7 text-slate-600;
+    @apply text-base leading-relaxed text-slate-600;
   }
 
   .shop-config-confirmation__form {
@@ -2513,11 +2521,11 @@
   }
 
   .latest-posts-block__title {
-    @apply text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl;
+    @apply text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl;
   }
 
   .latest-posts-block__text {
-    @apply text-lg leading-8 text-slate-600;
+    @apply text-lg leading-relaxed text-slate-600;
   }
 
   .latest-posts-block__cta {
@@ -2587,19 +2595,19 @@
   }
 
   .latest-posts-block__card-title {
-    @apply text-[1.55rem] font-semibold leading-tight tracking-tight text-slate-950;
+    @apply text-2xl font-semibold leading-tight tracking-tight text-slate-950;
   }
 
   .latest-posts-block__card-title--featured {
-    @apply text-[1.85rem] sm:text-[2.1rem];
+    @apply text-2xl sm:text-3xl;
   }
 
   .latest-posts-block__card-title--compact {
-    @apply text-[1.2rem];
+    @apply text-lg;
   }
 
   .latest-posts-block__excerpt {
-    @apply text-[0.98rem] leading-7 text-slate-600;
+    @apply text-[0.98rem] leading-relaxed text-slate-600;
   }
 
   .latest-posts-block__excerpt--compact {
@@ -2635,11 +2643,11 @@
   }
 
   .product-showcase-block__title {
-    @apply text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl;
+    @apply text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl;
   }
 
   .product-showcase-block__text {
-    @apply max-w-3xl text-lg leading-8 text-slate-600;
+    @apply max-w-3xl text-lg leading-relaxed text-slate-600;
   }
 
   .product-showcase-block__carousel {
@@ -2706,11 +2714,11 @@
   }
 
   .product-showcase-block__card-title {
-    @apply text-[1.45rem] font-semibold leading-tight tracking-tight text-slate-950;
+    @apply text-2xl font-semibold leading-tight tracking-tight text-slate-950;
   }
 
   .product-showcase-block__excerpt {
-    @apply text-[0.98rem] leading-7 text-slate-600;
+    @apply text-[0.98rem] leading-relaxed text-slate-600;
   }
 
   .product-showcase-block__cta {
@@ -2895,7 +2903,8 @@
   }
 
   .entry-content {
-    @apply text-base leading-8 text-slate-700;
+    @apply max-w-prose text-base leading-relaxed text-slate-700;
+    text-wrap: pretty;
   }
 
   .entry-content > * + * {
@@ -3117,7 +3126,7 @@
   }
 
   .single-post__comment-content {
-    @apply text-base leading-7 text-slate-700;
+    @apply text-base leading-relaxed text-slate-700;
   }
 
   .single-post__comment-content > :first-child {
