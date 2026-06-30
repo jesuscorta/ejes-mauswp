@@ -65,19 +65,16 @@ if ( function_exists( 'wc_get_products' ) ) {
 		}
 
 		$product_id     = $wc_product->get_id();
-		$product_cats   = get_the_terms( $product_id, 'product_cat' );
-		$primary_cat    = ! empty( $product_cats ) && ! is_wp_error( $product_cats ) ? $product_cats[0]->name : __( 'Producto', 'mauswp' );
 		$image_id       = $wc_product->get_image_id();
 		$image_alt      = $image_id ? (string) get_post_meta( $image_id, '_wp_attachment_image_alt', true ) : '';
 		$product_image  = $image_id ? wp_get_attachment_image_url( $image_id, 'large' ) : '';
-		$excerpt_source = $wc_product->get_short_description();
+		$excerpt_source = $wc_product->get_short_description() ?: $wc_product->get_description();
 
 		$products[] = [
 			'title'       => $wc_product->get_name(),
 			'price'       => wp_strip_all_tags( $wc_product->get_price_html() ?: '' ),
 			'url'         => get_permalink( $product_id ) ?: '',
-			'badge'       => $primary_cat,
-			'excerpt'     => wp_trim_words( wp_strip_all_tags( (string) $excerpt_source ), 18, '...' ),
+			'excerpt'     => wp_trim_words( wp_strip_all_tags( $excerpt_source ), 18, '...' ),
 			'cta_label'   => __( 'Ver producto', 'mauswp' ),
 			'image_label' => mb_strtoupper( wp_trim_words( $wc_product->get_name(), 2, '' ) ),
 			'image_url'   => is_string( $product_image ) ? $product_image : '',
@@ -135,7 +132,6 @@ if ( function_exists( 'wc_get_products' ) ) {
 												<span class="product-showcase-block__placeholder-tag"><?php echo esc_html( $product['image_label'] ); ?></span>
 											</div>
 										<?php endif; ?>
-										<span class="product-showcase-block__badge"><?php echo esc_html( $product['badge'] ); ?></span>
 									</div>
 
 									<div class="product-showcase-block__body">
