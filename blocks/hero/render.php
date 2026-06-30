@@ -34,11 +34,13 @@ if ( is_array( $slides ) ) {
 		}
 
 		$background_url = '';
+		$background_id  = 0;
 		$title          = ! empty( $slide['title'] ) ? (string) $slide['title'] : '';
 		$cta_link       = ! empty( $slide['cta_link'] ) && is_array( $slide['cta_link'] ) ? $slide['cta_link'] : [];
 
 		if ( ! empty( $slide['background_image'] ) && is_array( $slide['background_image'] ) && ! empty( $slide['background_image']['url'] ) ) {
 			$background_url = (string) $slide['background_image']['url'];
+			$background_id  = ! empty( $slide['background_image']['ID'] ) ? (int) $slide['background_image']['ID'] : 0;
 		}
 
 		if ( '' === $title ) {
@@ -52,6 +54,7 @@ if ( is_array( $slides ) ) {
 
 		$items[] = [
 			'background_url' => $background_url,
+			'background_id'  => $background_id,
 			'title'          => $title,
 			'cta_url'        => $cta_url,
 			'cta_label'      => $cta_label,
@@ -85,12 +88,31 @@ if ( empty( $items ) ) {
 				data-hero-slide
 				aria-hidden="<?php echo 0 === $index ? 'false' : 'true'; ?>"
 			>
-				<div
-					class="hero-block__media <?php echo '' === $item['background_url'] ? esc_attr( 'hero-block__media--fallback' ) : ''; ?>"
-					<?php if ( '' !== $item['background_url'] ) : ?>
-						style="background-image: url('<?php echo esc_url( $item['background_url'] ); ?>');"
-					<?php endif; ?>
-				></div>
+				<?php if ( '' !== $item['background_url'] ) : ?>
+					<?php
+					$image_attrs = [
+						'class'      => 'hero-block__media',
+						'alt'        => '',
+						'decoding'   => 'async',
+						'loading'    => 0 === $index ? 'eager' : 'lazy',
+						'fetchpriority' => 0 === $index ? 'high' : false,
+					];
+
+					if ( $item['background_id'] > 0 ) {
+						echo wp_get_attachment_image( $item['background_id'], 'full', false, $image_attrs );
+					} else {
+						printf(
+							'<img src="%s" class="%s" alt="" decoding="async" loading="%s"%s>',
+							esc_url( $item['background_url'] ),
+							esc_attr( $image_attrs['class'] ),
+							esc_attr( $image_attrs['loading'] ),
+							0 === $index ? ' fetchpriority="high"' : ''
+						);
+					}
+					?>
+				<?php else : ?>
+					<div class="hero-block__media hero-block__media--fallback"></div>
+				<?php endif; ?>
 				<div class="hero-block__overlay"></div>
 
 				<div class="hero-block__inner">
