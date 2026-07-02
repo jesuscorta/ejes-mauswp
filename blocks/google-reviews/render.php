@@ -46,15 +46,9 @@ if ( '' === $shortcode && ! is_admin() ) {
 	<?php if ( '' !== $shortcode ) : ?>
 		<div class="google-reviews-block__widget">
 			<?php
-			$reviews_cache_key = 'mauswp_google_reviews_' . md5( $shortcode );
-			$reviews_html      = get_transient( $reviews_cache_key );
-
-			if ( false === $reviews_html ) {
-				$reviews_html = do_shortcode( $shortcode );
-				set_transient( $reviews_cache_key, $reviews_html, HOUR_IN_SECONDS );
-			}
-
-			echo $reviews_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// ponytail: Trustindex gestiona su propio cache interno; el transient aquí
+			// rompía enqueues de JS/CSS del plugin y guardaba salidas vacías.
+			echo do_shortcode( $shortcode ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
 		</div>
 		<?php elseif ( is_admin() ) : ?>
