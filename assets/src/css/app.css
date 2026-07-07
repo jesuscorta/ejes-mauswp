@@ -2912,7 +2912,6 @@
   .contact-form-block__item-value {
     @apply mt-1 block text-base font-semibold leading-7 text-slate-950;
     overflow-wrap: anywhere;
-    word-break: break-word;
   }
 
   .contact-form-block__panel {

@@ -440,6 +440,22 @@ function mauswp_get_product_top_category( int $product_id ): ?WP_Term {
 }
 
 /**
+ * Render an email address with <wbr> break opportunities after @ and .
+ * so it wraps cleanly on narrow screens without breaking mid-word.
+ *
+ * @param string $email Email address.
+ * @return string
+ */
+function mauswp_email_breakable( string $email ): string {
+	$parts  = explode( '@', $email, 2 );
+	$user   = isset( $parts[0] ) ? esc_html( $parts[0] ) : '';
+	$domain = isset( $parts[1] ) ? esc_html( $parts[1] ) : '';
+	$domain = str_replace( '.', '.<wbr>', $domain );
+
+	return $user . '@<wbr>' . $domain;
+}
+
+/**
  * Render the contact form block markup.
  *
  * @param array<string, mixed> $args Optional args: anchor, align, className.
@@ -552,7 +568,7 @@ function mauswp_render_contact_block( array $args = [] ): void {
 								</span>
 								<span class="contact-form-block__item-copy">
 								<span class="contact-form-block__item-label"><?php echo esc_html( $email_label ); ?></span>
-								<span class="contact-form-block__item-value"><?php echo esc_html( antispambot( $contact_email ) ); ?></span>
+								<span class="contact-form-block__item-value"><?php echo mauswp_email_breakable( $contact_email ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 								</span>
 							</a>
 						</li>
