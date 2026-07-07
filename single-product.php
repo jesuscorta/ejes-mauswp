@@ -151,8 +151,14 @@ while ( have_posts() ) :
 
 				<section class="shop-product__summary card">
 					<div class="shop-product__summary-head">
-						<?php if ( $primary_term instanceof WP_Term ) : ?>
-							<p class="eyebrow"><?php echo esc_html( $primary_term->name ); ?></p>
+						<?php
+						$display_category = function_exists( 'mauswp_get_product_top_category' )
+							? mauswp_get_product_top_category( $product_id )
+							: $primary_term;
+
+						if ( $display_category instanceof WP_Term ) :
+							?>
+							<p class="eyebrow"><?php echo esc_html( $display_category->name ); ?></p>
 						<?php endif; ?>
 						<h1 class="shop-product__title"><?php the_title(); ?></h1>
 						<?php if ( $review_count > 0 ) : ?>
@@ -254,18 +260,18 @@ while ( have_posts() ) :
 				}
 			}
 
-			$related_products = [];
-			if ( ! empty( $related_category_slugs ) && function_exists( 'wc_get_products' ) ) {
-				$related_products = wc_get_products(
-					[
-						'status'   => 'publish',
-						'limit'    => 8,
-						'category' => $related_category_slugs,
-						'exclude'  => [ $product_id ],
-						'orderby'  => 'rand',
-					]
-				);
-			}
+		$related_products = [];
+		if ( ! empty( $related_category_slugs ) && function_exists( 'wc_get_products' ) ) {
+			$related_products = wc_get_products(
+				[
+					'status'   => 'publish',
+					'limit'    => 8,
+					'category' => $related_category_slugs,
+					'exclude'  => [ $product_id ],
+					'orderby'  => 'rand',
+				]
+			);
+		}
 			?>
 
 			<?php if ( ! empty( $related_products ) ) : ?>

@@ -56,7 +56,7 @@ const unlockPageScroll = (token) => {
     document.body.style.overflow = previousBodyStyles.overflow;
   }
 
-  window.scrollTo(0, lockedScrollY);
+  window.scrollTo({ top: lockedScrollY, left: 0, behavior: 'instant' });
   previousBodyStyles = null;
   lockedScrollY = 0;
 };

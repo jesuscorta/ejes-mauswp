@@ -383,6 +383,63 @@ function mauswp_yoast_breadcrumbs( string $wrapper_class = '' ): void {
 }
 
 /**
+ * Get the topmost (root) product category for a product.
+ *
+ * Uses Yoast primary term as starting point when available, then walks
+ * up the parent chain until the root ancestor is reached.
+ *
+ * @param int $product_id Product ID.
+ * @return WP_Term|null
+ */
+function mauswp_get_product_top_category( int $product_id ): ?WP_Term {
+	$terms = get_the_terms( $product_id, 'product_cat' );
+
+	if ( ! is_array( $terms ) || empty( $terms ) ) {
+		return null;
+	}
+
+	$start_term = null;
+
+	$yoast_primary_id = (int) get_post_meta( $product_id, '_yoast_wpseo_primary_product_cat', true );
+
+	if ( $yoast_primary_id > 0 ) {
+		foreach ( $terms as $term ) {
+			if ( $term instanceof WP_Term && (int) $term->term_id === $yoast_primary_id ) {
+				$start_term = $term;
+				break;
+			}
+		}
+	}
+
+	if ( ! $start_term instanceof WP_Term ) {
+		foreach ( $terms as $term ) {
+			if ( $term instanceof WP_Term ) {
+				$start_term = $term;
+				break;
+			}
+		}
+	}
+
+	if ( ! $start_term instanceof WP_Term ) {
+		return null;
+	}
+
+	$current = $start_term;
+
+	while ( $current->parent > 0 ) {
+		$parent = get_term( (int) $current->parent, 'product_cat' );
+
+		if ( $parent instanceof WP_Term ) {
+			$current = $parent;
+		} else {
+			break;
+		}
+	}
+
+	return $current;
+}
+
+/**
  * Render the contact form block markup.
  *
  * @param array<string, mixed> $args Optional args: anchor, align, className.
