@@ -1715,7 +1715,36 @@
   }
 
   .shop-product__config-info {
-    @apply inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-brand-300 bg-brand-50 text-brand-700 shadow-[0_14px_28px_-18px_rgba(15,23,42,0.28)] transition hover:border-brand-700 hover:bg-brand-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2;
+    @apply relative inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-brand-300 bg-brand-50 text-brand-700 shadow-[0_14px_28px_-18px_rgba(15,23,42,0.28)] transition hover:border-brand-700 hover:bg-brand-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2;
+  }
+
+  .shop-product__config-info::after {
+    content: "";
+    @apply pointer-events-none absolute inset-0 rounded-full border border-brand-500;
+    animation: shop-product-info-pulse 2.6s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  }
+
+  .shop-product__config-info:hover::after,
+  .shop-product__config-info:focus-visible::after {
+    animation: none;
+    opacity: 0;
+  }
+
+  @keyframes shop-product-info-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+
+    70% {
+      transform: scale(1.55);
+      opacity: 0;
+    }
+
+    100% {
+      transform: scale(1.55);
+      opacity: 0;
+    }
   }
 
   .shop-product__config-info-icon {
