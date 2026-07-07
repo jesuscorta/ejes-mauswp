@@ -131,8 +131,9 @@
   }
 
   .js [data-mobile-menu-panel] {
-    @apply invisible absolute inset-x-0 top-full z-30 overflow-y-auto border-t border-slate-200 bg-white opacity-0 shadow-[0_24px_54px_-36px_rgba(15,23,42,0.3)];
-    height: calc(100svh - var(--mobile-header-height, 0px));
+    @apply invisible fixed inset-x-0 bottom-0 z-30 overflow-y-auto border-t border-slate-200 bg-white opacity-0 shadow-[0_24px_54px_-36px_rgba(15,23,42,0.3)];
+    top: var(--mobile-header-height, 5rem);
+    height: calc(100dvh - var(--mobile-header-height, 5rem));
     transform: translateY(-0.5rem);
     pointer-events: none;
     transition: opacity 250ms var(--ease-out-quart), visibility 250ms var(--ease-out-quart), transform 250ms var(--ease-out-quart);
