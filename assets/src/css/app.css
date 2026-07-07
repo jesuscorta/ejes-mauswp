@@ -1795,47 +1795,128 @@
   }
 
   .shop-product__quote-modal-dialog {
-    @apply relative z-10 w-full max-w-2xl border border-slate-200 bg-white p-5 shadow-[0_28px_80px_-42px_rgba(15,23,42,0.4)] sm:p-6;
+    @apply relative z-10 w-full max-w-2xl overflow-hidden rounded-lg border border-slate-300/80 bg-white shadow-[0_28px_70px_-38px_rgba(15,23,42,0.22)];
     max-height: min(82vh, 44rem);
   }
 
   .shop-product__quote-modal-close {
-    @apply absolute -right-3 -top-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-2xl leading-none text-slate-500 shadow-[0_14px_30px_-18px_rgba(15,23,42,0.45)] transition hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-700;
+    @apply absolute right-4 top-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-3xl leading-none text-slate-500 shadow-sm transition hover:bg-white/20 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-700;
   }
 
   .shop-product__quote-modal-header {
-    @apply mb-5 border-b border-slate-200 pb-4;
+    @apply bg-brand-50 px-6 py-5 sm:px-8;
   }
 
   .shop-product__quote-modal-title {
-    @apply text-2xl font-semibold tracking-tight text-slate-950;
+    @apply text-2xl font-semibold leading-tight tracking-tight text-slate-950;
   }
 
   .shop-product__quote-modal-content {
-    @apply overflow-y-auto pr-1;
-    max-height: calc(min(82vh, 44rem) - 8rem);
+    @apply overflow-y-auto bg-white px-6 py-7 text-slate-900 sm:px-8 sm:py-8;
+    max-height: calc(min(82vh, 44rem) - 6rem);
   }
 
   .shop-product__quote-modal-empty {
-    @apply py-8 text-center text-slate-600;
+    @apply border border-slate-200 bg-slate-50 px-6 py-8 text-slate-700;
   }
 
   .shop-product__quote-modal-content .gform_wrapper {
     @apply m-0 max-w-none;
   }
 
+  .shop-product__quote-modal-content .gform_title,
+  .shop-product__quote-modal-content .gform_description {
+    display: none;
+  }
+
+  .shop-product__quote-modal-content form {
+    @apply space-y-5;
+  }
+
+  .shop-product__quote-modal-content .gform_fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .shop-product__quote-modal-content .gform_fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .shop-product__quote-modal-content .gfield {
+    @apply min-w-0;
+  }
+
+  .shop-product__quote-modal-content .gfield--width-full,
+  .shop-product__quote-modal-content .gfield--type-textarea,
+  .shop-product__quote-modal-content .gfield--type-consent {
+    grid-column: 1 / -1;
+  }
+
+  .shop-product__quote-modal-content .gfield_label {
+    @apply mb-2 inline-flex items-center gap-2 text-sm font-medium text-slate-700;
+  }
+
+  .shop-product__quote-modal-content .gfield_required,
+  .shop-product__quote-modal-content .gfield_required_text {
+    @apply text-red-500;
+  }
+
   .shop-product__quote-modal-content input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
   .shop-product__quote-modal-content select,
   .shop-product__quote-modal-content textarea {
-    @apply min-h-[3rem] w-full border border-slate-300 bg-white px-4 text-sm text-slate-950 outline-none transition focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20;
+    @apply w-full border border-slate-300 bg-white px-4 py-3 text-base text-slate-950 outline-none transition focus:border-brand-700 focus:ring-2 focus:ring-brand-700/15;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .shop-product__quote-modal-content textarea {
-    @apply py-3;
+    min-height: calc(5 * 1.5rem + 1.5rem);
+    resize: vertical;
   }
 
-  .shop-product__quote-modal-content .gform_button {
-    @apply inline-flex min-h-[3rem] items-center justify-center border border-brand-700 bg-brand-700 px-6 py-3 text-sm font-semibold text-white transition hover:border-brand-800 hover:bg-brand-800;
+  .shop-product__quote-modal-content .ginput_container_consent {
+    @apply flex items-start gap-3;
+  }
+
+  .shop-product__quote-modal-content .ginput_container_consent input {
+    @apply mt-1 h-5 w-5 shrink-0 border border-slate-300 bg-white text-brand-700;
+  }
+
+  .shop-product__quote-modal-content .gfield_consent_label,
+  .shop-product__quote-modal-content .gform-field-label--type-inline {
+    @apply text-sm leading-7 text-slate-600;
+  }
+
+  .shop-product__quote-modal-content .gfield_consent_label a,
+  .shop-product__quote-modal-content .gform-field-label--type-inline a {
+    @apply font-semibold text-brand-700 underline underline-offset-4 transition hover:text-brand-800;
+  }
+
+  .shop-product__quote-modal-content .gform_footer,
+  .shop-product__quote-modal-content .gform_page_footer {
+    @apply flex justify-start pt-1;
+  }
+
+  .shop-product__quote-modal-content .gform_button,
+  .shop-product__quote-modal-content .gform_next_button,
+  .shop-product__quote-modal-content .gform_previous_button {
+    @apply btn-primary min-h-[3.25rem];
+  }
+
+  .shop-product__quote-modal-content .validation_message,
+  .shop-product__quote-modal-content .gfield_validation_message,
+  .shop-product__quote-modal-content .validation_error,
+  .shop-product__quote-modal-content .gform_validation_errors,
+  .shop-product__quote-modal-content .gform_submission_error {
+    @apply mt-3 text-sm font-medium text-red-700;
+  }
+
+  .shop-product__quote-modal-content .gform_validation_errors,
+  .shop-product__quote-modal-content .gform_submission_error {
+    @apply mb-6 border border-red-200 bg-red-50 px-4 py-3 text-red-900;
   }
 
   .shop-product__purchase .cart {
