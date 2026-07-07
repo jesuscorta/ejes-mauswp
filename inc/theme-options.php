@@ -206,16 +206,24 @@ function mauswp_register_theme_options_fields(): void {
 					'type'          => 'text',
 					'default_value' => __( 'Compra asistida', 'mauswp' ),
 				],
-				[
-					'key'           => 'field_mauswp_product_support_text',
-					'label'         => __( 'Texto compra asistida', 'mauswp' ),
-					'name'          => 'mauswp_product_support_text',
-					'type'          => 'textarea',
-					'rows'          => 4,
-					'new_lines'     => 'br',
-					'default_value' => __( 'Si necesitas confirmar compatibilidades, medidas o acabado, revisa la ficha y luego consúltanos con el producto exacto.', 'mauswp' ),
-				],
+			[
+				'key'           => 'field_mauswp_product_support_text',
+				'label'         => __( 'Texto compra asistida', 'mauswp' ),
+				'name'          => 'mauswp_product_support_text',
+				'type'          => 'textarea',
+				'rows'          => 4,
+				'new_lines'     => 'br',
+				'default_value' => __( 'Si necesitas confirmar compatibilidades, medidas o acabado, revisa la ficha y luego consúltanos con el producto exacto.', 'mauswp' ),
 			],
+			[
+				'key'          => 'field_mauswp_product_quote_form_id',
+				'label'        => __( 'ID formulario presupuesto', 'mauswp' ),
+				'name'         => 'mauswp_product_quote_form_id',
+				'type'         => 'number',
+				'instructions' => __( 'ID del formulario de Gravity Forms que se mostrará en el modal "Solicitar presupuesto" de productos sin stock. Dejar vacío para usar el primer formulario disponible.', 'mauswp' ),
+				'default_value' => '',
+			],
+		],
 			'location' => [
 				[
 					[

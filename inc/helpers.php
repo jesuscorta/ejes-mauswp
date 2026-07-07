@@ -456,6 +456,73 @@ function mauswp_email_breakable( string $email ): string {
 }
 
 /**
+ * Render the "Solicitar presupuesto" button and modal for out-of-stock products.
+ *
+ * @param WC_Product $product Product object.
+ */
+function mauswp_render_product_quote_modal( WC_Product $product ): void {
+	$form_id = (int) ( function_exists( 'get_field' ) ? get_field( 'mauswp_product_quote_form_id', 'option' ) : 0 );
+
+	if ( $form_id <= 0 ) {
+		$form_id = (int) get_transient( 'mauswp_product_quote_form_id' );
+
+		if ( $form_id <= 0 && class_exists( 'GFAPI' ) ) {
+			$forms = GFAPI::get_forms( true );
+
+			if ( is_array( $forms ) && ! empty( $forms[0]['id'] ) ) {
+				$form_id = (int) $forms[0]['id'];
+				set_transient( 'mauswp_product_quote_form_id', $form_id, 12 * HOUR_IN_SECONDS );
+			}
+		}
+	}
+
+	$modal_id  = 'mauswp-product-quote-' . $product->get_id();
+	$has_form  = $form_id > 0 && function_exists( 'gravity_form' );
+
+	$form_markup = '';
+
+	if ( $has_form ) {
+		$form_markup = gravity_form(
+			$form_id,
+			false,
+			false,
+			false,
+			[
+				'producto'     => $product->get_name(),
+				'url_producto' => get_permalink( $product->get_id() ),
+				'sku'          => $product->get_sku(),
+			],
+			true,
+			0,
+			false
+		);
+	}
+	?>
+	<button class="shop-product__quote-button" type="button" data-product-quote-open aria-controls="<?php echo esc_attr( $modal_id ); ?>" aria-expanded="false">
+		<?php esc_html_e( 'Solicitar presupuesto', 'mauswp' ); ?>
+	</button>
+
+	<div class="shop-product__quote-modal" id="<?php echo esc_attr( $modal_id ); ?>" hidden data-product-quote-modal aria-modal="true" role="dialog" aria-label="<?php esc_attr_e( 'Solicitar presupuesto', 'mauswp' ); ?>">
+		<div class="shop-product__quote-modal-backdrop" data-product-quote-close></div>
+		<div class="shop-product__quote-modal-dialog">
+			<button class="shop-product__quote-modal-close" type="button" data-product-quote-close aria-label="<?php esc_attr_e( 'Cerrar', 'mauswp' ); ?>">&times;</button>
+			<div class="shop-product__quote-modal-header">
+				<p class="eyebrow"><?php esc_html_e( 'Sin stock', 'mauswp' ); ?></p>
+				<h2 class="shop-product__quote-modal-title"><?php echo esc_html( $product->get_name() ); ?></h2>
+			</div>
+			<div class="shop-product__quote-modal-content">
+				<?php if ( '' !== $form_markup ) : ?>
+					<?php echo $form_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php else : ?>
+					<p class="shop-product__quote-modal-empty"><?php esc_html_e( 'No hay un formulario disponible. Contáctanos directamente.', 'mauswp' ); ?></p>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+
+/**
  * Render the contact form block markup.
  *
  * @param array<string, mixed> $args Optional args: anchor, align, className.
@@ -604,10 +671,11 @@ function mauswp_render_contact_block( array $args = [] ): void {
 }
 
 if ( ! function_exists( 'mauswp_flush_contact_cache' ) ) {
-	function mauswp_flush_contact_cache(): void {
-		delete_transient( 'mauswp_contact_data' );
-		delete_transient( 'mauswp_contact_form_id' );
-	}
+function mauswp_flush_contact_cache(): void {
+	delete_transient( 'mauswp_contact_data' );
+	delete_transient( 'mauswp_contact_form_id' );
+	delete_transient( 'mauswp_product_quote_form_id' );
+}
 }
 add_action( 'acf/save_post', 'mauswp_flush_contact_cache', 20 );
 add_action( 'gform_after_save_form', 'mauswp_flush_contact_cache', 10, 2 );

@@ -177,7 +177,13 @@ while ( have_posts() ) :
 					<?php endif; ?>
 
 					<div class="shop-product__purchase">
-						<?php woocommerce_template_single_add_to_cart(); ?>
+						<?php
+						if ( $product->is_in_stock() ) {
+							woocommerce_template_single_add_to_cart();
+						} elseif ( function_exists( 'mauswp_render_product_quote_modal' ) ) {
+							mauswp_render_product_quote_modal( $product );
+						}
+						?>
 					</div>
 
 					<div class="shop-product__support">

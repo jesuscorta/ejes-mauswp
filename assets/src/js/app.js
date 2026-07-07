@@ -607,6 +607,43 @@ const initProductConfigInfoModal = () => {
   });
 };
 
+const initProductQuoteModal = () => {
+  const modals = document.querySelectorAll('[data-product-quote-modal]');
+
+  modals.forEach((modal) => {
+    const openButton = document.querySelector(`[aria-controls="${modal.id}"]`);
+    const closeButtons = modal.querySelectorAll('[data-product-quote-close]');
+
+    if (!openButton) {
+      return;
+    }
+
+    const closeModal = () => {
+      modal.setAttribute('hidden', 'hidden');
+      openButton.setAttribute('aria-expanded', 'false');
+      unlockPageScroll(modal);
+    };
+
+    const openModal = () => {
+      modal.removeAttribute('hidden');
+      openButton.setAttribute('aria-expanded', 'true');
+      lockPageScroll(modal);
+    };
+
+    openButton.addEventListener('click', openModal);
+
+    closeButtons.forEach((closeButton) => {
+      closeButton.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !modal.hasAttribute('hidden')) {
+        closeModal();
+      }
+    });
+  });
+};
+
 const initHeaderSearch = () => {
   const searchRoot = document.querySelector('[data-header-search]');
 
@@ -1075,6 +1112,7 @@ if (document.readyState === 'loading') {
     initProductSwiper();
     initFeaturesStripSwiper();
     initProductConfigInfoModal();
+    initProductQuoteModal();
     initHeaderSearch();
     initShopArchiveFilters();
     initRelatedSwiper();
@@ -1089,6 +1127,7 @@ if (document.readyState === 'loading') {
   initProductSwiper();
   initFeaturesStripSwiper();
   initProductConfigInfoModal();
+  initProductQuoteModal();
   initHeaderSearch();
   initShopArchiveFilters();
   initRelatedSwiper();
