@@ -581,6 +581,10 @@ function mauswp_render_contact_block( array $args = [] ): void {
 
 	$form_id = (int) apply_filters( 'mauswp_contact_form_id', 0 );
 
+	if ( $form_id <= 0 && function_exists( 'get_field' ) ) {
+		$form_id = (int) get_field( 'mauswp_contact_form_id', 'option' );
+	}
+
 	if ( $form_id <= 0 ) {
 		$form_id = (int) get_transient( 'mauswp_contact_form_id' );
 

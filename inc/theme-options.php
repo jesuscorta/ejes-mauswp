@@ -146,14 +146,22 @@ function mauswp_register_theme_options_fields(): void {
 					'type'          => 'text',
 					'default_value' => __( 'Email', 'mauswp' ),
 				],
-				[
-					'key'           => 'field_mauswp_contact_block_phone_label',
-					'label'         => __( 'Etiqueta teléfono bloque contacto', 'mauswp' ),
-					'name'          => 'mauswp_contact_block_phone_label',
-					'type'          => 'text',
-					'default_value' => __( 'Teléfono', 'mauswp' ),
-				],
+			[
+				'key'           => 'field_mauswp_contact_block_phone_label',
+				'label'         => __( 'Etiqueta teléfono bloque contacto', 'mauswp' ),
+				'name'          => 'mauswp_contact_block_phone_label',
+				'type'          => 'text',
+				'default_value' => __( 'Teléfono', 'mauswp' ),
 			],
+			[
+				'key'          => 'field_mauswp_contact_form_id',
+				'label'        => __( 'ID formulario bloque contacto', 'mauswp' ),
+				'name'         => 'mauswp_contact_form_id',
+				'type'         => 'number',
+				'instructions' => __( 'ID del formulario de Gravity Forms que se mostrará en el bloque de contacto. Dejar vacío para usar el primer formulario disponible.', 'mauswp' ),
+				'default_value' => '',
+			],
+		],
 			'location' => [
 				[
 					[
