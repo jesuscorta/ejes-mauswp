@@ -280,9 +280,18 @@ if ( is_array( $mauswp_catalog_mega_image ) ) {
 
 </header>
 
-<div class="border-t border-slate-200 lg:hidden" id="mobile-primary-menu" data-mobile-menu-panel>
-		<div class="container flex h-full flex-col items-start gap-4 py-6">
-			<nav class="w-full" aria-label="<?php esc_attr_e( 'Menú principal móvil', 'mauswp' ); ?>">
+<div class="lg:hidden" id="mobile-primary-menu" data-mobile-menu-panel>
+	<div class="mobile-menu__bar">
+		<span class="mobile-menu__bar-label"><?php esc_html_e( 'Menú', 'mauswp' ); ?></span>
+		<button class="mobile-menu__close" type="button" data-mobile-menu-close aria-label="<?php esc_attr_e( 'Cerrar menú', 'mauswp' ); ?>">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M18 6 6 18" />
+				<path d="m6 6 12 12" />
+			</svg>
+		</button>
+	</div>
+	<div class="mobile-menu__scroll container flex flex-col items-start gap-4 py-6">
+		<nav class="w-full" aria-label="<?php esc_attr_e( 'Menú principal móvil', 'mauswp' ); ?>">
 				<?php
 				wp_nav_menu(
 					[

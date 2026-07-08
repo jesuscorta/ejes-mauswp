@@ -137,10 +137,9 @@
   }
 
   .js [data-mobile-menu-panel] {
-    @apply invisible fixed inset-x-0 bottom-0 z-50 overflow-y-auto border-t border-slate-200 bg-white opacity-0 shadow-[0_24px_54px_-36px_rgba(15,23,42,0.3)];
-    top: var(--mobile-header-height, 5rem);
-    height: calc(100dvh - var(--mobile-header-height, 5rem));
-    transform: translateY(-0.5rem);
+    @apply invisible fixed inset-0 z-[90] flex flex-col overflow-hidden bg-white opacity-0;
+    height: 100dvh;
+    transform: translateY(0.5rem);
     pointer-events: none;
     transition: opacity 250ms var(--ease-out-quart), visibility 250ms var(--ease-out-quart), transform 250ms var(--ease-out-quart);
   }
@@ -149,6 +148,26 @@
     @apply visible opacity-100;
     transform: translateY(0);
     pointer-events: auto;
+  }
+
+  .mobile-menu__bar {
+    @apply sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white px-5 py-4 sm:px-6;
+  }
+
+  .mobile-menu__bar-label {
+    @apply text-sm font-semibold uppercase tracking-[0.16em] text-slate-500;
+  }
+
+  .mobile-menu__close {
+    @apply inline-flex h-10 w-10 items-center justify-center text-slate-500 transition hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-700;
+  }
+
+  .mobile-menu__close svg {
+    @apply h-6 w-6;
+  }
+
+  .mobile-menu__scroll {
+    @apply flex-1 overflow-y-auto;
   }
 
   .js [data-mobile-menu-panel] .menu {

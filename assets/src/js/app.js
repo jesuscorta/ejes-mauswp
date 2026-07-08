@@ -64,17 +64,12 @@ const unlockPageScroll = (token) => {
 const initMobileMenu = () => {
   const toggleButton = document.querySelector('[data-mobile-menu-toggle]');
   const panel = document.querySelector('[data-mobile-menu-panel]');
-  const header = document.querySelector('[data-site-header]');
 
-  if (!toggleButton || !panel || !header) {
+  if (!toggleButton || !panel) {
     return;
   }
 
-  const syncPanelOffset = () => {
-    const headerHeight = Math.round(header.getBoundingClientRect().height);
-
-    document.documentElement.style.setProperty('--mobile-header-height', `${headerHeight}px`);
-  };
+  const closeButtons = panel.querySelectorAll('[data-mobile-menu-close]');
 
   const closeMenu = () => {
     toggleButton.setAttribute('aria-expanded', 'false');
@@ -83,7 +78,6 @@ const initMobileMenu = () => {
   };
 
   const openMenu = () => {
-    syncPanelOffset();
     toggleButton.setAttribute('aria-expanded', 'true');
     panel.classList.add('is-open');
     document.documentElement.classList.add('is-mobile-menu-open');
@@ -100,20 +94,26 @@ const initMobileMenu = () => {
     openMenu();
   });
 
+  closeButtons.forEach((button) => {
+    button.addEventListener('click', closeMenu);
+  });
+
   // Close menu when clicking nav links, but NOT when clicking the catalog accordion trigger
   panel.querySelectorAll('nav a, .mobile-catalog-menu__panel a').forEach((link) => {
     link.addEventListener('click', closeMenu);
   });
 
-  window.addEventListener('resize', () => {
-    syncPanelOffset();
-
-    if (window.innerWidth >= 1024) {
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && panel.classList.contains('is-open')) {
       closeMenu();
     }
   });
 
-  syncPanelOffset();
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) {
+      closeMenu();
+    }
+  });
 };
 
 const initMobileCatalogAccordion = () => {
@@ -649,6 +649,18 @@ const initHeaderSearch = () => {
 
   if (!searchRoot) {
     return;
+  }
+
+  const header = document.querySelector('[data-site-header]');
+
+  if (header) {
+    const syncHeaderHeight = () => {
+      const headerHeight = Math.round(header.getBoundingClientRect().height);
+      document.documentElement.style.setProperty('--mobile-header-height', `${headerHeight}px`);
+    };
+
+    syncHeaderHeight();
+    window.addEventListener('resize', syncHeaderHeight);
   }
 
   const trigger = searchRoot.querySelector('[data-header-search-trigger]');
