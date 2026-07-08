@@ -2087,6 +2087,14 @@
     @apply w-full border border-slate-200 bg-slate-50 object-contain;
   }
 
+  .shop-product-builder__image-link {
+    @apply block w-full overflow-hidden bg-white text-left;
+  }
+
+  .shop-product-builder__image-link img {
+    @apply transition duration-300 hover:scale-[1.02];
+  }
+
   .shop-product-builder__image-zoom-trigger {
     @apply block w-full cursor-zoom-in overflow-hidden bg-white text-left;
   }

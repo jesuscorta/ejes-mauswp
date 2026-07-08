@@ -54,23 +54,30 @@ function mauswp_register_product_content_fields(): void {
 								],
 							],
 						],
-						'layout_mauswp_product_full_image' => [
-							'key'        => 'layout_mauswp_product_full_image',
-							'name'       => 'full_image',
-							'label'      => __( 'Imagen a ancho completo', 'mauswp' ),
-							'display'    => 'block',
-							'sub_fields' => [
-								[
-									'key'           => 'field_mauswp_product_full_image_asset',
-									'label'         => __( 'Imagen', 'mauswp' ),
-									'name'          => 'image',
-									'type'          => 'image',
-									'return_format' => 'array',
-									'preview_size'  => 'large',
-									'library'       => 'all',
-								],
+					'layout_mauswp_product_full_image' => [
+						'key'        => 'layout_mauswp_product_full_image',
+						'name'       => 'full_image',
+						'label'      => __( 'Imagen a ancho completo', 'mauswp' ),
+						'display'    => 'block',
+						'sub_fields' => [
+							[
+								'key'           => 'field_mauswp_product_full_image_asset',
+								'label'         => __( 'Imagen', 'mauswp' ),
+								'name'          => 'image',
+								'type'          => 'image',
+								'return_format' => 'array',
+								'preview_size'  => 'large',
+								'library'       => 'all',
+							],
+							[
+								'key'          => 'field_mauswp_product_full_image_link',
+								'label'        => __( 'Enlace (opcional)', 'mauswp' ),
+								'name'         => 'link',
+								'type'         => 'url',
+								'instructions' => __( 'Si rellenas este campo, la imagen enlazará a la URL indicada en lugar de abrir el zoom.', 'mauswp' ),
 							],
 						],
+					],
 						'layout_mauswp_product_image_row' => [
 							'key'        => 'layout_mauswp_product_image_row',
 							'name'       => 'image_row',
@@ -248,15 +255,24 @@ function mauswp_render_product_editorial_builder( int $product_id ): void {
 
 		if ( 'full_image' === $layout ) {
 			$image = get_sub_field( 'image' );
+			$link  = (string) get_sub_field( 'link' );
 
 			if ( is_array( $image ) && ! empty( $image['ID'] ) ) {
 				$builder_images[] = (int) $image['ID'];
 				$image_index      = count( $builder_images ) - 1;
 
 				echo '<div class="shop-product-builder__block shop-product-builder__block--full-image">';
-				echo '<button class="shop-product-builder__image-zoom-trigger" type="button" data-product-builder-gallery-open data-builder-gallery-index="' . esc_attr( (string) $image_index ) . '" aria-label="' . esc_attr__( 'Ampliar imagen', 'mauswp' ) . '">';
-				echo wp_get_attachment_image( (int) $image['ID'], 'full', false, [ 'class' => 'shop-product-builder__full-image' ] );
-				echo '</button>';
+
+				if ( '' !== trim( $link ) ) {
+					echo '<a class="shop-product-builder__image-link" href="' . esc_url( $link ) . '" aria-label="' . esc_attr__( 'Ver enlace de la imagen', 'mauswp' ) . '">';
+					echo wp_get_attachment_image( (int) $image['ID'], 'full', false, [ 'class' => 'shop-product-builder__full-image' ] );
+					echo '</a>';
+				} else {
+					echo '<button class="shop-product-builder__image-zoom-trigger" type="button" data-product-builder-gallery-open data-builder-gallery-index="' . esc_attr( (string) $image_index ) . '" aria-label="' . esc_attr__( 'Ampliar imagen', 'mauswp' ) . '">';
+					echo wp_get_attachment_image( (int) $image['ID'], 'full', false, [ 'class' => 'shop-product-builder__full-image' ] );
+					echo '</button>';
+				}
+
 				echo '</div>';
 			}
 		}
