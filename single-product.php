@@ -43,8 +43,6 @@ while ( have_posts() ) :
 	$has_builder       = function_exists( 'mauswp_product_has_editorial_builder' ) ? mauswp_product_has_editorial_builder( $product_id ) : false;
 	$review_count      = (int) $product->get_review_count();
 	$average_rating    = (float) $product->get_average_rating();
-	$rating_stars_full = max( 0, min( 5, (int) round( $average_rating ) ) );
-	$rating_stars      = str_repeat( '★', $rating_stars_full ) . str_repeat( '☆', 5 - $rating_stars_full );
 	$review_comments   = [];
 
 	if ( $review_count > 0 ) {
@@ -163,7 +161,7 @@ while ( have_posts() ) :
 						<h1 class="shop-product__title"><?php the_title(); ?></h1>
 						<?php if ( $review_count > 0 ) : ?>
 							<a class="shop-product__rating-summary" href="#product-reviews" aria-label="<?php echo esc_attr( sprintf( _n( 'Ver %s valoración', 'Ver %s valoraciones', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?>">
-								<span class="shop-product__rating-stars" aria-hidden="true"><?php echo esc_html( $rating_stars ); ?></span>
+								<?php echo mauswp_render_rating_stars( $average_rating ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								<span><?php echo esc_html( sprintf( _n( '%s reseña', '%s reseñas', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
 							</a>
 						<?php endif; ?>
@@ -217,8 +215,9 @@ while ( have_posts() ) :
 							<h2 class="section-title" id="product-reviews-title"><?php esc_html_e( 'Valoraciones de clientes', 'mauswp' ); ?></h2>
 						</div>
 						<div class="shop-product__reviews-score" aria-label="<?php echo esc_attr( sprintf( _n( '%s reseña', '%s reseñas', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?>">
-							<span class="shop-product__rating-stars" aria-hidden="true"><?php echo esc_html( $rating_stars ); ?></span>
+							<?php echo mauswp_render_rating_stars( $average_rating ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							<span class="shop-product__reviews-score-count"><?php echo esc_html( sprintf( _n( '%s reseña', '%s reseñas', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
+							<span class="shop-product__rating-average"><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?>/5</span>
 						</div>
 					</div>
 
@@ -240,7 +239,7 @@ while ( have_posts() ) :
 										<time class="shop-product__review-date" datetime="<?php echo esc_attr( get_comment_date( DATE_W3C, $review_comment ) ); ?>"><?php echo esc_html( get_comment_date( '', $review_comment ) ); ?></time>
 									</div>
 									<?php if ( $comment_rating > 0 ) : ?>
-										<span class="shop-product__rating-stars" aria-label="<?php echo esc_attr( sprintf( __( 'Valoración %d de 5', 'mauswp' ), $comment_rating ) ); ?>"><?php echo esc_html( str_repeat( '★', $comment_rating ) . str_repeat( '☆', 5 - $comment_rating ) ); ?></span>
+										<?php echo mauswp_render_rating_stars( (float) $comment_rating ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 									<?php endif; ?>
 								</header>
 								<div class="shop-product__review-content">

@@ -1654,7 +1654,19 @@
   }
 
   .shop-product__rating-stars {
-    @apply inline-flex text-sm leading-none tracking-[0.08em] text-accent;
+    @apply relative inline-block overflow-hidden text-sm leading-none tracking-[0.08em];
+  }
+
+  .shop-product__rating-stars-bg {
+    @apply text-slate-300;
+  }
+
+  .shop-product__rating-stars-fg {
+    @apply absolute inset-y-0 left-0 overflow-hidden whitespace-nowrap text-accent;
+  }
+
+  .shop-product__rating-average {
+    @apply text-sm font-semibold text-slate-500;
   }
 
   .shop-product__intro {

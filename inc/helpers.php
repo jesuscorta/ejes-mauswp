@@ -456,6 +456,23 @@ function mauswp_email_breakable( string $email ): string {
 }
 
 /**
+ * Render percentage-based star rating HTML (supports partial fills).
+ *
+ * @param float $rating Rating value.
+ * @param int   $max    Maximum rating. Default 5.
+ * @return string
+ */
+function mauswp_render_rating_stars( float $rating, int $max = 5 ): string {
+	$rating  = max( 0.0, min( (float) $max, $rating ) );
+	$percent = $rating > 0 ? ( $rating / $max ) * 100 : 0;
+
+	return '<span class="shop-product__rating-stars" aria-hidden="true">'
+		. '<span class="shop-product__rating-stars-bg">' . str_repeat( '★', $max ) . '</span>'
+		. '<span class="shop-product__rating-stars-fg" style="width:' . esc_attr( (string) $percent ) . '%">' . str_repeat( '★', $max ) . '</span>'
+		. '</span>';
+}
+
+/**
  * Render the "Solicitar presupuesto" button and modal for out-of-stock products.
  *
  * @param WC_Product $product Product object.
