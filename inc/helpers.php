@@ -507,7 +507,7 @@ function mauswp_render_product_quote_modal( WC_Product $product ): void {
 		<div class="shop-product__quote-modal-dialog">
 			<button class="shop-product__quote-modal-close" type="button" data-product-quote-close aria-label="<?php esc_attr_e( 'Cerrar', 'mauswp' ); ?>">&times;</button>
 			<div class="shop-product__quote-modal-header">
-				<p class="eyebrow"><?php esc_html_e( 'Sin stock', 'mauswp' ); ?></p>
+				<p class="eyebrow"><?php esc_html_e( 'Solicitar presupuesto', 'mauswp' ); ?></p>
 				<h2 class="shop-product__quote-modal-title"><?php echo esc_html( $product->get_name() ); ?></h2>
 			</div>
 			<div class="shop-product__quote-modal-content">
