@@ -238,7 +238,7 @@ function mauswp_filter_product_archive_query( WP_Query $query ): void {
 		return;
 	}
 
-	if ( ! $query->is_post_type_archive( 'product' ) && ! $query->is_tax( 'product_cat' ) ) {
+	if ( ! $query->is_post_type_archive( 'product' ) ) {
 		return;
 	}
 

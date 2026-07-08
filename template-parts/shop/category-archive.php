@@ -74,20 +74,17 @@ $pagination_links = paginate_links(
 		'next_text' => __( 'Siguiente', 'mauswp' ),
 	]
 );
-$selected_category_slugs = function_exists( 'mauswp_get_requested_product_filter_category_slugs' ) ? mauswp_get_requested_product_filter_category_slugs() : [];
-$filter_categories       = get_terms(
+$show_filters = ! $is_product_term;
+$selected_category_slugs = $show_filters && function_exists( 'mauswp_get_requested_product_filter_category_slugs' ) ? mauswp_get_requested_product_filter_category_slugs() : [];
+$filter_categories       = $show_filters ? get_terms(
 	[
 		'taxonomy'   => 'product_cat',
 		'hide_empty' => true,
 		'orderby'    => 'name',
 		'order'      => 'ASC',
 	]
-);
+) : [];
 $reset_url               = $is_product_term && $term instanceof WP_Term ? get_term_link( $term ) : $shop_url;
-
-if ( $is_product_term && empty( $selected_category_slugs ) && $term instanceof WP_Term ) {
-	$selected_category_slugs = [ $term->slug ];
-}
 
 if ( ! $is_product_term && '' !== trim( $description ) ) {
 	$description = apply_filters( 'the_content', $description );
@@ -143,12 +140,15 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 				<?php endif; ?>
 			</div>
 			<div class="shop-category__toolbar-actions">
-				<button class="btn-secondary shop-category__filters-trigger" type="button" data-shop-filters-open aria-controls="shop-category-filters-drawer" aria-expanded="false">
-					<?php esc_html_e( 'Filtrar', 'mauswp' ); ?>
-				</button>
+				<?php if ( $show_filters ) : ?>
+					<button class="btn-secondary shop-category__filters-trigger" type="button" data-shop-filters-open aria-controls="shop-category-filters-drawer" aria-expanded="false">
+						<?php esc_html_e( 'Filtrar', 'mauswp' ); ?>
+					</button>
+				<?php endif; ?>
 			</div>
 		</div>
 
+		<?php if ( $show_filters ) : ?>
 		<div class="shop-category__filters-drawer" id="shop-category-filters-drawer" data-shop-filters-drawer>
 			<div class="shop-category__filters-backdrop" data-shop-filters-close></div>
 			<div class="shop-category__filters-panel">
@@ -189,6 +189,7 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 				</form>
 			</div>
 		</div>
+		<?php endif; ?>
 
 		<?php if ( have_posts() ) : ?>
 			<div class="shop-category__results-area" data-shop-archive-results>
