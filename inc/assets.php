@@ -106,6 +106,7 @@ function mauswp_enqueue_assets(): void {
 		'mauswpData',
 		[
 			'ajaxUrl'                     => admin_url( 'admin-ajax.php' ),
+			'searchNonce'                 => wp_create_nonce( 'mauswp_search_nonce' ),
 			'searchNoResultsText'         => __( 'No hay productos para', 'mauswp' ),
 			'searchSuggestionsHeading'    => __( '¿Quizás buscabas...?', 'mauswp' ),
 			'searchPopularHeading'        => __( 'Productos populares', 'mauswp' ),

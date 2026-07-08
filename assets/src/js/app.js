@@ -664,8 +664,7 @@ const initHeaderSearch = () => {
     return;
   }
 
-  const nonceField = document.querySelector('#mauswp_search_nonce');
-  const nonce = nonceField ? nonceField.value : '';
+  const nonce = (window.mauswpData && window.mauswpData.searchNonce) || '';
   const ajaxUrl = (window.mauswpData && window.mauswpData.ajaxUrl) || (window.location.origin + '/wp-admin/admin-ajax.php');
   const noResultsText = (window.mauswpData && window.mauswpData.searchNoResultsText) || 'No hay productos para';
 

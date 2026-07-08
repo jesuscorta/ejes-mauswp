@@ -83,7 +83,6 @@ if ( is_array( $mauswp_catalog_mega_image ) ) {
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script>document.documentElement.classList.add('js','mauswp-frontend');</script>
 	<?php wp_head(); ?>
-	<?php wp_nonce_field( 'mauswp_search_nonce', 'mauswp_search_nonce', false ); ?>
 </head>
 <body <?php body_class( 'bg-white font-sans text-slate-900 antialiased' ); ?>>
 <?php wp_body_open(); ?>
