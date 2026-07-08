@@ -278,7 +278,9 @@ if ( is_array( $mauswp_catalog_mega_image ) ) {
 		<?php endif; ?>
 	</div>
 
-	<div class="border-t border-slate-200 lg:hidden" id="mobile-primary-menu" data-mobile-menu-panel>
+</header>
+
+<div class="border-t border-slate-200 lg:hidden" id="mobile-primary-menu" data-mobile-menu-panel>
 		<div class="container flex h-full flex-col items-start gap-4 py-6">
 			<nav class="w-full" aria-label="<?php esc_attr_e( 'Menú principal móvil', 'mauswp' ); ?>">
 				<?php
@@ -336,4 +338,3 @@ if ( is_array( $mauswp_catalog_mega_image ) ) {
 			<?php endif; ?>
 		</div>
 	</div>
-</header>

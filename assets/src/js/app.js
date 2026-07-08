@@ -73,7 +73,7 @@ const initMobileMenu = () => {
   const syncPanelOffset = () => {
     const headerHeight = Math.round(header.getBoundingClientRect().height);
 
-    header.style.setProperty('--mobile-header-height', `${headerHeight}px`);
+    document.documentElement.style.setProperty('--mobile-header-height', `${headerHeight}px`);
   };
 
   const closeMenu = () => {
