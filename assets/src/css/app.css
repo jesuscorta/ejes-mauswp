@@ -89,6 +89,12 @@
     overscroll-behavior: none;
   }
 
+  html.is-mobile-menu-open,
+  html.is-mobile-menu-open body {
+    @apply overflow-hidden;
+    overscroll-behavior: none;
+  }
+
   ::selection {
     @apply bg-brand-700 text-white;
   }
@@ -131,7 +137,7 @@
   }
 
   .js [data-mobile-menu-panel] {
-    @apply invisible fixed inset-x-0 bottom-0 z-30 overflow-y-auto border-t border-slate-200 bg-white opacity-0 shadow-[0_24px_54px_-36px_rgba(15,23,42,0.3)];
+    @apply invisible fixed inset-x-0 bottom-0 z-50 overflow-y-auto border-t border-slate-200 bg-white opacity-0 shadow-[0_24px_54px_-36px_rgba(15,23,42,0.3)];
     top: var(--mobile-header-height, 5rem);
     height: calc(100dvh - var(--mobile-header-height, 5rem));
     transform: translateY(-0.5rem);

@@ -79,14 +79,14 @@ const initMobileMenu = () => {
   const closeMenu = () => {
     toggleButton.setAttribute('aria-expanded', 'false');
     panel.classList.remove('is-open');
-    unlockPageScroll(panel);
+    document.documentElement.classList.remove('is-mobile-menu-open');
   };
 
   const openMenu = () => {
     syncPanelOffset();
     toggleButton.setAttribute('aria-expanded', 'true');
     panel.classList.add('is-open');
-    lockPageScroll(panel);
+    document.documentElement.classList.add('is-mobile-menu-open');
   };
 
   toggleButton.addEventListener('click', () => {
