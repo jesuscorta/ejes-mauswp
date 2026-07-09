@@ -2048,40 +2048,67 @@
     @apply text-sm font-medium text-slate-500;
   }
 
-  .shop-product__reviews-list {
-    @apply divide-y divide-slate-200;
+  .shop-product__reviews-content {
+    @apply pt-6;
   }
 
-  .shop-product__review {
-    @apply py-6;
+  .shop-product__reviews-content .woocommerce-Reviews {
+    @apply space-y-6;
   }
 
-  .shop-product__review:last-child {
-    @apply pb-0;
+  .shop-product__reviews-content .woocommerce-Reviews-title {
+    @apply text-lg font-semibold text-slate-950;
   }
 
-  .shop-product__review-header {
-    @apply mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between;
+  .shop-product__reviews-content .commentlist {
+    @apply m-0 space-y-6;
   }
 
-  .shop-product__review-author {
-    @apply font-semibold text-slate-950;
+  .shop-product__reviews-content .comment_container {
+    @apply flex gap-4;
   }
 
-  .shop-product__review-date {
-    @apply mt-1 block text-sm text-slate-500;
+  .shop-product__reviews-content .comment-text {
+    @apply flex-1;
   }
 
-  .shop-product__review-content {
-    @apply max-w-3xl text-base leading-relaxed text-slate-600;
+  .shop-product__reviews-content .comment-text .meta {
+    @apply mb-2;
   }
 
-  .shop-product__review-content > :first-child {
-    @apply mt-0;
+  .shop-product__reviews-content .comment-text .description {
+    @apply text-base leading-relaxed text-slate-600;
   }
 
-  .shop-product__review-content > :last-child {
-    @apply mb-0;
+  .shop-product__reviews-content .star-rating {
+    @apply mb-2;
+  }
+
+  .shop-product__reviews-content #respond {
+    @apply mt-6;
+  }
+
+  .shop-product__reviews-content .comment-form-rating {
+    @apply mb-4;
+  }
+
+  .shop-product__reviews-content .comment-form-rating label {
+    @apply mb-1 block text-sm font-medium text-slate-700;
+  }
+
+  .shop-product__reviews-content .comment-form-author label,
+  .shop-product__reviews-content .comment-form-email label {
+    @apply mb-1 block text-sm font-medium text-slate-700;
+  }
+
+  .shop-product__reviews-content .comment-form-author input,
+  .shop-product__reviews-content .comment-form-email input,
+  .shop-product__reviews-content .comment-form-comment textarea {
+    @apply w-full border border-slate-300 bg-white px-4 py-3 text-base text-slate-950 outline-none transition focus:border-brand-700 focus:ring-2 focus:ring-brand-700/15;
+  }
+
+  .shop-product__reviews-content .form-submit .submit {
+    @apply inline-flex min-h-[3rem] items-center justify-center border border-brand-700 bg-brand-700 px-6 py-3 text-sm font-semibold text-white transition hover:border-brand-800 hover:bg-brand-800;
   }
 
   .shop-product-builder {

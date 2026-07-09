@@ -43,17 +43,6 @@ while ( have_posts() ) :
 	$has_builder       = function_exists( 'mauswp_product_has_editorial_builder' ) ? mauswp_product_has_editorial_builder( $product_id ) : false;
 	$review_count      = (int) $product->get_review_count();
 	$average_rating    = (float) $product->get_average_rating();
-	$review_comments   = [];
-
-	if ( $review_count > 0 ) {
-		$review_comments = get_comments(
-			[
-				'post_id' => $product_id,
-				'status'  => 'approve',
-				'number'  => 3,
-			]
-		);
-	}
 
 	if ( is_array( $product_terms ) && ! empty( $product_terms ) && $product_terms[0] instanceof WP_Term ) {
 		$primary_term = $product_terms[0];
@@ -207,50 +196,27 @@ while ( have_posts() ) :
 				<?php endif; ?>
 			</section>
 
-			<?php if ( $review_count > 0 ) : ?>
-				<section class="shop-product__reviews card" id="product-reviews" aria-labelledby="product-reviews-title">
-					<div class="shop-product__reviews-header">
-						<div>
-							<p class="eyebrow"><?php esc_html_e( 'Opiniones reales', 'mauswp' ); ?></p>
-							<h2 class="section-title" id="product-reviews-title"><?php esc_html_e( 'Valoraciones de clientes', 'mauswp' ); ?></h2>
-						</div>
+		<?php if ( comments_open() || $review_count > 0 ) : ?>
+			<section class="shop-product__reviews card" id="product-reviews" aria-labelledby="product-reviews-title">
+				<div class="shop-product__reviews-header">
+					<div>
+						<p class="eyebrow"><?php esc_html_e( 'Opiniones reales', 'mauswp' ); ?></p>
+						<h2 class="section-title" id="product-reviews-title"><?php esc_html_e( 'Valoraciones de clientes', 'mauswp' ); ?></h2>
+					</div>
+					<?php if ( $review_count > 0 ) : ?>
 						<div class="shop-product__reviews-score" aria-label="<?php echo esc_attr( sprintf( _n( '%s reseña', '%s reseñas', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?>">
 							<?php echo mauswp_render_rating_stars( $average_rating ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							<span class="shop-product__reviews-score-count"><?php echo esc_html( sprintf( _n( '%s reseña', '%s reseñas', $review_count, 'mauswp' ), number_format_i18n( $review_count ) ) ); ?></span>
 							<span class="shop-product__rating-average"><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?>/5</span>
 						</div>
-					</div>
-
-					<?php if ( ! empty( $review_comments ) ) : ?>
-						<div class="shop-product__reviews-list">
-						<?php foreach ( $review_comments as $review_comment ) : ?>
-							<?php
-							if ( ! $review_comment instanceof WP_Comment ) {
-								continue;
-							}
-
-							$comment_rating = (int) get_comment_meta( $review_comment->comment_ID, 'rating', true );
-							$comment_rating = max( 0, min( 5, $comment_rating ) );
-							?>
-							<article class="shop-product__review">
-								<header class="shop-product__review-header">
-									<div>
-										<p class="shop-product__review-author"><?php echo esc_html( get_comment_author( $review_comment ) ); ?></p>
-										<time class="shop-product__review-date" datetime="<?php echo esc_attr( get_comment_date( DATE_W3C, $review_comment ) ); ?>"><?php echo esc_html( get_comment_date( '', $review_comment ) ); ?></time>
-									</div>
-									<?php if ( $comment_rating > 0 ) : ?>
-										<?php echo mauswp_render_rating_stars( (float) $comment_rating ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-									<?php endif; ?>
-								</header>
-								<div class="shop-product__review-content">
-									<?php echo wp_kses_post( wpautop( get_comment_text( $review_comment ) ) ); ?>
-								</div>
-							</article>
-						<?php endforeach; ?>
-						</div>
 					<?php endif; ?>
-				</section>
-			<?php endif; ?>
+				</div>
+
+				<div class="shop-product__reviews-content">
+					<?php comments_template(); ?>
+				</div>
+			</section>
+		<?php endif; ?>
 
 			<?php
 			$related_category_slugs = [];
