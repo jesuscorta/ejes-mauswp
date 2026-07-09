@@ -30,30 +30,40 @@ foreach ( $mauswp_includes as $mauswp_file ) {
 }
 
 /**
- * Regenerar indexables de Yoast para todos los productos.
- * Acceder con ?regenerar_yoast_productos=1 siendo administrador.
+ * Regenerar indexables de Yoast para todo el contenido público.
+ * Acceder con ?regenerar_yoast_todo=1 siendo administrador.
  */
 add_action( 'admin_init', function (): void {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
 
-	if ( ! isset( $_GET['regenerar_yoast_productos'] ) ) {
+	if ( ! isset( $_GET['regenerar_yoast_todo'] ) ) {
 		return;
 	}
 
-	$products = get_posts( [
-		'post_type'      => 'product',
-		'post_status'    => [ 'publish', 'draft', 'private' ],
+	$post_types = get_post_types( [
+		'public' => true,
+	], 'names' );
+
+	$excluded = [
+		'attachment',
+	];
+
+	$post_types = array_diff( $post_types, $excluded );
+
+	$posts = get_posts( [
+		'post_type'      => $post_types,
+		'post_status'    => [ 'publish', 'draft', 'pending', 'private', 'future' ],
 		'posts_per_page' => -1,
 		'fields'         => 'ids',
 	] );
 
-	foreach ( $products as $product_id ) {
+	foreach ( $posts as $post_id ) {
 		wp_update_post( [
-			'ID' => $product_id,
+			'ID' => $post_id,
 		] );
 	}
 
-	wp_die( 'Productos actualizados: ' . count( $products ) );
+	wp_die( 'Contenido actualizado: ' . count( $posts ) );
 } );
