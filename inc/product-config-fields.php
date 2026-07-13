@@ -49,6 +49,18 @@ function mauswp_get_product_config_fields(): array {
 				'sin_galvanizar'  => __( 'Sin Galvanizar', 'mauswp' ),
 			],
 		],
+		'modelo_rueda' => [
+			'label'      => __( 'Modelo de rueda', 'mauswp' ),
+			'type'       => 'select',
+			'enable_key' => '_mauswp_enable_modelo_rueda',
+			'options'    => [
+				'seat'       => __( 'Seat', 'mauswp' ),
+				'mercedes'   => __( 'Mercedes', 'mauswp' ),
+				'suzuki'     => __( 'Suzuki', 'mauswp' ),
+				'land_rover' => __( 'Land Rover', 'mauswp' ),
+				'nissan'     => __( 'Nissan', 'mauswp' ),
+			],
+		],
 	];
 }
 
