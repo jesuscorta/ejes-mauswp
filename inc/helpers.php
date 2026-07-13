@@ -644,3 +644,49 @@ if ( ! function_exists( 'mauswp_flush_post_cache' ) ) {
 }
 add_action( 'save_post', 'mauswp_flush_post_cache', 20 );
 add_action( 'delete_post', 'mauswp_flush_post_cache', 20 );
+
+if ( ! function_exists( 'mauswp_render_shop_notice' ) ) {
+	function mauswp_render_shop_notice( string $context ): void {
+		if ( ! function_exists( 'get_field' ) ) {
+			return;
+		}
+
+		$enabled = (bool) get_field( 'mauswp_shop_notice_enabled', 'option' );
+		if ( ! $enabled ) {
+			return;
+		}
+
+		$show_on = get_field( 'mauswp_shop_notice_show_on', 'option' );
+		if ( ! is_array( $show_on ) || ! in_array( $context, $show_on, true ) ) {
+			return;
+		}
+
+		$text = (string) get_field( 'mauswp_shop_notice_text', 'option' );
+		if ( '' === trim( wp_strip_all_tags( $text ) ) ) {
+			return;
+		}
+		?>
+		<div class="shop-notice" role="alert">
+			<div class="shop-notice__icon" aria-hidden="true">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M12 9v4" />
+					<path d="M12 17h.01" />
+					<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+				</svg>
+			</div>
+			<div class="shop-notice__body">
+				<p class="shop-notice__label"><?php esc_html_e( 'Aviso importante', 'mauswp' ); ?></p>
+				<div class="shop-notice__text"><?php echo wp_kses_post( wpautop( $text ) ); ?></div>
+			</div>
+		</div>
+		<?php
+	}
+}
+
+add_action( 'woocommerce_before_cart', function (): void {
+	mauswp_render_shop_notice( 'cart' );
+} );
+
+add_action( 'woocommerce_before_checkout_form', function ( $checkout ): void {
+	mauswp_render_shop_notice( 'checkout' );
+} );

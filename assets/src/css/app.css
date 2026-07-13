@@ -2152,6 +2152,26 @@
     @apply max-w-4xl text-base leading-relaxed text-slate-600;
   }
 
+  .shop-notice {
+    @apply mb-6 flex items-start gap-4 border border-accent/40 bg-accent/10 px-5 py-4 sm:px-6;
+  }
+
+  .shop-notice__icon {
+    @apply mt-0.5 shrink-0 text-accent;
+  }
+
+  .shop-notice__label {
+    @apply mb-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-accent;
+  }
+
+  .shop-notice__text {
+    @apply text-sm font-medium leading-relaxed text-slate-900;
+  }
+
+  .shop-notice__text p {
+    @apply my-0;
+  }
+
   .shop-config-confirmation {
     @apply mt-8 border border-slate-200 bg-white p-5 shadow-[0_18px_50px_-32px_rgba(15,23,42,0.18)] sm:p-6 lg:p-8;
   }

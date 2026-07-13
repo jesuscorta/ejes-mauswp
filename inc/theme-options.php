@@ -69,6 +69,16 @@ function mauswp_register_theme_options_page(): void {
 			'capability'  => 'edit_theme_options',
 		]
 	);
+
+	acf_add_options_sub_page(
+		[
+			'page_title'  => __( 'Opciones de tienda', 'mauswp' ),
+			'menu_title'  => __( 'Tienda', 'mauswp' ),
+			'menu_slug'   => 'mauswp-theme-options-shop',
+			'parent_slug' => (string) $parent_page['menu_slug'],
+			'capability'  => 'edit_theme_options',
+		]
+	);
 }
 add_action( 'acf/init', 'mauswp_register_theme_options_page' );
 
@@ -499,6 +509,59 @@ function mauswp_register_theme_options_fields(): void {
 						'param'    => 'options_page',
 						'operator' => '==',
 						'value'    => 'mauswp-theme-options-megamenu',
+					],
+				],
+			],
+		]
+	);
+
+	acf_add_local_field_group(
+		[
+			'key'    => 'group_mauswp_shop_options',
+			'title'  => __( 'Tienda', 'mauswp' ),
+			'fields' => [
+				[
+					'key'           => 'field_mauswp_shop_notice_enabled',
+					'label'         => __( 'Activar aviso en carrito/checkout', 'mauswp' ),
+					'name'          => 'mauswp_shop_notice_enabled',
+					'type'          => 'true_false',
+					'instructions'  => __( 'Activa o desactiva el mensaje de aviso visible en carrito y/o checkout.', 'mauswp' ),
+					'default_value' => 0,
+					'ui'            => 1,
+					'ui_on_text'    => __( 'Sí', 'mauswp' ),
+					'ui_off_text'   => __( 'No', 'mauswp' ),
+				],
+				[
+					'key'           => 'field_mauswp_shop_notice_text',
+					'label'         => __( 'Texto del aviso', 'mauswp' ),
+					'name'          => 'mauswp_shop_notice_text',
+					'type'          => 'textarea',
+					'instructions'  => __( 'Mensaje que se mostrará dentro del aviso. Salto de línea con Enter.', 'mauswp' ),
+					'rows'          => 4,
+					'new_lines'     => 'br',
+				],
+				[
+					'key'           => 'field_mauswp_shop_notice_show_on',
+					'label'         => __( 'Dónde mostrar el aviso', 'mauswp' ),
+					'name'          => 'mauswp_shop_notice_show_on',
+					'type'          => 'checkbox',
+					'instructions'  => __( 'Selecciona en qué páginas debe aparecer el aviso.', 'mauswp' ),
+					'choices'       => [
+						'cart'     => __( 'Carrito', 'mauswp' ),
+						'checkout' => __( 'Checkout', 'mauswp' ),
+					],
+					'default_value' => [ 'cart', 'checkout' ],
+					'layout'        => 'horizontal',
+					'allow_null'    => 0,
+					'multiple'      => 1,
+				],
+			],
+			'location' => [
+				[
+					[
+						'param'    => 'options_page',
+						'operator' => '==',
+						'value'    => 'mauswp-theme-options-shop',
 					],
 				],
 			],
