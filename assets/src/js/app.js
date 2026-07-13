@@ -958,162 +958,6 @@ const initHeaderSearch = () => {
   });
 };
 
-const initShopArchiveFilters = () => {
-  const archives = document.querySelectorAll('[data-shop-archive]');
-
-  archives.forEach((archive) => {
-    const drawer = archive.querySelector('[data-shop-filters-drawer]');
-    const openButton = archive.querySelector('[data-shop-filters-open]');
-
-    if (!drawer || !openButton) {
-      return;
-    }
-
-    let isLoading = false;
-
-    const closeDrawer = () => {
-      drawer.classList.remove('is-open');
-      openButton.setAttribute('aria-expanded', 'false');
-      document.documentElement.classList.remove('shop-filters-open');
-      unlockPageScroll(drawer);
-    };
-
-    const openDrawer = () => {
-      drawer.classList.add('is-open');
-      openButton.setAttribute('aria-expanded', 'true');
-      document.documentElement.classList.add('shop-filters-open');
-      lockPageScroll(drawer);
-    };
-
-    const replaceArchiveContent = (htmlText, url) => {
-      const parser = new DOMParser();
-      const nextDocument = parser.parseFromString(htmlText, 'text/html');
-      const nextArchive = nextDocument.querySelector('[data-shop-archive]');
-
-      if (!nextArchive) {
-        window.location.href = url;
-        return;
-      }
-
-      const currentToolbar = archive.querySelector('[data-shop-archive-toolbar]');
-      const nextToolbar = nextArchive.querySelector('[data-shop-archive-toolbar]');
-      const currentResults = archive.querySelector('[data-shop-archive-results]');
-      const nextResults = nextArchive.querySelector('[data-shop-archive-results]');
-      const currentDrawer = archive.querySelector('[data-shop-filters-drawer]');
-      const nextDrawer = nextArchive.querySelector('[data-shop-filters-drawer]');
-
-      if (currentToolbar && nextToolbar) {
-        currentToolbar.replaceWith(nextToolbar);
-      }
-
-      if (currentResults && nextResults) {
-        currentResults.replaceWith(nextResults);
-      }
-
-      if (currentDrawer && nextDrawer) {
-        currentDrawer.replaceWith(nextDrawer);
-      }
-
-      window.history.pushState({}, '', url);
-      closeDrawer();
-    };
-
-    const fetchArchive = async (url) => {
-      if (isLoading) {
-        return;
-      }
-
-      isLoading = true;
-      archive.classList.add('is-loading');
-
-      try {
-        const response = await window.fetch(url, {
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error(`Request failed with status ${response.status}`);
-        }
-
-        const htmlText = await response.text();
-        replaceArchiveContent(htmlText, url);
-      } catch (error) {
-        window.location.href = url;
-      } finally {
-        isLoading = false;
-        archive.classList.remove('is-loading');
-      }
-    };
-
-    archive.addEventListener('click', (event) => {
-      const target = event.target;
-
-      if (!(target instanceof Element)) {
-        return;
-      }
-
-      const openTrigger = target.closest('[data-shop-filters-open]');
-      const closeTrigger = target.closest('[data-shop-filters-close]');
-      const resetTrigger = target.closest('[data-shop-filters-reset]');
-      const paginationLink = target.closest('.shop-category__pagination a');
-
-      if (openTrigger) {
-        event.preventDefault();
-        openDrawer();
-        return;
-      }
-
-      if (closeTrigger) {
-        event.preventDefault();
-        closeDrawer();
-        return;
-      }
-
-      if (resetTrigger && resetTrigger instanceof HTMLAnchorElement) {
-        event.preventDefault();
-        fetchArchive(resetTrigger.href);
-        return;
-      }
-
-      if (paginationLink && paginationLink instanceof HTMLAnchorElement) {
-        event.preventDefault();
-        fetchArchive(paginationLink.href);
-      }
-    });
-
-    archive.addEventListener('submit', (event) => {
-      const target = event.target;
-
-      if (!(target instanceof HTMLFormElement) || !target.matches('[data-shop-filters-form]')) {
-        return;
-      }
-
-      event.preventDefault();
-
-      const formData = new window.FormData(target);
-      const params = new URLSearchParams();
-
-      formData.forEach((value, key) => {
-        if (typeof value === 'string' && value !== '') {
-          params.append(key, value);
-        }
-      });
-
-      const url = `${target.action}${params.toString() ? `?${params.toString()}` : ''}`;
-      fetchArchive(url);
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && drawer.classList.contains('is-open')) {
-        closeDrawer();
-      }
-    });
-
-  });
-};
-
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
@@ -1125,7 +969,6 @@ if (document.readyState === 'loading') {
     initProductConfigInfoModal();
     initProductQuoteModal();
     initHeaderSearch();
-    initShopArchiveFilters();
     initRelatedSwiper();
     initProductGallery();
     initProductBuilderGallery();
@@ -1140,7 +983,6 @@ if (document.readyState === 'loading') {
   initProductConfigInfoModal();
   initProductQuoteModal();
   initHeaderSearch();
-  initShopArchiveFilters();
   initRelatedSwiper();
   initProductGallery();
   initProductBuilderGallery();

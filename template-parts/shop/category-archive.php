@@ -74,18 +74,6 @@ $pagination_links = paginate_links(
 		'next_text' => __( 'Siguiente', 'mauswp' ),
 	]
 );
-$show_filters = ! $is_product_term;
-$selected_category_slugs = $show_filters && function_exists( 'mauswp_get_requested_product_filter_category_slugs' ) ? mauswp_get_requested_product_filter_category_slugs() : [];
-$filter_categories       = $show_filters ? get_terms(
-	[
-		'taxonomy'   => 'product_cat',
-		'hide_empty' => true,
-		'orderby'    => 'name',
-		'order'      => 'ASC',
-	]
-) : [];
-$reset_url               = $is_product_term && $term instanceof WP_Term ? get_term_link( $term ) : $shop_url;
-
 if ( ! $is_product_term && '' !== trim( $description ) ) {
 	$description = apply_filters( 'the_content', $description );
 }
@@ -132,67 +120,17 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 		</div>
 	</section>
 
-	<section class="container shop-category__catalog" data-shop-archive>
-		<div class="shop-category__toolbar" data-shop-archive-toolbar>
+	<section class="container shop-category__catalog">
+		<div class="shop-category__toolbar">
 			<div class="shop-category__results">
 				<?php if ( function_exists( 'woocommerce_result_count' ) ) : ?>
 					<?php woocommerce_result_count(); ?>
 				<?php endif; ?>
 			</div>
-			<div class="shop-category__toolbar-actions">
-				<?php if ( $show_filters ) : ?>
-					<button class="btn-secondary shop-category__filters-trigger" type="button" data-shop-filters-open aria-controls="shop-category-filters-drawer" aria-expanded="false">
-						<?php esc_html_e( 'Filtrar', 'mauswp' ); ?>
-					</button>
-				<?php endif; ?>
-			</div>
 		</div>
-
-		<?php if ( $show_filters ) : ?>
-		<div class="shop-category__filters-drawer" id="shop-category-filters-drawer" data-shop-filters-drawer>
-			<div class="shop-category__filters-backdrop" data-shop-filters-close></div>
-			<div class="shop-category__filters-panel">
-				<div class="shop-category__filters-topbar">
-					<div>
-						<p class="shop-category__filters-eyebrow"><?php esc_html_e( 'Filtrar catálogo', 'mauswp' ); ?></p>
-						<p class="shop-category__filters-title"><?php esc_html_e( 'Afina la selección', 'mauswp' ); ?></p>
-					</div>
-					<button class="shop-category__filters-close" type="button" data-shop-filters-close aria-label="<?php esc_attr_e( 'Cerrar filtros', 'mauswp' ); ?>">&times;</button>
-				</div>
-
-				<form class="shop-category__filters" method="get" action="<?php echo esc_url( is_string( $reset_url ) ? $reset_url : $shop_url ); ?>" data-shop-filters-form>
-					<div class="shop-category__filters-grid">
-						<div class="shop-category__filters-group">
-							<p class="shop-category__filters-label"><?php esc_html_e( 'Categorías', 'mauswp' ); ?></p>
-							<div class="shop-category__filters-options">
-								<?php if ( is_array( $filter_categories ) ) : ?>
-									<?php foreach ( $filter_categories as $filter_category ) : ?>
-										<?php if ( ! $filter_category instanceof WP_Term ) : ?>
-											<?php continue; ?>
-										<?php endif; ?>
-										<label class="shop-category__filter-chip">
-											<input type="checkbox" name="product_cats[]" value="<?php echo esc_attr( $filter_category->slug ); ?>" <?php checked( in_array( $filter_category->slug, $selected_category_slugs, true ) ); ?>>
-											<span><?php echo esc_html( $filter_category->name ); ?></span>
-										</label>
-									<?php endforeach; ?>
-								<?php endif; ?>
-							</div>
-						</div>
-
-
-					</div>
-
-					<div class="shop-category__filters-actions">
-						<button class="btn-primary" type="submit"><?php esc_html_e( 'Aplicar filtros', 'mauswp' ); ?></button>
-						<a class="btn-secondary" href="<?php echo esc_url( is_string( $reset_url ) ? $reset_url : $shop_url ); ?>" data-shop-filters-reset><?php esc_html_e( 'Limpiar', 'mauswp' ); ?></a>
-					</div>
-				</form>
-			</div>
-		</div>
-		<?php endif; ?>
 
 		<?php if ( have_posts() ) : ?>
-			<div class="shop-category__results-area" data-shop-archive-results>
+			<div class="shop-category__results-area">
 			<div class="shop-category__grid">
 				<?php
 				while ( have_posts() ) :
@@ -241,7 +179,7 @@ if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
 			<?php endif; ?>
 			</div>
 		<?php else : ?>
-			<section class="shop-category__empty" data-shop-archive-results>
+			<section class="shop-category__empty">
 				<h2 class="text-2xl font-semibold text-slate-900"><?php echo esc_html( $is_product_term ? $empty_text : __( 'Todavía no hay productos publicados en el catálogo.', 'mauswp' ) ); ?></h2>
 			</section>
 		<?php endif; ?>
