@@ -2714,6 +2714,173 @@
     }
   }
 
+  /* My Account */
+  .shop-flow .woocommerce-MyAccount {
+    @apply grid gap-8 lg:grid-cols-[minmax(14rem,0.32fr)_minmax(0,0.68fr)] lg:items-start;
+  }
+
+  .shop-flow .woocommerce-MyAccount-navigation {
+    @apply min-w-0;
+  }
+
+  .shop-flow .woocommerce-MyAccount-navigation ul {
+    @apply m-0 flex list-none gap-1 overflow-x-auto border-b border-slate-200 pb-2 lg:flex-col lg:gap-0 lg:border-b-0 lg:pb-0;
+  }
+
+  .shop-flow .woocommerce-MyAccount-navigation li {
+    @apply shrink-0;
+  }
+
+  .shop-flow .woocommerce-MyAccount-navigation li a {
+    @apply inline-flex min-h-[2.75rem] w-full items-center border border-transparent bg-white px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 lg:border-l-2 lg:border-l-transparent lg:py-3.5;
+  }
+
+  .shop-flow .woocommerce-MyAccount-navigation li.is-active a {
+    @apply border-brand-700 bg-brand-50 text-brand-700 lg:border-l-brand-700;
+  }
+
+  .shop-flow .woocommerce-MyAccount-content {
+    @apply min-w-0;
+  }
+
+  .shop-flow .woocommerce-MyAccount-content > * + * {
+    @apply mt-5;
+  }
+
+  .shop-flow .woocommerce-MyAccount-content h2,
+  .shop-flow .woocommerce-MyAccount-content h3 {
+    @apply mb-4 text-2xl font-semibold tracking-tight text-slate-950;
+  }
+
+  .shop-flow .woocommerce-MyAccount-content p {
+    @apply text-sm leading-relaxed text-slate-600;
+  }
+
+  .shop-flow .woocommerce-MyAccount-content table.woocommerce-MyAccount-orders {
+    @apply w-full border-separate border-spacing-0 overflow-hidden border border-slate-200;
+  }
+
+  .shop-flow .woocommerce-MyAccount-content table.woocommerce-MyAccount-orders th,
+  .shop-flow .woocommerce-MyAccount-content table.woocommerce-MyAccount-orders td {
+    @apply border-b border-slate-200 px-4 py-3.5 text-left text-sm align-top;
+  }
+
+  .shop-flow .woocommerce-MyAccount-content table.woocommerce-MyAccount-orders th {
+    @apply bg-slate-50 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-slate-500;
+  }
+
+  .shop-flow .woocommerce-MyAccount-content table.woocommerce-MyAccount-orders tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .shop-flow .woocommerce-MyAccount-content .woocommerce-Button,
+  .shop-flow .woocommerce-MyAccount-content .button {
+    @apply inline-flex min-h-[2.5rem] items-center justify-center border border-brand-700 bg-brand-700 px-4 py-2 text-sm font-semibold text-white transition hover:border-brand-800 hover:bg-brand-800;
+    border-radius: 0;
+  }
+
+  .shop-flow .woocommerce-MyAccount-content .woocommerce-Button.button-link,
+  .shop-flow .woocommerce-MyAccount-content .button.button-link {
+    @apply border-0 bg-transparent p-0 text-brand-700 underline underline-offset-4 hover:bg-transparent hover:text-brand-800;
+  }
+
+  .shop-flow .woocommerce-Addresses {
+    @apply grid gap-6 sm:grid-cols-2;
+  }
+
+  .shop-flow .woocommerce-Address {
+    @apply border border-slate-200 bg-white p-5;
+  }
+
+  .shop-flow .woocommerce-Address h2,
+  .shop-flow .woocommerce-Address h3 {
+    @apply mb-3 border-b border-slate-200 pb-3 text-lg font-semibold tracking-tight text-slate-950;
+  }
+
+  .shop-flow .woocommerce-Address address {
+    @apply not-italic text-sm leading-relaxed text-slate-600;
+  }
+
+  .shop-flow .woocommerce-EditAccountForm,
+  .shop-flow .woocommerce-form-login,
+  .shop-flow .woocommerce-form-register {
+    @apply space-y-5;
+  }
+
+  .shop-flow .woocommerce-EditAccountForm p,
+  .shop-flow .woocommerce-form-login p,
+  .shop-flow .woocommerce-form-register p {
+    @apply mb-0;
+  }
+
+  .shop-flow .woocommerce-EditAccountForm label,
+  .shop-flow .woocommerce-form-login label,
+  .shop-flow .woocommerce-form-register label {
+    @apply mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-500;
+  }
+
+  .shop-flow .woocommerce-EditAccountForm input[type="text"],
+  .shop-flow .woocommerce-EditAccountForm input[type="email"],
+  .shop-flow .woocommerce-EditAccountForm input[type="password"],
+  .shop-flow .woocommerce-EditAccountForm input[type="tel"],
+  .shop-flow .woocommerce-EditAccountForm input[type="url"],
+  .shop-flow .woocommerce-form-login input[type="text"],
+  .shop-flow .woocommerce-form-login input[type="email"],
+  .shop-flow .woocommerce-form-login input[type="password"],
+  .shop-flow .woocommerce-form-register input[type="text"],
+  .shop-flow .woocommerce-form-register input[type="email"],
+  .shop-flow .woocommerce-form-register input[type="password"] {
+    @apply min-h-[3rem] w-full border border-slate-300 bg-white px-4 text-sm text-slate-950 outline-none transition focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .shop-flow .woocommerce-EditAccountForm fieldset,
+  .shop-flow .woocommerce-form-login fieldset,
+  .shop-flow .woocommerce-form-register fieldset {
+    @apply mt-5 space-y-4 border border-slate-200 bg-slate-50 p-5;
+  }
+
+  .shop-flow .woocommerce-EditAccountForm fieldset legend,
+  .shop-flow .woocommerce-form-login fieldset legend,
+  .shop-flow .woocommerce-form-register fieldset legend {
+    @apply px-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500;
+  }
+
+  .shop-flow .woocommerce-form-login .form-row-first,
+  .shop-flow .woocommerce-form-login .form-row-last,
+  .shop-flow .woocommerce-form-register .form-row-first,
+  .shop-flow .woocommerce-form-register .form-row-last {
+    @apply float-none m-0 w-full;
+  }
+
+  .shop-flow .woocommerce-form-login .form-row-first,
+  .shop-flow .woocommerce-form-register .form-row-first {
+    @apply mb-3;
+  }
+
+  .shop-flow .woocommerce-form-login .woocommerce-form-login__submit,
+  .shop-flow .woocommerce-form-register .woocommerce-form-register__submit {
+    @apply inline-flex min-h-[3rem] w-full items-center justify-center border border-brand-700 bg-brand-700 px-5 py-3 text-sm font-semibold text-white transition hover:border-brand-800 hover:bg-brand-800;
+    border-radius: 0;
+  }
+
+  .shop-flow .woocommerce-form-login label.woocommerce-form-login__rememberme,
+  .shop-flow .woocommerce-form-register label.woocommerce-form-login__rememberme {
+    @apply flex items-center gap-2 normal-case tracking-normal;
+  }
+
+  .shop-flow .woocommerce-form-login__nopro,
+  .shop-flow .woocommerce-form-register__nopro {
+    @apply mt-6 border-t border-slate-200 pt-5 text-sm text-slate-600;
+  }
+
+  .shop-flow .woocommerce-LostPassword a,
+  .shop-flow .woocommerce-form-login__nopro a,
+  .shop-flow .woocommerce-form-register__nopro a {
+    @apply font-semibold text-brand-700 underline underline-offset-4 hover:text-brand-800;
+  }
+
   .latest-posts-block {
     @apply py-12 lg:py-16;
   }

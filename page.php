@@ -7,13 +7,21 @@
 
 declare(strict_types=1);
 
-$is_shop_flow = function_exists( 'is_cart' ) && ( is_cart() || is_checkout() );
+$is_shop_flow = function_exists( 'is_cart' ) && ( is_cart() || is_checkout() || ( function_exists( 'is_account_page' ) && is_account_page() ) );
+$is_account   = function_exists( 'is_account_page' ) && is_account_page();
 $page_kicker  = __( 'Página', 'mauswp' );
 $main_class   = 'bg-site py-16 lg:py-20';
 $article_class = 'mx-auto max-w-4xl border border-slate-200 bg-white p-8 shadow-sm sm:p-10 lg:p-12';
 
 if ( $is_shop_flow ) {
-	$page_kicker   = is_cart() ? __( 'Carrito', 'mauswp' ) : __( 'Finalizar compra', 'mauswp' );
+	if ( $is_account ) {
+		$page_kicker = __( 'Mi cuenta', 'mauswp' );
+	} elseif ( is_cart() ) {
+		$page_kicker = __( 'Carrito', 'mauswp' );
+	} else {
+		$page_kicker = __( 'Finalizar compra', 'mauswp' );
+	}
+
 	$main_class    = 'shop-flow bg-site py-12 lg:py-16';
 	$article_class = 'shop-flow__card mx-auto w-full';
 }
@@ -33,7 +41,15 @@ get_header();
 					<h1 class="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl"><?php the_title(); ?></h1>
 					<?php if ( $is_shop_flow ) : ?>
 						<p class="shop-flow__lead">
-							<?php echo esc_html( is_cart() ? __( 'Revisa tu selección, ajusta cantidades y confirma la configuración antes de pasar al pedido.', 'mauswp' ) : __( 'Completa tus datos y revisa el resumen final para cerrar el pedido con claridad.', 'mauswp' ) ); ?>
+							<?php
+							if ( $is_account ) {
+								esc_html_e( 'Consulta tus pedidos, direcciones y datos de acceso desde un espacio claro y seguro.', 'mauswp' );
+							} elseif ( is_cart() ) {
+								esc_html_e( 'Revisa tu selección, ajusta cantidades y confirma la configuración antes de pasar al pedido.', 'mauswp' );
+							} else {
+								esc_html_e( 'Completa tus datos y revisa el resumen final para cerrar el pedido con claridad.', 'mauswp' );
+							}
+							?>
 						</p>
 					<?php endif; ?>
 				</header>
