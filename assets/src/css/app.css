@@ -463,6 +463,10 @@
     @apply no-underline;
   }
 
+  .header-search__result-price .woocommerce-price-suffix {
+    @apply mt-0.5 block text-[0.68rem] font-medium normal-case tracking-normal text-slate-500;
+  }
+
   .header-search__empty {
     @apply px-4 py-8 text-center;
   }
@@ -1154,6 +1158,10 @@
     @apply no-underline;
   }
 
+  .shop-category__card-price .woocommerce-price-suffix {
+    @apply mt-0.5 block text-[0.68rem] font-medium normal-case tracking-normal text-slate-500;
+  }
+
   .shop-category__card-title {
     @apply text-base font-semibold leading-tight tracking-tight text-slate-950 sm:text-xl;
   }
@@ -1293,6 +1301,10 @@
 
   .shop-related__card-price ins {
     @apply no-underline;
+  }
+
+  .shop-related__card-price .woocommerce-price-suffix {
+    @apply mt-0.5 block text-[0.68rem] font-medium normal-case tracking-normal text-slate-500;
   }
 
   .shop-related__card-title {
@@ -1502,6 +1514,10 @@
 
   .shop-product__price ins {
     @apply no-underline;
+  }
+
+  .shop-product__price .woocommerce-price-suffix {
+    @apply mt-1 block text-sm font-medium normal-case tracking-normal text-slate-500;
   }
 
   .shop-product__rating-summary {
@@ -3092,6 +3108,10 @@
 
   .product-showcase-block__price {
     @apply text-sm font-semibold uppercase tracking-[0.12em] text-brand-700;
+  }
+
+  .product-showcase-block__price .woocommerce-price-suffix {
+    @apply mt-0.5 block text-[0.68rem] font-medium normal-case tracking-normal text-slate-500;
   }
 
   .product-showcase-block__card-title {
