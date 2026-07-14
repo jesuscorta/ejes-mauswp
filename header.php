@@ -59,6 +59,9 @@ $mauswp_catalog_mega_image_id  = 0;
 $mauswp_catalog_mega_image_alt = __( 'Categorías del catálogo', 'mauswp' );
 $mauswp_catalog_categories = function_exists( 'mauswp_get_catalog_mega_menu_categories' ) ? mauswp_get_catalog_mega_menu_categories() : [];
 $mauswp_catalog_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/catalogo/' );
+$mauswp_cart_url    = function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/tienda/' );
+$mauswp_account_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'myaccount' ) : home_url( '/mi-cuenta/' );
+$mauswp_cart_count  = ( function_exists( 'WC' ) && WC()->cart ) ? (int) WC()->cart->get_cart_contents_count() : 0;
 
 if ( is_array( $mauswp_header_logo ) ) {
 	$mauswp_logo_id  = ! empty( $mauswp_header_logo['ID'] ) ? (int) $mauswp_header_logo['ID'] : 0;
@@ -214,6 +217,22 @@ if ( is_array( $mauswp_catalog_mega_image ) ) {
 					</div>
 				</div>
 			</div>
+			<a class="header-action hidden sm:inline-flex" href="<?php echo esc_url( $mauswp_account_url ); ?>" aria-label="<?php esc_attr_e( 'Mi cuenta', 'mauswp' ); ?>">
+				<svg class="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M20 21a8 8 0 0 0-16 0" />
+					<circle cx="12" cy="7" r="4" />
+				</svg>
+			</a>
+			<a class="header-action relative hidden sm:inline-flex" href="<?php echo esc_url( $mauswp_cart_url ); ?>" aria-label="<?php esc_attr_e( 'Carrito', 'mauswp' ); ?>">
+				<svg class="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="8" cy="21" r="1" />
+					<circle cx="19" cy="21" r="1" />
+					<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+				</svg>
+				<?php if ( $mauswp_cart_count > 0 ) : ?>
+					<span class="header-action__badge"><?php echo esc_html( (string) $mauswp_cart_count ); ?></span>
+				<?php endif; ?>
+			</a>
 			<a class="btn-secondary hidden sm:inline-flex" href="<?php echo esc_url( $mauswp_catalog_url ); ?>" data-catalog-mega-trigger aria-expanded="false" aria-controls="desktop-catalog-mega-menu">
 				<?php echo esc_html( $mauswp_catalog_button_label ); ?>
 			</a>

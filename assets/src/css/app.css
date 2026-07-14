@@ -342,6 +342,15 @@
     @apply text-lg text-brand-700;
   }
 
+  /* Header Actions (cart, account) */
+  .header-action {
+    @apply inline-flex h-11 w-11 shrink-0 items-center justify-center border border-slate-200 text-slate-700 transition hover:border-brand-300 hover:text-brand-700;
+  }
+
+  .header-action__badge {
+    @apply absolute -right-1 -top-1 inline-flex h-5 min-w-[1.25rem] items-center justify-center bg-brand-700 px-1 text-[0.65rem] font-bold leading-none text-white;
+  }
+
   /* Header Search */
   .header-search {
     @apply relative;
