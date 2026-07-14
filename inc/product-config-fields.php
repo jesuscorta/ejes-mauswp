@@ -99,6 +99,39 @@ function mauswp_get_product_cota_ab_min_difference( int $product_id ): int {
 }
 
 /**
+ * Get modelo_rueda options for a specific product (custom or default).
+ *
+ * @param int $product_id Product ID.
+ * @return array<string, string>
+ */
+function mauswp_get_product_modelo_rueda_options( int $product_id ): array {
+	$raw = (string) get_post_meta( $product_id, '_mauswp_modelo_rueda_options', true );
+
+	if ( '' !== trim( $raw ) ) {
+		$lines = preg_split( '/\r\n|\r|\n/', $raw ) ?: [];
+		$options = [];
+
+		foreach ( $lines as $line ) {
+			$line = trim( $line );
+			if ( '' === $line ) {
+				continue;
+			}
+			$slug = sanitize_title( $line );
+			if ( '' !== $slug && ! isset( $options[ $slug ] ) ) {
+				$options[ $slug ] = $line;
+			}
+		}
+
+		if ( ! empty( $options ) ) {
+			return $options;
+		}
+	}
+
+	$default = mauswp_get_product_config_fields()['modelo_rueda']['options'] ?? [];
+	return is_array( $default ) ? $default : [];
+}
+
+/**
  * Get enabled product config fields for a product.
  *
  * @param int $product_id Product ID.
@@ -116,6 +149,9 @@ function mauswp_get_enabled_product_config_fields( int $product_id ): array {
 		}
 
 		if ( 'yes' === get_post_meta( $product_id, $enable_key, true ) ) {
+			if ( 'modelo_rueda' === $field_key ) {
+				$field['options'] = mauswp_get_product_modelo_rueda_options( $product_id );
+			}
 			$enabled_fields[ $field_key ] = $field;
 		}
 	}
@@ -172,6 +208,18 @@ function mauswp_render_product_config_field_toggles(): void {
 		]
 	);
 
+	woocommerce_wp_textarea_input(
+		[
+			'id'          => '_mauswp_modelo_rueda_options',
+			'label'       => __( 'Opciones Modelo de rueda', 'mauswp' ),
+			'value'       => get_post_meta( $post->ID, '_mauswp_modelo_rueda_options', true ),
+			'desc_tip'    => false,
+			'description' => __( 'Una opción por línea. Si se deja vacío, se usan las opciones por defecto (Seat, Mercedes, Suzuki, Land Rover, Nissan). Solo aplica si "Mostrar Modelo de rueda" está activado.', 'mauswp' ),
+			'rows'        => 5,
+			'cols'        => 50,
+		]
+	);
+
 	echo '</div>';
 }
 add_action( 'woocommerce_product_options_general_product_data', 'mauswp_render_product_config_field_toggles' );
@@ -199,6 +247,12 @@ function mauswp_save_product_config_field_toggles( int $post_id ): void {
 	$normalized_min_difference = is_string( $min_difference ) ? mauswp_normalize_product_measurement_value( $min_difference ) : null;
 
 	update_post_meta( $post_id, '_mauswp_cota_ab_min_difference', null !== $normalized_min_difference && $normalized_min_difference > 0 ? (string) $normalized_min_difference : '' );
+
+	$wheel_options = isset( $_POST['_mauswp_modelo_rueda_options'] )
+		? wp_unslash( $_POST['_mauswp_modelo_rueda_options'] )
+		: '';
+
+	update_post_meta( $post_id, '_mauswp_modelo_rueda_options', is_string( $wheel_options ) ? sanitize_textarea_field( $wheel_options ) : '' );
 }
 add_action( 'woocommerce_process_product_meta', 'mauswp_save_product_config_field_toggles' );
 
