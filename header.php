@@ -310,6 +310,26 @@ if ( is_array( $mauswp_catalog_mega_image ) ) {
 		</button>
 	</div>
 	<div class="mobile-menu__scroll container flex flex-col items-start gap-4 py-6">
+		<div class="flex w-full gap-3 border-b border-slate-200 pb-4">
+			<a class="mobile-menu__action" href="<?php echo esc_url( $mauswp_account_url ); ?>">
+				<svg class="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M20 21a8 8 0 0 0-16 0" />
+					<circle cx="12" cy="7" r="4" />
+				</svg>
+				<span><?php esc_html_e( 'Mi cuenta', 'mauswp' ); ?></span>
+			</a>
+			<a class="mobile-menu__action" href="<?php echo esc_url( $mauswp_cart_url ); ?>">
+				<svg class="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="8" cy="21" r="1" />
+					<circle cx="19" cy="21" r="1" />
+					<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+				</svg>
+				<span><?php esc_html_e( 'Carrito', 'mauswp' ); ?></span>
+				<?php if ( $mauswp_cart_count > 0 ) : ?>
+					<span class="header-action__badge"><?php echo esc_html( (string) $mauswp_cart_count ); ?></span>
+				<?php endif; ?>
+			</a>
+		</div>
 		<nav class="w-full" aria-label="<?php esc_attr_e( 'Menú principal móvil', 'mauswp' ); ?>">
 				<?php
 				wp_nav_menu(
