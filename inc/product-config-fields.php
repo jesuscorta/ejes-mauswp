@@ -343,8 +343,12 @@ function mauswp_render_product_config_fields(): void {
 	echo '</div>';
 
 	if ( isset( $fields['cota_a'], $fields['cota_b'] ) && $min_difference > 0 ) {
+		$note_template = function_exists( 'get_field' ) ? (string) get_field( 'mauswp_product_config_difference_note', 'option' ) : '';
+		if ( '' === trim( $note_template ) ) {
+			$note_template = __( '* La diferencia entre Cota B y Cota A debe ser mayor de: %s mm', 'mauswp' );
+		}
 		echo '<p class="shop-product__config-note">';
-		echo esc_html( sprintf( __( '* La diferencia entre Cota B y Cota A debe ser mayor de: %s mm', 'mauswp' ), wc_format_localized_price( (string) $min_difference ) ) );
+		echo esc_html( sprintf( $note_template, wc_format_localized_price( (string) $min_difference ) ) );
 		echo '</p>';
 	}
 
