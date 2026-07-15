@@ -3103,11 +3103,11 @@
   }
 
   .product-showcase-block__body {
-    @apply flex flex-1 flex-col gap-3 p-5;
+    @apply flex flex-1 flex-col gap-2 p-5;
   }
 
   .product-showcase-block__price {
-    @apply text-sm font-semibold uppercase tracking-[0.12em] text-brand-700;
+    @apply text-sm font-semibold text-brand-700;
   }
 
   .product-showcase-block__price .woocommerce-price-suffix {
@@ -3115,7 +3115,7 @@
   }
 
   .product-showcase-block__card-title {
-    @apply text-2xl font-semibold leading-tight tracking-tight text-slate-950;
+    @apply text-lg font-semibold leading-tight tracking-tight text-slate-950 sm:text-xl;
   }
 
   .product-showcase-block__excerpt {

@@ -76,7 +76,7 @@ if ( false === $products || ! is_array( $products ) ) {
 
 			$products[] = [
 				'title'       => $wc_product->get_name(),
-				'price'       => wp_strip_all_tags( $wc_product->get_price_html() ?: '' ),
+				'price'       => wp_kses_post( $wc_product->get_price_html() ?: '' ),
 				'url'         => get_permalink( $product_id ) ?: '',
 				'excerpt'     => wp_trim_words( wp_strip_all_tags( $excerpt_source ), 18, '...' ),
 				'cta_label'   => __( 'Ver producto', 'mauswp' ),
@@ -146,7 +146,7 @@ if ( false === $products || ! is_array( $products ) ) {
 
 									<div class="product-showcase-block__body">
 										<?php if ( '' !== $product['price'] ) : ?>
-											<div class="product-showcase-block__price"><?php echo esc_html( $product['price'] ); ?></div>
+											<div class="product-showcase-block__price"><?php echo wp_kses_post( $product['price'] ); ?></div>
 										<?php endif; ?>
 										<h3 class="product-showcase-block__card-title"><?php echo esc_html( $product['title'] ); ?></h3>
 										<?php if ( '' !== $product['excerpt'] ) : ?>
