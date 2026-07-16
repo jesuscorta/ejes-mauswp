@@ -690,3 +690,10 @@ add_action( 'woocommerce_before_cart', function (): void {
 add_action( 'woocommerce_before_checkout_form', function ( $checkout ): void {
 	mauswp_render_shop_notice( 'checkout' );
 } );
+
+add_filter( 'woocommerce_checkout_fields', function ( array $fields ): array {
+	$fields['billing']['billing_phone']['required'] = true;
+	return $fields;
+} );
+
+add_filter( 'woocommerce_ship_to_different_address_checked', '__return_false' );
