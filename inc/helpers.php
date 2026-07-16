@@ -691,8 +691,8 @@ add_action( 'woocommerce_before_checkout_form', function ( $checkout ): void {
 	mauswp_render_shop_notice( 'checkout' );
 } );
 
-add_filter( 'woocommerce_checkout_fields', function ( array $fields ): array {
-	$fields['billing']['billing_phone']['required'] = true;
+add_filter( 'woocommerce_billing_fields', function ( array $fields ): array {
+	$fields['billing_phone']['required'] = true;
 	return $fields;
 } );
 
