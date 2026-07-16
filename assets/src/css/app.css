@@ -2586,6 +2586,15 @@
     @apply text-red-500 no-underline;
   }
 
+  .shop-flow .woocommerce #billing_phone_field label .optional {
+    display: none;
+  }
+
+  .shop-flow .woocommerce #billing_phone_field label::after {
+    content: " *";
+    @apply text-red-500;
+  }
+
   .shop-flow #order_review {
     @apply space-y-5;
   }

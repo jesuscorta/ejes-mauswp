@@ -143,24 +143,6 @@ function mauswp_dequeue_woocommerce_assets(): void {
 add_action( 'wp_enqueue_scripts', 'mauswp_dequeue_woocommerce_assets', 99 );
 
 /**
- * Remove Mailchimp SMS consent frontend scripts from classic checkout.
- *
- * Mailchimp's `mailchimp-woocommerce_sms_consent` script mutates the
- * `billing_phone` field label/required state on the frontend after checkout
- * refreshes. The classic checkout already works without that script because
- * Mailchimp renders its own inline behavior for the consent field.
- */
-function mauswp_dequeue_mailchimp_checkout_scripts(): void {
-	if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
-		return;
-	}
-
-	wp_dequeue_script( 'mailchimp-woocommerce_sms_consent' );
-	wp_dequeue_script( 'mailchimp-woocommerce_sms_consent_phone_validation' );
-}
-add_action( 'wp_enqueue_scripts', 'mauswp_dequeue_mailchimp_checkout_scripts', 100 );
-
-/**
  * Preload critical self-hosted fonts.
  */
 function mauswp_preload_fonts(): void {
