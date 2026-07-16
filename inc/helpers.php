@@ -691,9 +691,21 @@ add_action( 'woocommerce_before_checkout_form', function ( $checkout ): void {
 	mauswp_render_shop_notice( 'checkout' );
 } );
 
-add_filter( 'woocommerce_billing_fields', function ( array $fields ): array {
-	$fields['billing_phone']['required'] = true;
+$mauswp_force_billing_phone = function ( array $fields ): array {
+	if ( isset( $fields['billing_phone'] ) ) {
+		$fields['billing_phone']['required'] = true;
+		$fields['billing_phone']['label']    = __( 'Teléfono', 'mauswp' );
+	}
 	return $fields;
-} );
+};
+
+add_filter( 'woocommerce_billing_fields', $mauswp_force_billing_phone, 999 );
+add_filter( 'woocommerce_checkout_fields', function ( array $fields ): array {
+	if ( isset( $fields['billing']['billing_phone'] ) ) {
+		$fields['billing']['billing_phone']['required'] = true;
+		$fields['billing']['billing_phone']['label']    = __( 'Teléfono', 'mauswp' );
+	}
+	return $fields;
+}, 999 );
 
 add_filter( 'woocommerce_ship_to_different_address_checked', '__return_false' );
